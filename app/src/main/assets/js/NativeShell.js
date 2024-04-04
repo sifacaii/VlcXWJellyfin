@@ -11,7 +11,7 @@
         deviceId: window.NativeApi.getDeviceId(),
         deviceName: window.NativeApi.getDeviceName(),
         appName: window.NativeApi.getAppName(),
-        appVersion: window.NativeApi.getAppVersionCode()
+        appVersion: window.NativeApi.getAppVersionName()
     };
 
     // List of supported features
