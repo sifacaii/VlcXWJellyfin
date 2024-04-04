@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"به دلیل کم بودن حافظه، تکمیل عملیات قبلی امکان‌پذیر نیست"</string>
+<string name="opening_file_error">"باز کردن فایل انتخابی انجام نشد"</string>
+<string name="copy_to_clipboard_failure_message">"کپی در بریده‌دان ناموفق بود"</string>
+<string name="url_copied">"نشانی وب کپی شد."</string>
+</resources>
+

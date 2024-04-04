@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[9655],{57870:function(i,a,e){e.r(a),a.default='<div id="pluginsPage" data-role="page" class="page type-interior pluginConfigurationPage withTabs fullWidthContent"> <div> <div class="content-primary"> <div class="installedPlugins"></div> </div> </div> </div> '}}]);

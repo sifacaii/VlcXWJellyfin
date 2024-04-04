@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Föregående åtgärd kan inte slutföras. För lite minne."</string>
+<string name="opening_file_error">"Det gick inte att öppna filen"</string>
+<string name="copy_to_clipboard_failure_message">"Det gick inte att kopiera till Urklipp"</string>
+<string name="url_copied">"Webbadress kopierad."</string>
+</resources>
+

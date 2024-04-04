@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"பகிர்"</string>
+<string name="actionbar_web_search">"இணையத் தேடல்"</string>
+<string name="actionbar_textselection_title">"உரைத் தேர்வு"</string>
+<string name="add_to_dictionary">"அகராதியில் சேர்"</string>
+<string name="delete_suggestion_text">"நீக்கு"</string>
+<string name="profiler_started_toast">"சுயவிவரம் தொடங்கப்பட்டது"</string>
+<string name="profiler_stopped_toast">"சுயவிவரம் முடிந்தது. முடிவுகள், %1$s இல் உள்ளன."</string>
+<string name="profiler_no_storage_toast">"வெளிப்புறச் சேமிப்பிடம் தயாராகாததால் சுயவிவரத்தைத் தொடங்க முடியாது"</string>
+<string name="profiler_error_toast">"சுயவிவரத்தைத் தொடங்குவதில் பிழை"</string>
+<string name="accessibility_date_picker_month">"மாதம்"</string>
+<string name="accessibility_date_picker_year">"ஆண்டு"</string>
+<string name="date_picker_dialog_set">"அமை"</string>
+<string name="month_picker_dialog_title">"மாதத்தை அமை"</string>
+<string name="accessibility_date_picker_week">"வாரம்"</string>
+<string name="week_picker_dialog_title">"வாரத்தை அமை"</string>
+<string name="time_picker_dialog_am">"AM"</string>
+<string name="time_picker_dialog_pm">"PM"</string>
+<string name="time_picker_dialog_title">"நேரத்தை அமை"</string>
+<string name="accessibility_time_picker_hour">"மணிநேரம்"</string>
+<string name="accessibility_time_picker_minute">"நிமிடம்"</string>
+<string name="accessibility_time_picker_second">"வினாடி"</string>
+<string name="accessibility_time_picker_milli">"மில்லிவினாடி"</string>
+<string name="accessibility_time_picker_ampm">"AM/PM"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"தேதியையும் நேரத்தையும் அமை"</string>
+<string name="accessibility_datetime_picker_date">"தேதி"</string>
+<string name="accessibility_datetime_picker_time">"நேரம்"</string>
+<string name="date_picker_dialog_other_button_label">"மற்றவை"</string>
+<string name="date_picker_dialog_title">"தேதியை அமை"</string>
+<string name="date_picker_dialog_clear">"அழி"</string>
+</resources>
+

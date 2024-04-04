@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"No es pot completar l\'operació anterior perquè hi ha poca memòria."</string>
+<string name="opening_file_error">"No s\'ha pogut obrir fitxer sel."</string>
+<string name="copy_to_clipboard_failure_message">"No s\'ha pogut copiar el contingut al porta-retalls."</string>
+<string name="url_copied">"S\'ha copiat l\'URL."</string>
+</resources>
+

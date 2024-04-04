@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"తక్కువ మెమరీ కారణంగా మునుపటి ఆపరేషన్‌ను పూర్తి చేయడం సాధ్యపడలేదు"</string>
+<string name="opening_file_error">"ఎంచుకున్న పైల్‌ను తెరవడంలో విఫలమైంది"</string>
+<string name="copy_to_clipboard_failure_message">"క్లిప్‌బోర్డ్‌కు కాపీ చేయడంలో విఫలమైంది"</string>
+<string name="url_copied">"URL కాపీ చేయబడింది."</string>
+</resources>
+

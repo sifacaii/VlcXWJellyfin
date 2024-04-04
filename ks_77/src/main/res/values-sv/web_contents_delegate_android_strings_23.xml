@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"Mer"</string>
+<string name="color_picker_hue">"Nyans"</string>
+<string name="color_picker_saturation">"Mättnad"</string>
+<string name="color_picker_value">"Värde"</string>
+<string name="color_picker_button_set">"Ange"</string>
+<string name="color_picker_button_cancel">"Avbryt"</string>
+<string name="color_picker_dialog_title">"Välj färg"</string>
+<string name="color_picker_button_red">"Röd"</string>
+<string name="color_picker_button_cyan">"Cyanblå"</string>
+<string name="color_picker_button_blue">"Blå"</string>
+<string name="color_picker_button_green">"Grön"</string>
+<string name="color_picker_button_magenta">"Magenta"</string>
+<string name="color_picker_button_yellow">"Gul"</string>
+<string name="color_picker_button_black">"Svart"</string>
+<string name="color_picker_button_white">"Vit"</string>
+</resources>
+

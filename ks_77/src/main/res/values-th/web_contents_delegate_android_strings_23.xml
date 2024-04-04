@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"เพิ่มเติม"</string>
+<string name="color_picker_hue">"โทนสี"</string>
+<string name="color_picker_saturation">"ความอิ่มตัวของสี"</string>
+<string name="color_picker_value">"ราคา"</string>
+<string name="color_picker_button_set">"ตั้งค่า"</string>
+<string name="color_picker_button_cancel">"ยกเลิก"</string>
+<string name="color_picker_dialog_title">"เลือกสี"</string>
+<string name="color_picker_button_red">"สีแดง"</string>
+<string name="color_picker_button_cyan">"สีฟ้า"</string>
+<string name="color_picker_button_blue">"สีน้ำเงิน"</string>
+<string name="color_picker_button_green">"สีเขียว"</string>
+<string name="color_picker_button_magenta">"สีม่วงแดง"</string>
+<string name="color_picker_button_yellow">"สีเหลือง"</string>
+<string name="color_picker_button_black">"สีดำ"</string>
+<string name="color_picker_button_white">"สีขาว"</string>
+</resources>
+

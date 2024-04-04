@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"Compartilhar"</string>
+<string name="actionbar_web_search">"Pesquisa da Web"</string>
+<string name="actionbar_textselection_title">"Seleção de texto"</string>
+<string name="add_to_dictionary">"Adicionar ao dicionário"</string>
+<string name="delete_suggestion_text">"Excluir"</string>
+<string name="profiler_started_toast">"Profiler iniciado"</string>
+<string name="profiler_stopped_toast">"Profiler terminado. Os resultados estão em %1$s."</string>
+<string name="profiler_no_storage_toast">"Não é possível iniciar o profiler porque o armazenamento externo não está pronto"</string>
+<string name="profiler_error_toast">"Falha ao iniciar o profiler"</string>
+<string name="accessibility_date_picker_month">"Mês"</string>
+<string name="accessibility_date_picker_year">"Ano"</string>
+<string name="date_picker_dialog_set">"Definir"</string>
+<string name="month_picker_dialog_title">"Definir mês"</string>
+<string name="accessibility_date_picker_week">"Semana"</string>
+<string name="week_picker_dialog_title">"Definir semana"</string>
+<string name="time_picker_dialog_am">"AM"</string>
+<string name="time_picker_dialog_pm">"PM"</string>
+<string name="time_picker_dialog_title">"Definir hora"</string>
+<string name="accessibility_time_picker_hour">"Hora"</string>
+<string name="accessibility_time_picker_minute">"Minuto"</string>
+<string name="accessibility_time_picker_second">"Segundo"</string>
+<string name="accessibility_time_picker_milli">"Milissegundo"</string>
+<string name="accessibility_time_picker_ampm">"AM/PM"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"Definir data e hora"</string>
+<string name="accessibility_datetime_picker_date">"Data"</string>
+<string name="accessibility_datetime_picker_time">"Tempo"</string>
+<string name="date_picker_dialog_other_button_label">"Outro"</string>
+<string name="date_picker_dialog_title">"Definir data"</string>
+<string name="date_picker_dialog_clear">"Limpar"</string>
+</resources>
+

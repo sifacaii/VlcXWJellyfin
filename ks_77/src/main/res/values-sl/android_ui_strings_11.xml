@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Prejšnjega dejanja ni mogoče končati, ker primanjkuje pomnilnika"</string>
+<string name="opening_file_error">"Izb. dat. ni bilo mogoče odpreti"</string>
+<string name="copy_to_clipboard_failure_message">"Kopiranje v odložišče ni uspelo"</string>
+<string name="url_copied">"URL je kopiran."</string>
+</resources>
+

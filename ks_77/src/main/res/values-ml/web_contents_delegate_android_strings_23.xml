@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"കൂടുതൽ"</string>
+<string name="color_picker_hue">"ഹ്യൂ"</string>
+<string name="color_picker_saturation">"സാച്ചുറേഷൻ"</string>
+<string name="color_picker_value">"മൂല്യം"</string>
+<string name="color_picker_button_set">"സജ്ജമാക്കുക"</string>
+<string name="color_picker_button_cancel">"റദ്ദാക്കൂ"</string>
+<string name="color_picker_dialog_title">"വർണ്ണം തിരഞ്ഞെടുക്കുക"</string>
+<string name="color_picker_button_red">"ചുവപ്പ്"</string>
+<string name="color_picker_button_cyan">"സിയാൻ"</string>
+<string name="color_picker_button_blue">"നീല"</string>
+<string name="color_picker_button_green">"പച്ച"</string>
+<string name="color_picker_button_magenta">"മജന്ത"</string>
+<string name="color_picker_button_yellow">"മഞ്ഞ"</string>
+<string name="color_picker_button_black">"കറുപ്പ്"</string>
+<string name="color_picker_button_white">"വെള്ള"</string>
+</resources>
+

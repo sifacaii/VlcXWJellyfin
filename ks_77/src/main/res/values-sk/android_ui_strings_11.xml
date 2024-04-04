@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Predchádzajúca operácia sa nedokončila z dôvodu nedostatku pamäte"</string>
+<string name="opening_file_error">"Vybr. súbor sa nepodar. otvoriť"</string>
+<string name="copy_to_clipboard_failure_message">"Skopírovanie do schránky sa nepodarilo"</string>
+<string name="url_copied">"Webová adresa bola skopírovaná."</string>
+</resources>
+

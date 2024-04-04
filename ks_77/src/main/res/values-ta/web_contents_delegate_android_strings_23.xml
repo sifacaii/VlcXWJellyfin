@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"மேலும்"</string>
+<string name="color_picker_hue">"நிறச்சாயல்"</string>
+<string name="color_picker_saturation">"நிறை செறிவு நிலை"</string>
+<string name="color_picker_value">"மதிப்பு"</string>
+<string name="color_picker_button_set">"அமை"</string>
+<string name="color_picker_button_cancel">"ரத்து செய்"</string>
+<string name="color_picker_dialog_title">"வண்ணத்தைத் தேர்ந்தெடு"</string>
+<string name="color_picker_button_red">"சிவப்பு"</string>
+<string name="color_picker_button_cyan">"சியான்"</string>
+<string name="color_picker_button_blue">"நீலம்"</string>
+<string name="color_picker_button_green">"பச்சை"</string>
+<string name="color_picker_button_magenta">"மெஜந்தா"</string>
+<string name="color_picker_button_yellow">"மஞ்சள்"</string>
+<string name="color_picker_button_black">"கருப்பு"</string>
+<string name="color_picker_button_white">"வெள்ளை"</string>
+</resources>
+

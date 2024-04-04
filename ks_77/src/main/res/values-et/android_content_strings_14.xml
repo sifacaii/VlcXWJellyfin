@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"Jaga"</string>
+<string name="actionbar_web_search">"Veebiotsing"</string>
+<string name="actionbar_textselection_title">"Teksti valik"</string>
+<string name="add_to_dictionary">"Lisa sõnastikku"</string>
+<string name="delete_suggestion_text">"Kustuta"</string>
+<string name="profiler_started_toast">"Profiilija käivitus"</string>
+<string name="profiler_stopped_toast">"Profiilija jõudis lõpule. Tulemused leiate failist %1$s."</string>
+<string name="profiler_no_storage_toast">"Profiilijat ei saa käivitada, kuna väline salvestusseade pole valmis"</string>
+<string name="profiler_error_toast">"Profiilija käivitamine ebaõnnestus"</string>
+<string name="accessibility_date_picker_month">"kuu"</string>
+<string name="accessibility_date_picker_year">"Aasta"</string>
+<string name="date_picker_dialog_set">"Määra"</string>
+<string name="month_picker_dialog_title">"Kuu määramine"</string>
+<string name="accessibility_date_picker_week">"Nädal"</string>
+<string name="week_picker_dialog_title">"Nädala määramine"</string>
+<string name="time_picker_dialog_am">"AM"</string>
+<string name="time_picker_dialog_pm">"PM"</string>
+<string name="time_picker_dialog_title">"Aja määramine"</string>
+<string name="accessibility_time_picker_hour">"Tund"</string>
+<string name="accessibility_time_picker_minute">"Minut"</string>
+<string name="accessibility_time_picker_second">"Sekund"</string>
+<string name="accessibility_time_picker_milli">"Millisekund"</string>
+<string name="accessibility_time_picker_ampm">"AM/PM"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"Kuupäeva ja kellaaja määramine"</string>
+<string name="accessibility_datetime_picker_date">"Kuupäev"</string>
+<string name="accessibility_datetime_picker_time">"Aeg"</string>
+<string name="date_picker_dialog_other_button_label">"Muu"</string>
+<string name="date_picker_dialog_title">"Kuupäeva määramine"</string>
+<string name="date_picker_dialog_clear">"Tühjenda"</string>
+</resources>
+

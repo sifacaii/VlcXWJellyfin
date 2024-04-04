@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"더보기"</string>
+<string name="color_picker_hue">"색조"</string>
+<string name="color_picker_saturation">"채도"</string>
+<string name="color_picker_value">"값"</string>
+<string name="color_picker_button_set">"설정"</string>
+<string name="color_picker_button_cancel">"취소"</string>
+<string name="color_picker_dialog_title">"색상 선택"</string>
+<string name="color_picker_button_red">"빨간색"</string>
+<string name="color_picker_button_cyan">"청록색"</string>
+<string name="color_picker_button_blue">"파란색"</string>
+<string name="color_picker_button_green">"녹색"</string>
+<string name="color_picker_button_magenta">"자홍색"</string>
+<string name="color_picker_button_yellow">"노란색"</string>
+<string name="color_picker_button_black">"검정색"</string>
+<string name="color_picker_button_white">"흰색"</string>
+</resources>
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"ಕಡಿಮೆ ಸ್ಮರಣೆ ಕಾರಣದಿಂದಾಗಿ ಹಿಂದಿನ ಕಾರ್ಯಾಚರಣೆ ಪೂರ್ಣಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ"</string>
+<string name="opening_file_error">"ಆಯ್ಕೆ ಮಾಡಿದ ಫೈಲ್‌ ಅನ್ನು ತೆರೆಯಲು ವಿಫಲವಾಗಿದೆ"</string>
+<string name="copy_to_clipboard_failure_message">"ಕ್ಲಿಫ್‌‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲು ವಿಫಲವಾಗಿದೆ"</string>
+<string name="url_copied">"URL ನಕಲಿಸಲಾಗಿದೆ."</string>
+</resources>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"শেয়ার করুন"</string>
+<string name="actionbar_web_search">"ওয়েব সার্চ"</string>
+<string name="actionbar_textselection_title">"পাঠ্য নির্বাচন"</string>
+<string name="add_to_dictionary">"অভিধানে যোগ করুন"</string>
+<string name="delete_suggestion_text">"মুছুন"</string>
+<string name="profiler_started_toast">"প্রোফাইলার শুরু হয়েছে"</string>
+<string name="profiler_stopped_toast">"প্রোফাইলার শেষ হয়েছে৷ ফলাফল %1$s-এর মধ্যে আছে৷"</string>
+<string name="profiler_no_storage_toast">"বাহ্যিক সঞ্চয়স্থান প্রস্তুত না থাকার কারণে প্রোফাইলার শুরু করা যাবে না"</string>
+<string name="profiler_error_toast">"প্রোফাইলার সূচনা করতে ব্যর্থ হয়েছে"</string>
+<string name="accessibility_date_picker_month">"মাস"</string>
+<string name="accessibility_date_picker_year">"বছর"</string>
+<string name="date_picker_dialog_set">"সেট"</string>
+<string name="month_picker_dialog_title">"মাস সেট করুন"</string>
+<string name="accessibility_date_picker_week">"সপ্তাহ"</string>
+<string name="week_picker_dialog_title">"সপ্তাহ সেট করুন"</string>
+<string name="time_picker_dialog_am">"AM"</string>
+<string name="time_picker_dialog_pm">"PM"</string>
+<string name="time_picker_dialog_title">"সময় সেট করুন"</string>
+<string name="accessibility_time_picker_hour">"ঘণ্টা"</string>
+<string name="accessibility_time_picker_minute">"মিনিট"</string>
+<string name="accessibility_time_picker_second">"সেকেন্ড"</string>
+<string name="accessibility_time_picker_milli">"মিলিসেকেন্ডে"</string>
+<string name="accessibility_time_picker_ampm">"AM/PM"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"তারিখ ও সময় সেট করুন"</string>
+<string name="accessibility_datetime_picker_date">"তারিখ"</string>
+<string name="accessibility_datetime_picker_time">"সময়"</string>
+<string name="date_picker_dialog_other_button_label">"অন্যান্য"</string>
+<string name="date_picker_dialog_title">"তারিখ সেট করুন"</string>
+<string name="date_picker_dialog_clear">"সাফ করুন"</string>
+</resources>
+

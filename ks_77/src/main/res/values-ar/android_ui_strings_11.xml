@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"تعذر إكمال العملية السابقة نظرًا لانخفاض الذاكرة"</string>
+<string name="opening_file_error">"تعذّر فتح الملف المحدد"</string>
+<string name="copy_to_clipboard_failure_message">"تعذّر النسخ إلى الحافظة"</string>
+<string name="url_copied">"‏تمّ نسح عنوان URL."</string>
+</resources>
+

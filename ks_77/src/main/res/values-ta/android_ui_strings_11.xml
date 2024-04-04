@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"குறைந்த நினைவகம் காரணமாக முந்தைய செயலை நிறைவு செய்ய முடியவில்லை"</string>
+<string name="opening_file_error">"தேர்ந்தெடுத்த கோப்பைத் திறப்பதில் தோல்வி"</string>
+<string name="copy_to_clipboard_failure_message">"கிளிப்போர்டிற்கு நகலெடுப்பதில் தோல்வி"</string>
+<string name="url_copied">"URL நகலெடுக்கப்பட்டது."</string>
+</resources>
+

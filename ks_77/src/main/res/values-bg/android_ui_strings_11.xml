@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Предишната операция не можа да завърши поради недостиг на памет"</string>
+<string name="opening_file_error">"Файлът не можа да се отвори"</string>
+<string name="copy_to_clipboard_failure_message">"Копирането в буферната памет не бе успешно"</string>
+<string name="url_copied">"URL адресът е копиран."</string>
+</resources>
+

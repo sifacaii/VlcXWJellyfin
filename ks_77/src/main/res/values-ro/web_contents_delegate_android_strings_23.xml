@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"Mai multe"</string>
+<string name="color_picker_hue">"Nuanță"</string>
+<string name="color_picker_saturation">"Saturație"</string>
+<string name="color_picker_value">"Valoare"</string>
+<string name="color_picker_button_set">"Setează"</string>
+<string name="color_picker_button_cancel">"Anulează"</string>
+<string name="color_picker_dialog_title">"Selectați culoarea"</string>
+<string name="color_picker_button_red">"Roșu"</string>
+<string name="color_picker_button_cyan">"Cyan"</string>
+<string name="color_picker_button_blue">"Albastru"</string>
+<string name="color_picker_button_green">"Verde"</string>
+<string name="color_picker_button_magenta">"Magenta"</string>
+<string name="color_picker_button_yellow">"Galben"</string>
+<string name="color_picker_button_black">"Negru"</string>
+<string name="color_picker_button_white">"Alb"</string>
+</resources>
+

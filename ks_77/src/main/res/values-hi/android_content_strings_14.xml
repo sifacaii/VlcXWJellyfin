@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"शेयर करें"</string>
+<string name="actionbar_web_search">"वेब खोज"</string>
+<string name="actionbar_textselection_title">"लेख चुनें"</string>
+<string name="add_to_dictionary">"शब्दकोश में जोड़ें"</string>
+<string name="delete_suggestion_text">"मिटाएं"</string>
+<string name="profiler_started_toast">"प्रोफ़ाइलर प्रारंभ किया गया"</string>
+<string name="profiler_stopped_toast">"प्रोफ़ाइलर पूरा हुआ. नतीजा %1$s में हैं."</string>
+<string name="profiler_no_storage_toast">"प्रोफ़ाइलर प्रारंभ नहीं हो सकता क्‍योंकि बाहरी मेमोरी तैयार नहीं है"</string>
+<string name="profiler_error_toast">"प्रोफ़ाइलर प्रारंभ करने में विफल"</string>
+<string name="accessibility_date_picker_month">"माह"</string>
+<string name="accessibility_date_picker_year">"वर्ष"</string>
+<string name="date_picker_dialog_set">"सेट करें"</string>
+<string name="month_picker_dialog_title">"माह सेट करें"</string>
+<string name="accessibility_date_picker_week">"हफ़्ता"</string>
+<string name="week_picker_dialog_title">"हफ़्ता सेट करें"</string>
+<string name="time_picker_dialog_am">"पूर्वाह्न"</string>
+<string name="time_picker_dialog_pm">"अपराह्न"</string>
+<string name="time_picker_dialog_title">"समय सेट करें"</string>
+<string name="accessibility_time_picker_hour">"घंटा"</string>
+<string name="accessibility_time_picker_minute">"मिनट"</string>
+<string name="accessibility_time_picker_second">"सेकंड"</string>
+<string name="accessibility_time_picker_milli">"मिलीसेकंड"</string>
+<string name="accessibility_time_picker_ampm">"पूर्वाह्न/अपराह्न"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"तारीख और समय सेट करें"</string>
+<string name="accessibility_datetime_picker_date">"तारीख"</string>
+<string name="accessibility_datetime_picker_time">"समय"</string>
+<string name="date_picker_dialog_other_button_label">"अन्य"</string>
+<string name="date_picker_dialog_title">"तारीख सेट करें"</string>
+<string name="date_picker_dialog_clear">"साफ़ करें"</string>
+</resources>
+

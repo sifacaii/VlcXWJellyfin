@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"Kongsi"</string>
+<string name="actionbar_web_search">"Carian web"</string>
+<string name="actionbar_textselection_title">"Pemilihan teks"</string>
+<string name="add_to_dictionary">"Tambahkan pada kamus"</string>
+<string name="delete_suggestion_text">"Padam"</string>
+<string name="profiler_started_toast">"Pemprofil dimulakan"</string>
+<string name="profiler_stopped_toast">"Pemprofil selesai. Keputusan dalam %1$s"</string>
+<string name="profiler_no_storage_toast">"Tidak dapat memulakan pemprofil kerana storan luaran belum bersedia"</string>
+<string name="profiler_error_toast">"Gagal untuk memulakan pemprofil"</string>
+<string name="accessibility_date_picker_month">"Bulan"</string>
+<string name="accessibility_date_picker_year">"Tahun"</string>
+<string name="date_picker_dialog_set">"Tetapkan"</string>
+<string name="month_picker_dialog_title">"Tetapkan bulan"</string>
+<string name="accessibility_date_picker_week">"Minggu"</string>
+<string name="week_picker_dialog_title">"Tetapkan minggu"</string>
+<string name="time_picker_dialog_am">"PG"</string>
+<string name="time_picker_dialog_pm">"P/M"</string>
+<string name="time_picker_dialog_title">"Tetapkan masa"</string>
+<string name="accessibility_time_picker_hour">"Jam"</string>
+<string name="accessibility_time_picker_minute">"Minit"</string>
+<string name="accessibility_time_picker_second">"Saat"</string>
+<string name="accessibility_time_picker_milli">"Milisaat"</string>
+<string name="accessibility_time_picker_ampm">"PG / P/M"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"Tetapkan tarikh dan masa"</string>
+<string name="accessibility_datetime_picker_date">"Tarikh"</string>
+<string name="accessibility_datetime_picker_time">"Masa"</string>
+<string name="date_picker_dialog_other_button_label">"Lain-lain"</string>
+<string name="date_picker_dialog_title">"Tetapkan tarikh"</string>
+<string name="date_picker_dialog_clear">"Kosongkan"</string>
+</resources>
+

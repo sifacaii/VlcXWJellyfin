@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"Lisää"</string>
+<string name="color_picker_hue">"Sävy"</string>
+<string name="color_picker_saturation">"Värikylläisyys"</string>
+<string name="color_picker_value">"Arvo"</string>
+<string name="color_picker_button_set">"Aseta"</string>
+<string name="color_picker_button_cancel">"Peruuta"</string>
+<string name="color_picker_dialog_title">"Valitse väri"</string>
+<string name="color_picker_button_red">"Punainen"</string>
+<string name="color_picker_button_cyan">"Turkoosi"</string>
+<string name="color_picker_button_blue">"Sininen"</string>
+<string name="color_picker_button_green">"Vihreä"</string>
+<string name="color_picker_button_magenta">"Purppura"</string>
+<string name="color_picker_button_yellow">"Keltainen"</string>
+<string name="color_picker_button_black">"Musta"</string>
+<string name="color_picker_button_white">"Valkoinen"</string>
+</resources>
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"Rohkem"</string>
+<string name="color_picker_hue">"Värvitoon"</string>
+<string name="color_picker_saturation">"Küllastus"</string>
+<string name="color_picker_value">"Väärtus"</string>
+<string name="color_picker_button_set">"Määra"</string>
+<string name="color_picker_button_cancel">"Tühista"</string>
+<string name="color_picker_dialog_title">"Värvi valimine"</string>
+<string name="color_picker_button_red">"Punane"</string>
+<string name="color_picker_button_cyan">"Tsüaan"</string>
+<string name="color_picker_button_blue">"Sinine"</string>
+<string name="color_picker_button_green">"Roheline"</string>
+<string name="color_picker_button_magenta">"Magenta"</string>
+<string name="color_picker_button_yellow">"Kollane"</string>
+<string name="color_picker_button_black">"Must"</string>
+<string name="color_picker_button_white">"Valge"</string>
+</resources>
+

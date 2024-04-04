@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Gagal melengkapkan operasi terdahulu disebabkan kekurangan memori"</string>
+<string name="opening_file_error">"Gagal membuka fail yang dipilih"</string>
+<string name="copy_to_clipboard_failure_message">"Gagal menyalin ke papan keratan"</string>
+<string name="url_copied">"URL disalin."</string>
+</resources>
+

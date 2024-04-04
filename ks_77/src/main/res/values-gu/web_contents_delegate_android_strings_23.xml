@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"વધુ"</string>
+<string name="color_picker_hue">"હ્યુ"</string>
+<string name="color_picker_saturation">"સંતૃપ્તતા"</string>
+<string name="color_picker_value">"મૂલ્ય"</string>
+<string name="color_picker_button_set">"સેટ કરો"</string>
+<string name="color_picker_button_cancel">"રદ કરો"</string>
+<string name="color_picker_dialog_title">"રંગ પસંદ કરો"</string>
+<string name="color_picker_button_red">"લાલ"</string>
+<string name="color_picker_button_cyan">"સ્યાન"</string>
+<string name="color_picker_button_blue">"વાદળી"</string>
+<string name="color_picker_button_green">"લીલો"</string>
+<string name="color_picker_button_magenta">"કિરમજી"</string>
+<string name="color_picker_button_yellow">"પીળો"</string>
+<string name="color_picker_button_black">"શ્યામ"</string>
+<string name="color_picker_button_white">"શ્વેત"</string>
+</resources>
+

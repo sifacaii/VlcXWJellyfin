@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"ઓછી મેમરીને કારણે અગાઉની કામગીરી પૂર્ણ કરી શક્યા નથી"</string>
+<string name="opening_file_error">"પસંદ કરેલી ફાઇલ ખોલવામાં નિષ્ફળ"</string>
+<string name="copy_to_clipboard_failure_message">"ક્લિપબોર્ડ પર કૉપિ કરવામાં નિષ્ફળ"</string>
+<string name="url_copied">"URL કૉપિ કર્યું."</string>
+</resources>
+

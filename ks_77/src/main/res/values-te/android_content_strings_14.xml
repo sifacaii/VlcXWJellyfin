@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"భాగస్వామ్యం చేయి"</string>
+<string name="actionbar_web_search">"వెబ్ శోధన"</string>
+<string name="actionbar_textselection_title">"వచన ఎంపిక"</string>
+<string name="add_to_dictionary">"నిఘంటువుకి జోడించు"</string>
+<string name="delete_suggestion_text">"తొలగించు"</string>
+<string name="profiler_started_toast">"ప్రొఫైలర్ ప్రారంభించబడింది"</string>
+<string name="profiler_stopped_toast">"ప్రొఫైలర్ పూర్తయింది. ఫలితాలు %1$sలో ఉన్నాయి."</string>
+<string name="profiler_no_storage_toast">"బాహ్య నిల్వ సిద్ధంగా లేనందున ప్రొఫైలర్‌ను ప్రారంభించడం కుదరదు"</string>
+<string name="profiler_error_toast">"ప్రొఫైలర్‌ను ప్రారంభించడంలో విఫలమైంది"</string>
+<string name="accessibility_date_picker_month">"నెల"</string>
+<string name="accessibility_date_picker_year">"సంవత్సరం"</string>
+<string name="date_picker_dialog_set">"సెట్ చెయ్యి"</string>
+<string name="month_picker_dialog_title">"నెలను సెట్ చేయండి"</string>
+<string name="accessibility_date_picker_week">"వారం"</string>
+<string name="week_picker_dialog_title">"వారాన్ని సెట్ చేయండి"</string>
+<string name="time_picker_dialog_am">"AM"</string>
+<string name="time_picker_dialog_pm">"PM"</string>
+<string name="time_picker_dialog_title">"సమయాన్ని సెట్ చేయండి"</string>
+<string name="accessibility_time_picker_hour">"గంట"</string>
+<string name="accessibility_time_picker_minute">"నిమిషం"</string>
+<string name="accessibility_time_picker_second">"సెకను"</string>
+<string name="accessibility_time_picker_milli">"మిల్లీ సెకను"</string>
+<string name="accessibility_time_picker_ampm">"AM/PM"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"తేదీ మరియు సమయాన్ని సెట్ చేయండి"</string>
+<string name="accessibility_datetime_picker_date">"తేదీ"</string>
+<string name="accessibility_datetime_picker_time">"సమయం"</string>
+<string name="date_picker_dialog_other_button_label">"ఇతర"</string>
+<string name="date_picker_dialog_title">"తేదీని సెట్ చేయండి"</string>
+<string name="date_picker_dialog_clear">"క్లియర్ చేయి"</string>
+</resources>
+

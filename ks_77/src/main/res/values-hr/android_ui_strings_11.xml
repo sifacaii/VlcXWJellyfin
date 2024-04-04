@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Nije moguće dovršiti prethodnu operaciju jer nema dovoljno memorije"</string>
+<string name="opening_file_error">"Odabrana datoteka nije otvorena"</string>
+<string name="copy_to_clipboard_failure_message">"Nije kopirano u međuspremnik"</string>
+<string name="url_copied">"URL je kopiran."</string>
+</resources>
+

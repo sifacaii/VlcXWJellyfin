@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Den tidligerere handling kunne ikke fuldføres på grund af manglende hukommelse"</string>
+<string name="opening_file_error">"Den valgte fil kunne ikke åbnes"</string>
+<string name="copy_to_clipboard_failure_message">"Der kunne ikke kopieres til udklipsholder"</string>
+<string name="url_copied">"Webadressen blev kopieret."</string>
+</resources>
+

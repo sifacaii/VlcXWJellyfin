@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Memoria insuficiente para completar la operación anterior"</string>
+<string name="opening_file_error">"Error al abrir el archivo"</string>
+<string name="copy_to_clipboard_failure_message">"Error al copiar al portapapeles"</string>
+<string name="url_copied">"Se copió la URL."</string>
+</resources>
+

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[2480],{22480:function(s){s.exports=JSON.parse('{"Album":"البم","Actor":"اداڪار","Absolute":"مطلق","ButtonCast":"ميڊيا کي ڊوائس ۾ ڪاسٽ ڪريو","Channels":"قانال","Books":"كىتاب","Artists":"سەنئەتكار","Albums":"پىلاستىنكا"}')}}]);
