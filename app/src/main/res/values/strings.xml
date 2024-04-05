@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VlcXWJellyfin</string>
+    <string name="device_select_desc">请选择您的设备类型！如果想修改，请退出本程序，清除程序数据后重新打开！</string>
 </resources>

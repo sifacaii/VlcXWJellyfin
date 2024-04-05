@@ -1,18 +1,25 @@
 package org.sifacai.vlcxwjellyfin;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -43,9 +50,17 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
 
     private static final String TAG = "MainActivity";
 
+    enum DeviceType {
+        TV,
+        MOBILE
+    }
+
     FrameLayout parent;
     XWalkInitializer xWalkInitializer;
     XWalkView xWalkView;
+
+    DeviceType deviceType;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -61,20 +76,85 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        allowSelfCertificate();
-
         XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
 
         parent = findViewById(R.id.main);
 
         xWalkInitializer = new XWalkInitializer(this, this);
         xWalkInitializer.initAsync();
+
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if(deviceType == DeviceType.TV) {
+                    xWalkView.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ESCAPE));
+                }else{
+                    xWalkView.goBack();
+                }
+            }
+        });
     }
 
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        xWalkView.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_ESCAPE));
+    AlertDialog dialog;
+    private void checkDeviceType() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.devices_type_select, null);
+
+        Button tvb=view.findViewById(R.id.tvbutton);
+        Button mbb=view.findViewById(R.id.mbbutton);
+
+        tvb.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    ViewCompat.animate(v).scaleX(1.2f).scaleY(1.2f).start();
+                }else{
+                    ViewCompat.animate(v).scaleX(1f).scaleY(1f).start();
+                }
+            }
+        });
+
+        mbb.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    ViewCompat.animate(v).scaleX(1.2f).scaleY(1.2f).start();
+                }else{
+                    ViewCompat.animate(v).scaleX(1f).scaleY(1f).start();
+                }
+            }
+        });
+
+        tvb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                deviceType = DeviceType.TV;
+            }
+        });
+
+        mbb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                deviceType = DeviceType.MOBILE;
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("请选择设备类型");
+        builder.setView(view);
+        builder.setCancelable(false);
+        dialog = builder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                loadXWalkview();
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
@@ -94,10 +174,14 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
 
     @Override
     public void onXWalkInitCompleted() {
+        checkDeviceType();
+    }
+
+    public void loadXWalkview() {
 
         xWalkView = new XWalkView(this);
 
-        xWalkView.addJavascriptInterface(new JSBridge(this),"NativeApi");
+        xWalkView.addJavascriptInterface(new JSBridge(this), "NativeApi");
 
         xWalkView.setResourceClient(new XWalkResourceClient() {
             @Override
@@ -123,7 +207,11 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
         settings.setCacheMode(XWalkSettings.LOAD_NO_CACHE);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        //settings.setUserAgentString("mozilla/5.0 applewebkit/537.36 (khtml, like gecko) chrome/77.0.3865.92 crosswalk/77.0.3.0 safari/537.36");
+        if(deviceType == DeviceType.TV){
+            settings.setUserAgentString("mozilla/5.0 applewebkit/537.36 (khtml, like gecko) chrome/77.0.3865.92 crosswalk/77.0.3.0 safari/537.36");
+        }else{
+            settings.setUserAgentString("mozilla/5.0 applewebkit/537.36 (khtml, like gecko) chrome/77.0.3865.92 crosswalk/77.0.3.0 mobile safari/537.36");
+        }
 
 //        DisplayMetrics metrics = new DisplayMetrics();
 //        getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -137,38 +225,5 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
 
         String url = "file:///android_asset/dist/index.html";
         xWalkView.loadUrl(url);
-    }
-
-    private void allowSelfCertificate() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public X509Certificate[] getAcceptedIssuers() {
-                            X509Certificate[] myTrustedAnchors = new X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
-            Toast.makeText(this,"SSL证书错误",Toast.LENGTH_SHORT);
-        }
     }
 }
