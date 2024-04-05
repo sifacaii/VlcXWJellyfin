@@ -3,9 +3,11 @@ package org.sifacai.vlcxwjellyfin;
 import android.annotation.SuppressLint;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -27,7 +29,6 @@ import org.xwalk.core.XWalkInitializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         allowSelfCertificate();
 
@@ -116,7 +119,17 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
             }
         });
 
-        xWalkView.getSettings().setCacheMode(XWalkSettings.LOAD_NO_CACHE);
+        XWalkSettings settings = xWalkView.getSettings();
+        settings.setCacheMode(XWalkSettings.LOAD_NO_CACHE);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int mDensity = metrics.densityDpi;
+
+        int tz = 100 - (mDensity / 10);
+        settings.setTextZoom(tz);
+
+
 
         parent.addView(xWalkView,
                 new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
