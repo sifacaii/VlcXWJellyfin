@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
         settings.setCacheMode(XWalkSettings.LOAD_NO_CACHE);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        settings.setUserAgentString("mozilla/5.0 applewebkit/537.36 (khtml, like gecko) chrome/77.0.3865.92 crosswalk/77.0.3.0 safari/537.36");
+        //settings.setUserAgentString("mozilla/5.0 applewebkit/537.36 (khtml, like gecko) chrome/77.0.3865.92 crosswalk/77.0.3.0 safari/537.36");
 
 //        DisplayMetrics metrics = new DisplayMetrics();
 //        getWindowManager().getDefaultDisplay().getMetrics(metrics);
