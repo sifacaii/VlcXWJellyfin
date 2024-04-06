@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择设备类型");
+        builder.setMessage(R.string.device_select_desc);
         builder.setView(view);
         builder.setCancelable(false);
         dialog = builder.create();
