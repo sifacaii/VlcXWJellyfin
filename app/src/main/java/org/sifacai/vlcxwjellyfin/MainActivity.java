@@ -1,7 +1,9 @@
 package org.sifacai.vlcxwjellyfin;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -50,16 +52,11 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
 
     private static final String TAG = "MainActivity";
 
-    enum DeviceType {
-        TV,
-        MOBILE
-    }
-
     FrameLayout parent;
     XWalkInitializer xWalkInitializer;
     XWalkView xWalkView;
 
-    DeviceType deviceType;
+    int deviceType;
 
 
     @SuppressLint("MissingInflatedId")
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
         getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if(deviceType == DeviceType.TV) {
+                if(deviceType == Utils.DeviceType.TV) {
                     xWalkView.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ESCAPE));
                 }else{
                     xWalkView.goBack();
@@ -95,8 +92,18 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
         });
     }
 
-    AlertDialog dialog;
     private void checkDeviceType() {
+        deviceType = Utils.getDeviceType(this);
+        if(deviceType == Utils.DeviceType.UNKNOWN){
+            askDeviceType();
+        }else{
+            loadXWalkview();
+        }
+    }
+
+    AlertDialog dialog;
+    private void askDeviceType() {
+
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.devices_type_select, null);
 
@@ -129,7 +136,8 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                deviceType = DeviceType.TV;
+                deviceType = Utils.DeviceType.TV;
+                Utils.setDeviceType(MainActivity.this,deviceType);
             }
         });
 
@@ -137,7 +145,8 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                deviceType = DeviceType.MOBILE;
+                deviceType = Utils.DeviceType.MOBILE;
+                Utils.setDeviceType(MainActivity.this,deviceType);
             }
         });
 
@@ -207,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
         settings.setCacheMode(XWalkSettings.LOAD_NO_CACHE);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        if(deviceType == DeviceType.TV){
+        if(deviceType == Utils.DeviceType.TV){
             settings.setUserAgentString("mozilla/5.0 applewebkit/537.36 (khtml, like gecko) chrome/77.0.3865.92 crosswalk/77.0.3.0 safari/537.36");
         }else{
             settings.setUserAgentString("mozilla/5.0 applewebkit/537.36 (khtml, like gecko) chrome/77.0.3865.92 crosswalk/77.0.3.0 mobile safari/537.36");
