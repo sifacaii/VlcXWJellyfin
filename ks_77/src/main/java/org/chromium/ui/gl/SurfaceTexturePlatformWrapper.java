@@ -1,19 +1,24 @@
+// Copyright 2013 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 package org.chromium.ui.gl;
 
 import android.graphics.SurfaceTexture;
 import android.util.Log;
+
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
 import org.chromium.base.annotations.MainDex;
 
+/**
+ * Wrapper class for the underlying platform's SurfaceTexture in order to
+ * provide a stable JNI API.
+ */
 @JNINamespace("gl")
 @MainDex
-/* loaded from: xwalk_main_fat-77.3.aar:classes.jar:org/chromium/ui/gl/SurfaceTexturePlatformWrapper.class */
 class SurfaceTexturePlatformWrapper {
     private static final String TAG = "SurfaceTexturePlatformWrapper";
-
-    SurfaceTexturePlatformWrapper() {
-    }
 
     @CalledByNative
     private static SurfaceTexture create(int textureId) {
@@ -29,8 +34,10 @@ class SurfaceTexturePlatformWrapper {
     }
 
     @CalledByNative
-    private static void setFrameAvailableCallback(SurfaceTexture surfaceTexture, long nativeSurfaceTextureListener) {
-        surfaceTexture.setOnFrameAvailableListener(new SurfaceTextureListener(nativeSurfaceTextureListener));
+    private static void setFrameAvailableCallback(SurfaceTexture surfaceTexture,
+                                                  long nativeSurfaceTextureListener) {
+        surfaceTexture.setOnFrameAvailableListener(
+                new SurfaceTextureListener(nativeSurfaceTextureListener));
     }
 
     @CalledByNative
