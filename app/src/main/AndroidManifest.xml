@@ -15,6 +15,7 @@
         android:roundIcon="@drawable/jellyfin_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.VlcXWJellyfin"
+        android:hardwareAccelerated="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
