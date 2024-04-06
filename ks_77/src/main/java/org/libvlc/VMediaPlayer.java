@@ -98,12 +98,10 @@ public class VMediaPlayer {
     public void setMedia(Media media) {
         Uri uri = media.getUri();
         if (uri != null) {
-            String hacc = uri.getQueryParameter("hacc");
-            String forceHacc = uri.getQueryParameter("forceHacc");
-            media.setHWDecoderEnabled(
-                    Objects.equals(hacc, "true"),
-                    Objects.equals(forceHacc, "true")
-            );
+            String url = uri.toString();
+            boolean hacc = url.contains("hacc=true");
+            boolean forceHacc = url.contains("forceHacc=true");
+            media.setHWDecoderEnabled(hacc,forceHacc);
         }
         //media.addOption(":video-paused");
         mMediaPlayer.setMedia(media);
