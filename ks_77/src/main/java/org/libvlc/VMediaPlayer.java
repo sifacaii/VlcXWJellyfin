@@ -55,6 +55,16 @@ public class VMediaPlayer {
                         if (onPreparedListener != null) {
                             onPreparedListener.onPrepared();
                         }
+
+                        IMedia.VideoTrack vt = mMediaPlayer.getCurrentVideoTrack();
+                        if(vt != null){
+                            int w = vt.width;
+                            int h = vt.height;
+                            if (onVideoSizeChangedListener != null) {
+                                onVideoSizeChangedListener.onVideoSizeChanged(w, h);
+                            }
+                            Global.setDefaultBufferSize(w,h);
+                        }
                         break;
                     case MediaPlayer.Event.Paused:
                         break;
@@ -75,15 +85,6 @@ public class VMediaPlayer {
                         }
                         break;
                     case MediaPlayer.Event.Vout:
-                        IMedia.VideoTrack vt = mMediaPlayer.getCurrentVideoTrack();
-                        if(vt != null){
-                            int w = vt.width;
-                            int h = vt.height;
-                            if (onVideoSizeChangedListener != null) {
-                                onVideoSizeChangedListener.onVideoSizeChanged(w, h);
-                            }
-                            Global.setDefaultBufferSize(w,h);
-                        }
                         break;
                 }
             }
