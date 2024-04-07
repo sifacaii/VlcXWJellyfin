@@ -40,6 +40,7 @@ public class VMediaPlayer {
 
         options = new ArrayList<>();
         //options.add("-vvv");
+        options.add("--start-paused");
 
         mILibVLC = new LibVLC(context, options);
 
@@ -104,7 +105,7 @@ public class VMediaPlayer {
             boolean forceHacc = url.contains("forceHacc=true");
             media.setHWDecoderEnabled(hacc,forceHacc);
         }
-        media.addOption(":video-paused");
+        //media.addOption(":video-paused");
         mMediaPlayer.setMedia(media);
         media.release();
     }
