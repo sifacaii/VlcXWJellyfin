@@ -104,7 +104,7 @@ public class VMediaPlayer {
             boolean forceHacc = url.contains("forceHacc=true");
             media.setHWDecoderEnabled(hacc,forceHacc);
         }
-        //media.addOption(":video-paused");
+        media.addOption(":video-paused");
         mMediaPlayer.setMedia(media);
         media.release();
     }
