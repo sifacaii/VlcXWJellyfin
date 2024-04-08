@@ -75,7 +75,7 @@ public class VMediaPlayer {
                         }
                         break;
                     case MediaPlayer.Event.Buffering:
-                        int bufi = (int) event.getBuffering();
+                        //int bufi = (int) event.getBuffering();
                         break;
                     case MediaPlayer.Event.SeekableChanged:
                         break;
