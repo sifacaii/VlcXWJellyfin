@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
+        //XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
 
         parent = findViewById(R.id.main);
 
