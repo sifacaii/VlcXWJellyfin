@@ -197,7 +197,8 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
             @Override
             public XWalkWebResourceResponse shouldInterceptLoadRequest(XWalkView view, XWalkWebResourceRequest request) {
                 //Log.d(TAG, "shouldInterceptLoadRequest: " + request.getUrl());
-                if (request.getUrl().toString().contains("&fromJellyfin")) {
+                String url = request.getUrl().toString();
+                if (!url.toLowerCase().contains(".m3u8") && url.contains("&fromJellyfin") ) {
                     String m3u8 = "#EXTM3U\n" +
                             "#EXT-X-TARGETDURATION:1";
                     InputStream is = new ByteArrayInputStream(m3u8.getBytes());
