@@ -326,15 +326,19 @@ class mpvVideoPlayer {
         elem.removeEventListener('error', this.onError);
 
         let val = options.url;
+        if(val.slice(-5).toLowerCase() === ".m3u8") val += "?";
         val += "&fromJellyfin";
-        this._currentSrc = val;
-        console.debug(`playing url: ${val}`);
+        // 硬件解码设置
+        val += this.getDecoderSetting();
 
         // Convert to seconds
         const seconds = (options.playerStartPositionTicks || 0) / 10000000;
         if (seconds) {
             val += `#t=${seconds}`;
         }
+
+        this._currentSrc = val;
+        console.debug(`playing url: ${val}`);
 
         // Convert to seconds
         const ms = (options.playerStartPositionTicks || 0) / 10000;
@@ -349,9 +353,6 @@ class mpvVideoPlayer {
         }
 
         this._audioTrackIndexToSetOnPlaying = options.mediaSource.DefaultAudioStreamIndex;
-
-        // 硬件解码设置
-        val += this.getDecoderSetting();
 
         elem.src = val;
         elem.play()
