@@ -3,6 +3,7 @@ package org.sifacai.vlcxwjellyfin;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -22,6 +23,21 @@ public class JSBridge {
 
     public JSBridge(Context context) {
         this.context = context;
+    }
+
+    @JavascriptInterface
+    public void toExtPlayer(String url){
+        MainActivity ma = (MainActivity)context;
+        ma.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setDataAndType(uri, "video/mp4");
+                ma.startActivity(intent);
+            }
+        });
     }
 
     @JavascriptInterface

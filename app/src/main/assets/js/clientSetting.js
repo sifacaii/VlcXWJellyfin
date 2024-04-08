@@ -28,6 +28,20 @@ data-title="客户端设置" data-menubutton="true">
             </div>
         </div>
 
+        <hr/>
+
+        <div class="checkboxContainer checkboxContainer-withDescription">
+            <label>
+                <input type="checkbox" is="emby-checkbox" id="ToExtPlayer"
+                    class="chkEnableGamepad" />
+                <span>调用外部播放器</span>
+            </label>
+            <div class="fieldDescription checkboxFieldDescription">
+                此项优先级高于内置播放器。
+            </div>
+        </div>
+        
+
         <button is="emby-button" type="submit" class="raised button-submit block btnSave">
             <span>保存</span>
         </button>
@@ -67,19 +81,21 @@ class ClientSetting {
 
                 const modal = document.createElement("div");
                 modal.classList.add('dialogContainer');
-  
+
                 modal.innerHTML = clientSettingHTML;
                 document.body.appendChild(modal);
 
                 modal.querySelector('#HardwareAcceleration').focus();
                 let hacc = that.appSettings.get('VLC_HACC') == "true" ? true : false;
                 let fhacc = that.appSettings.get('VLC_FORCE_HACC') == "true" ? true : false;
+                let toextplayer = that.appSettings.get('TO_EXT_PLAYER') == "true" ? true : false;
                 modal.querySelector('#HardwareAcceleration').checked = hacc;
                 modal.querySelector('#ForceHardwareAcceleration').checked = fhacc;
+                modal.querySelector('#ToExtPlayer').checked = toextplayer;
 
 
                 var closeModal = function (e) {
-                    if(e){
+                    if (e) {
                         e.preventDefault();
                         e.stopPropagation();
                     }
@@ -87,7 +103,7 @@ class ClientSetting {
                     modal.remove();
                     currentElement.focus();
                     that.inputManager.off(modal, backCommand);
-                    window.removeEventListener('popstate',closeModal);
+                    window.removeEventListener('popstate', closeModal);
                 }
 
                 var backCommand = function (e) {
@@ -100,11 +116,12 @@ class ClientSetting {
                 modal.querySelector('.btnSave').addEventListener('click', (e) => {
                     that.appSettings.set('VLC_HACC', modal.querySelector('#HardwareAcceleration').checked || false);
                     that.appSettings.set('VLC_FORCE_HACC', modal.querySelector('#ForceHardwareAcceleration').checked || false);
+                    that.appSettings.set('TO_EXT_PLAYER', modal.querySelector('#ToExtPlayer').checked || false);
 
                     closeModal(e);
                 });
 
-                window.addEventListener('popstate',closeModal);
+                window.addEventListener('popstate', closeModal);
 
                 that.appRouter.show(that.routePath);
             }

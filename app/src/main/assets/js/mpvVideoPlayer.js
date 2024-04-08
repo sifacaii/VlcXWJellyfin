@@ -281,7 +281,21 @@ class mpvVideoPlayer {
         return this._currentSrc;
     }
 
-    play(options) {
+    play(options){
+        if(this.appSettings.get('TO_EXT_PLAYER') === "true"){
+            this.loading.hide();
+            let url = options.url;
+            return new Promise((resolve)=>{
+                if(url) window.NativeApi.toExtPlayer(url);
+
+                resolve();
+            });
+        }else{
+            return this.playToVlc(options);
+        }
+    }
+
+    playToVlc(options) {
         var _this2 = this;
         this._started = false;
         this._timeUpdated = false;
