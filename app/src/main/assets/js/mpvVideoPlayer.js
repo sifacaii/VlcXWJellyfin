@@ -389,13 +389,13 @@ class mpvVideoPlayer {
         })[0];
 
         if (track == null) {
+            window.NativeApi.setSubtitleTrackId(-1);
             return;
         }
         if (track.IsExternal) {
             window.NativeApi.setSubtitleTrackId(-1);
             this.renderExternalSubtitles(track);
         } else {
-            this.destroySubtitleOctopus();
             window.NativeApi.setSubtitleTrackId(streamIndex);
         }
     }
