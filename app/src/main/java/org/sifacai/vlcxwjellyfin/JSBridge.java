@@ -34,7 +34,7 @@ public class JSBridge {
                 Uri uri = Uri.parse(url);
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-                intent.setDataAndType(uri, "video/mp4");
+                intent.setDataAndType(uri, "video/*");
                 ma.startActivity(intent);
             }
         });
