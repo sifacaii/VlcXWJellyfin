@@ -18,82 +18,76 @@ import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaPlayer;
 import org.videolan.libvlc.interfaces.IMedia;
+import org.videolan.libvlc.interfaces.IVLCVout;
 
 public class VMediaPlayer {
 
     private LibVLC mILibVLC;
     private MediaPlayer mMediaPlayer;
-
     private Context context;
-
     String TAG = "自定义播放器";
 
     private OnCompletionListener onCompletionListener;
     private OnErrorListener onErrorListener;
     private OnPreparedListener onPreparedListener;
     private OnVideoSizeChangedListener onVideoSizeChangedListener;
-
     private ArrayList<String> options;
 
-    private void initVLC() {
+    private MediaPlayer.EventListener mEventListener = new MediaPlayer.EventListener() {
+        @Override
+        public void onEvent(MediaPlayer.Event event) {
+            int type = event.type;
+            switch (type) {
+                case MediaPlayer.Event.Opening:
+                    break;
+                case MediaPlayer.Event.Playing:
+                    if (onPreparedListener != null) {
+                        onPreparedListener.onPrepared();
+                    }
+                    break;
+                case MediaPlayer.Event.Paused:
+                    break;
+                case MediaPlayer.Event.Stopped:
+                    if (onCompletionListener != null) {
+                        onCompletionListener.onCompletion();
+                    }
+                    break;
+                case MediaPlayer.Event.Buffering:
+                    //int bufi = (int) event.getBuffering();
+                    break;
+                case MediaPlayer.Event.SeekableChanged:
+                    break;
+                case MediaPlayer.Event.EncounteredError:
+                    if (onErrorListener != null) {
+                        onErrorListener.onError(android.media.MediaPlayer.MEDIA_ERROR_UNKNOWN,
+                                android.media.MediaPlayer.MEDIA_ERROR_UNKNOWN);
+                    }
+                    break;
+                case MediaPlayer.Event.Vout:
+                    IMedia.VideoTrack vt = mMediaPlayer.getCurrentVideoTrack();
+                    if (vt != null) {
+                        int w = vt.width;
+                        int h = vt.height;
+                        if (onVideoSizeChangedListener != null) {
+                            onVideoSizeChangedListener.onVideoSizeChanged(w, h);
+                        }
+                        Global.setDefaultBufferSize(w, h);
+                    }
+                    break;
+            }
+        }
+    };
+
+    public VMediaPlayer() {
         context = ContextUtils.getApplicationContext();
 
         options = new ArrayList<>();
         //options.add("-vvv");
         options.add("--start-paused");
-
         mILibVLC = new LibVLC(context, options);
-
         mMediaPlayer = new MediaPlayer(this.mILibVLC);
-        mMediaPlayer.setEventListener(new MediaPlayer.EventListener() {
+        mMediaPlayer.setEventListener(mEventListener);
 
-            public void onEvent(MediaPlayer.Event event) {
-                int type = event.type;
-                switch (type) {
-                    case MediaPlayer.Event.Opening:
-                        break;
-                    case MediaPlayer.Event.Playing:
-                        if (onPreparedListener != null) {
-                            onPreparedListener.onPrepared();
-                        }
-
-                        IMedia.VideoTrack vt = mMediaPlayer.getCurrentVideoTrack();
-                        if(vt != null){
-                            int w = vt.width;
-                            int h = vt.height;
-                            if (onVideoSizeChangedListener != null) {
-                                onVideoSizeChangedListener.onVideoSizeChanged(w, h);
-                            }
-                            Global.setDefaultBufferSize(w,h);
-                        }
-                        break;
-                    case MediaPlayer.Event.Paused:
-                        break;
-                    case MediaPlayer.Event.Stopped:
-                        if (onCompletionListener != null) {
-                            onCompletionListener.onCompletion();
-                        }
-                        break;
-                    case MediaPlayer.Event.Buffering:
-                        //int bufi = (int) event.getBuffering();
-                        break;
-                    case MediaPlayer.Event.SeekableChanged:
-                        break;
-                    case MediaPlayer.Event.EncounteredError:
-                        if (onErrorListener != null) {
-                            onErrorListener.onError(android.media.MediaPlayer.MEDIA_ERROR_UNKNOWN,
-                                    android.media.MediaPlayer.MEDIA_ERROR_UNKNOWN);
-                        }
-                        break;
-                    case MediaPlayer.Event.Vout:
-                        break;
-                }
-            }
-        });
-    }
-
-    public VMediaPlayer() {
-        initVLC();
         Global.setPlayer(this);
     }
 
@@ -103,7 +97,7 @@ public class VMediaPlayer {
             String url = uri.toString();
             boolean hacc = url.contains("hacc=true");
             boolean forceHacc = url.contains("forceHacc=true");
-            media.setHWDecoderEnabled(hacc,forceHacc);
+            media.setHWDecoderEnabled(hacc, forceHacc);
         }
         //media.addOption(":video-paused");
         mMediaPlayer.setMedia(media);
@@ -142,27 +136,29 @@ public class VMediaPlayer {
 
     public void setDisplay(SurfaceHolder sh) {
         this.mMediaPlayer.getVLCVout().setVideoSurface(sh.getSurface(), sh);
+        this.mMediaPlayer.getVLCVout().attachViews();
     }
 
     public void setSurface(Surface surface) {
         if (surface != null) {
-            if (mMediaPlayer.getVLCVout().areViewsAttached()) return;
-            mMediaPlayer.getVLCVout().setVideoSurface(surface, (SurfaceHolder) null);
-            mMediaPlayer.getVLCVout().attachViews();
+            IVLCVout vout = mMediaPlayer.getVLCVout();
+            if (vout.areViewsAttached()) vout.detachViews();
+            vout.setVideoSurface(surface, (SurfaceHolder) null);
+            vout.attachViews();
         }
     }
 
     public void start() throws IllegalStateException {
-        this.mMediaPlayer.play();
+        if (mMediaPlayer != null) mMediaPlayer.play();
     }
 
     public void stop() throws IllegalStateException {
-        this.mMediaPlayer.stop();
+        if (mMediaPlayer != null) mMediaPlayer.stop();
     }
 
 
     public void pause() throws IllegalStateException {
-        this.mMediaPlayer.pause();
+        if (mMediaPlayer != null) mMediaPlayer.pause();
     }
 
     public void setPlaybackRate(float rate) {
@@ -228,8 +224,10 @@ public class VMediaPlayer {
 
     public void release() {
         mMediaPlayer.release();
-        mILibVLC.release();
         mMediaPlayer = null;
+        mILibVLC.release();
+        mILibVLC = null;
+
         Global.setPlayer(null);
     }
 
