@@ -291,6 +291,13 @@ class mpvVideoPlayer {
                 resolve();
             });
         }else{
+            if(that.appSettings.get('VLC_PLAYER') === "true"){
+                options.delete("items");
+                return new Promise((resolve)=>{
+                    window.NativeApi.toVlcPlayer(options);
+                    resolve();
+                });
+            }
             return this.playToVlc(options);
         }
     }
