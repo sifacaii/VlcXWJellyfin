@@ -8,6 +8,16 @@ data-title="客户端设置" data-menubutton="true">
 
             <div class="checkboxContainer checkboxContainer-withDescription">
                 <label>
+                    <input type="checkbox" is="emby-checkbox" id="VlcPlayer" class="chkEnableGamepad" />
+                    <span>VLC播放器</span>
+                </label>
+                <div class="fieldDescription checkboxFieldDescription">
+                    选择此项将调用内置VLC播放器
+                </div>
+            </div>
+
+            <div class="checkboxContainer checkboxContainer-withDescription">
+                <label>
                     <input type="checkbox" is="emby-checkbox" id="HardwareAcceleration" class="chkEnableGamepad" />
                     <span>启用硬件加速</span>
                 </label>
@@ -86,9 +96,11 @@ class ClientSetting {
                 document.body.appendChild(modal);
 
                 modal.querySelector('#HardwareAcceleration').focus();
+                let vlcplayer = that.appSettings.get('VLC_PLAYER') == "true" ? true : false;
                 let hacc = that.appSettings.get('VLC_HACC') == "true" ? true : false;
                 let fhacc = that.appSettings.get('VLC_FORCE_HACC') == "true" ? true : false;
                 let toextplayer = that.appSettings.get('TO_EXT_PLAYER') == "true" ? true : false;
+                modal.querySelector('#VlcPlayer').checked = vlcplayer;
                 modal.querySelector('#HardwareAcceleration').checked = hacc;
                 modal.querySelector('#ForceHardwareAcceleration').checked = fhacc;
                 modal.querySelector('#ToExtPlayer').checked = toextplayer;
@@ -114,6 +126,7 @@ class ClientSetting {
                 that.inputManager.on(modal, backCommand);
 
                 modal.querySelector('.btnSave').addEventListener('click', (e) => {
+                    that.appSettings.set('VLC_PLAYER',modal.querySelector('#VlcPlayer').checked || false);
                     that.appSettings.set('VLC_HACC', modal.querySelector('#HardwareAcceleration').checked || false);
                     that.appSettings.set('VLC_FORCE_HACC', modal.querySelector('#ForceHardwareAcceleration').checked || false);
                     that.appSettings.set('TO_EXT_PLAYER', modal.querySelector('#ToExtPlayer').checked || false);
