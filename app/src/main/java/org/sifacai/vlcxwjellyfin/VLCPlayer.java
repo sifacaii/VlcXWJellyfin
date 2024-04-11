@@ -389,10 +389,12 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
                         stop();
                         break;
                     case KeyEvent.KEYCODE_DPAD_RIGHT:
-                        startSeek(true);
+                        //startSeek(true);
+                        mPlayer.setTime(currentTime + 50000);
                         break;
                     case KeyEvent.KEYCODE_DPAD_LEFT:
-                        startSeek(false);
+                        //startSeek(false);
+                        mPlayer.setTime(currentTime - 10000);
                         break;
                     default:
                         show();
@@ -401,7 +403,7 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
         }
 
         if (event.getAction() == KeyEvent.ACTION_UP) {
-            if(isSeeking) stopSeek();
+            //if(isSeeking) stopSeek();
         }
 
         //return false;
