@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/controller"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/controller_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/backBtn"
+            style="@android:style/TextAppearance.Large.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_user_focus"
+            android:focusable="true"
+            android:padding="9dp"
+            android:text=" 《 " />
+
+        <TextView
+            android:id="@+id/title"
+            style="@android:style/TextAppearance.Large.Inverse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:focusable="false"
+            android:text="标题里奇枯大规模槈克格勃" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/controller_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#66000000"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/controller_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/playBtn"
+                style="@android:style/TextAppearance.Large.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_user_focus"
+                android:focusable="true"
+                android:padding="9dp"
+                android:text="播放" />
+
+            <TextView
+                android:id="@+id/rateBtn"
+                style="@android:style/TextAppearance.Large.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_user_focus"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="9dp"
+                android:text="1.0x" />
+
+            <TextView
+                android:id="@+id/scaleBtn"
+                style="@android:style/TextAppearance.Large.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_user_focus"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="9dp"
+                android:text="16:9" />
+
+            <TextView
+                android:id="@+id/subtitleBtn"
+                style="@android:style/TextAppearance.Large.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_user_focus"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="9dp"
+                android:text="字幕" />
+
+            <TextView
+                android:id="@+id/audioBtn"
+                style="@android:style/TextAppearance.Large.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_user_focus"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="9dp"
+                android:text="音轨" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/controller_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cTime"
+                style="@android:style/TextAppearance.Large.Inverse"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="9dp"
+                android:focusable="false"
+                android:text="" />
+
+            <SeekBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:max="1000" />
+
+            <TextView
+                android:id="@+id/eTime"
+                style="@android:style/TextAppearance.Large.Inverse"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="9dp"
+                android:focusable="false"
+                android:text="" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/pauseImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@android:drawable/ic_media_pause"
+        android:focusable="false"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/controller_ff"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/time_ff"
+            style="@android:style/TextAppearance.Large.Inverse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:text="00:00:00"/>
+
+        <ProgressBar
+            android:id="@+id/progress_ff"
+            style="@style/Widget.AppCompat.SeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:max="1000"/>
+
+    </LinearLayout>
+</FrameLayout>
