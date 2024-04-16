@@ -186,7 +186,7 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
         @Override
         public void run() {
             cTime.setText(TrickToTime(currentTime) + "/" + TrickToTime(duration));
-            progressBar.setProgress(getPercentage(currentTime,duration));
+            progressBar.setProgress(getPercentage(currentTime, duration));
             postDelayed(updateProgressBar, 1000);
         }
     };
@@ -204,7 +204,7 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
         controllerProgress.setVisibility(VISIBLE);
 
         cTime.setText(TrickToTime(currentTime) + "/" + TrickToTime(duration));
-        progressBar.setProgress(getPercentage(currentTime,duration));
+        progressBar.setProgress(getPercentage(currentTime, duration));
         postDelayed(updateProgressBar, 1000);
         isShowController = true;
 
@@ -241,10 +241,10 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
     }
 
     public void playORpause() {
-        if(mPlayer.isPlaying()){
+        if (mPlayer.isPlaying()) {
             mPlayer.pause();
             pauseImageView.setVisibility(VISIBLE);
-        }else {
+        } else {
             mPlayer.play();
             pauseImageView.setVisibility(GONE);
         }
@@ -329,42 +329,32 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
         }
     }
 
-
     boolean isSeeking = false;
-    boolean isFF = true;
     long Stepping = 0;
-
-    Runnable FastForward = new Runnable() {
-        @Override
-        public void run() {
-            Stepping += 10000;
-            timeFF.setText(TrickToTime(currentTime + Stepping));
-            progressFF.setProgress(getPercentage(currentTime + Stepping,duration));
-            postDelayed(FastForward,500);
-        }
-    };
 
     void startSeek(boolean ff) {
         Log.d(TAG, "startSeek: ");
         controllerFF.setVisibility(VISIBLE);
-        Stepping = 0;
         isSeeking = true;
-        isFF = ff;
-        postDelayed(FastForward, 0);
+
+        if (ff) Stepping += 5000;
+        else Stepping -= 5000;
+
+        timeFF.setText(TrickToTime(currentTime + Stepping));
+        progressFF.setProgress(getPercentage(currentTime + Stepping, duration));
     }
 
     void stopSeek() {
         Log.d(TAG, "stopSeek: ");
         controllerFF.setVisibility(GONE);
-        removeCallbacks(FastForward);
 
-        isSeeking = false;
-        long etime = currentTime;
-        if (isFF) etime += Stepping;
-        else etime -= Stepping;
+        long etime = mPlayer.getTime() + Stepping;
         if (etime >= 0 && etime < duration) {
             mPlayer.setTime(etime);
         }
+
+        isSeeking = false;
+        Stepping = 0;
     }
 
     @Override
@@ -379,7 +369,6 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
                     default:
                         show();
                 }
-                //return super.dispatchKeyEvent(event);
             } else {
                 switch (event.getKeyCode()) {
                     case KeyEvent.KEYCODE_ENTER:
@@ -389,12 +378,10 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
                         stop();
                         break;
                     case KeyEvent.KEYCODE_DPAD_RIGHT:
-                        //startSeek(true);
-                        mPlayer.setTime(currentTime + 50000);
+                        startSeek(true);
                         break;
                     case KeyEvent.KEYCODE_DPAD_LEFT:
-                        //startSeek(false);
-                        mPlayer.setTime(currentTime - 10000);
+                        startSeek(false);
                         break;
                     default:
                         show();
@@ -403,10 +390,9 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
         }
 
         if (event.getAction() == KeyEvent.ACTION_UP) {
-            //if(isSeeking) stopSeek();
+            if (isSeeking) stopSeek();
         }
 
-        //return false;
         return super.dispatchKeyEvent(event);
     }
 }
