@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,7 +29,7 @@ import org.videolan.libvlc.util.VLCVideoLayout;
 
 import java.util.ArrayList;
 
-public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
+public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = "VLCPlayer播放器";
     int controllerShowTime = 6000;
@@ -72,6 +73,7 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
         controllerProgress.setVisibility(GONE);
 
         progressBar = controller.findViewById(R.id.progressBar);
+        progressBar.setOnSeekBarChangeListener(this);
         cTime = controller.findViewById(R.id.cTime);
         backBtn = controller.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(this);
@@ -123,6 +125,22 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
         } else if (id == audioBtn.getId()) {
             audioMenu.show();
         }
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        int prog = seekBar.getProgress();
+        long ct = 0;
+        if (prog > 0) ct = (long) ((double) prog / 1000 * duration);
+        mPlayer.setTime(ct);
     }
 
     public VLCPlayer(@NonNull Context context) {
@@ -394,5 +412,17 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener {
         }
 
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (!isShowController) show();
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 }
