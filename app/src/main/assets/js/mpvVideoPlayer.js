@@ -291,10 +291,10 @@ class mpvVideoPlayer {
                 resolve();
             });
         }else{
-            if(that.appSettings.get('VLC_PLAYER') === "true"){
-                options.delete("items");
+            if(this.appSettings.get('VLC_PLAYER') === "true"){
                 return new Promise((resolve)=>{
-                    window.NativeApi.toVlcPlayer(options);
+                    let optionJson = JSON.stringify(options);
+                    window.NativeApi.toVlcPlayer(optionJson);
                     resolve();
                 });
             }
