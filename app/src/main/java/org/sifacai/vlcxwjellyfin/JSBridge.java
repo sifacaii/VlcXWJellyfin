@@ -9,7 +9,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
+import android.widget.FrameLayout;
 
 import org.chromium.ui.widget.Toast;
 import org.json.JSONArray;
@@ -43,6 +45,29 @@ public class JSBridge {
                 }
             }
         });
+    }
+
+    @JavascriptInterface
+    public void toVlcPlayer(String JsonStr){
+        try {
+            JSONObject options = new JSONObject(JsonStr);
+            String url = options.getString("url");
+            if(!url.equals("")){
+                VLCPlayer player = new VLCPlayer(context);
+                player.init();
+                player.setMedia(url);
+                ((MainActivity)context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((MainActivity)context).addContentView(player,
+                                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        player.playORpause();
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @JavascriptInterface

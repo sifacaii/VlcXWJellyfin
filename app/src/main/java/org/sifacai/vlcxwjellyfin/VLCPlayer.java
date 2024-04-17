@@ -183,6 +183,9 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
                         initAudioMenu();
                         initSubtitleMenu();
                         break;
+                    case MediaPlayer.Event.Stopped:
+                        stop();
+                        break;
                     default:
                         break;
                 }
@@ -320,6 +323,10 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
     private void initSubtitleMenu() {
         subtitleMenu = new PopupMenu(getContext(), subtitleBtn);
         MediaPlayer.TrackDescription[] tds = mPlayer.getSpuTracks();
+        if(null == tds){
+            subtitleBtn.setVisibility(GONE);
+            return;
+        }
         for (MediaPlayer.TrackDescription td : tds) {
             subtitleMenu.getMenu().add(td.name).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
@@ -336,6 +343,10 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
     private void initAudioMenu() {
         audioMenu = new PopupMenu(getContext(), audioBtn);
         MediaPlayer.TrackDescription[] tds = mPlayer.getAudioTracks();
+        if(null==tds){
+            audioBtn.setVisibility(GONE);
+            return;
+        }
         for (MediaPlayer.TrackDescription td : tds) {
             audioMenu.getMenu().add(td.name).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
