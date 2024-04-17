@@ -11,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import org.chromium.ui.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,11 +32,15 @@ public class JSBridge {
         ma.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setDataAndType(uri, "video/*");
-                ma.startActivity(intent);
+                try {
+                    Uri uri = Uri.parse(url);
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setDataAndType(uri, "video/*");
+                    ma.startActivity(intent);
+                }catch (Exception e){
+                    Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT);
+                }
             }
         });
     }
