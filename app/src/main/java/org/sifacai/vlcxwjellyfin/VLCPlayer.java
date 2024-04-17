@@ -47,6 +47,7 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
     LinearLayout controllerProgress;
     SeekBar progressBar;
     TextView cTime;
+    TextView eTime;
     TextView backBtn;
     TextView playBtn;
     TextView rateBtn;
@@ -54,9 +55,8 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
     TextView subtitleBtn;
     TextView audioBtn;
     ImageView pauseImageView;
-    LinearLayout controllerFF;
     TextView timeFF;
-    ProgressBar progressFF;
+    ProgressBar loadingBar;
 
 
     ArrayList<String> options;
@@ -75,6 +75,7 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
         progressBar = controller.findViewById(R.id.progressBar);
         progressBar.setOnSeekBarChangeListener(this);
         cTime = controller.findViewById(R.id.cTime);
+        eTime = controller.findViewById(R.id.eTime);
         backBtn = controller.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(this);
         playBtn = controller.findViewById(R.id.playBtn);
@@ -90,9 +91,8 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
 
         pauseImageView = controller.findViewById(R.id.pauseImageView);
 
-        controllerFF = controller.findViewById(R.id.controller_ff);
-        timeFF = controllerFF.findViewById(R.id.time_ff);
-        progressFF = controllerFF.findViewById(R.id.progress_ff);
+        timeFF = controller.findViewById(R.id.time_ff);
+        loadingBar = controller.findViewById(R.id.loadingBar);
 
         initRateMenu();
         initScaleTypeMenu();
@@ -106,11 +106,13 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
         controller_control.setDividerDrawable(drawable);
         controller_top.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         controller_control.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+
+        setFocusable(true);
+
     }
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG, "onClick: " + v);
         int id = v.getId();
         if (id == backBtn.getId()) {
             stop();
@@ -171,7 +173,11 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
             public void onEvent(MediaPlayer.Event event) {
                 switch (event.type) {
                     case MediaPlayer.Event.Playing:
+                        loadingBar.setVisibility(GONE);
                         show();
+                        break;
+                    case MediaPlayer.Event.Buffering:
+                        loadingBar.setVisibility(VISIBLE);
                         break;
                     case MediaPlayer.Event.TimeChanged:
                         currentTime = event.getTimeChanged();
@@ -206,7 +212,7 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
     Runnable updateProgressBar = new Runnable() {
         @Override
         public void run() {
-            cTime.setText(TrickToTime(currentTime) + "/" + TrickToTime(duration));
+            cTime.setText(TrickToTime(currentTime));
             progressBar.setProgress(getPercentage(currentTime, duration));
             postDelayed(updateProgressBar, 1000);
         }
@@ -224,10 +230,13 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
         controllerBottom.setVisibility(VISIBLE);
         controllerProgress.setVisibility(VISIBLE);
 
-        cTime.setText(TrickToTime(currentTime) + "/" + TrickToTime(duration));
+        cTime.setText(TrickToTime(currentTime));
+        eTime.setText(TrickToTime(duration));
         progressBar.setProgress(getPercentage(currentTime, duration));
         postDelayed(updateProgressBar, 1000);
         isShowController = true;
+
+        playBtn.requestFocus();
 
         removeCallbacks(hideController);
         postDelayed(hideController, controllerShowTime);
@@ -362,20 +371,16 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
     long Stepping = 0;
 
     void startSeek(boolean ff) {
-        Log.d(TAG, "startSeek: ");
-        controllerFF.setVisibility(VISIBLE);
         isSeeking = true;
 
         if (ff) Stepping += 5000;
         else Stepping -= 5000;
-
+        timeFF.setVisibility(VISIBLE);
         timeFF.setText(TrickToTime(currentTime + Stepping));
-        progressFF.setProgress(getPercentage(currentTime + Stepping, duration));
     }
 
     void stopSeek() {
-        Log.d(TAG, "stopSeek: ");
-        controllerFF.setVisibility(GONE);
+        timeFF.setVisibility(GONE);
 
         long etime = mPlayer.getTime() + Stepping;
         if (etime >= 0 && etime < duration) {
@@ -435,5 +440,11 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
                 break;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        requestFocus();
+        super.onAttachedToWindow();
     }
 }

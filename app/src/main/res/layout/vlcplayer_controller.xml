@@ -110,6 +110,7 @@
             android:id="@+id/controller_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -118,8 +119,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="9dp"
                 android:focusable="false"
+                android:padding="9dp"
                 android:text="" />
 
             <SeekBar
@@ -136,8 +137,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="9dp"
                 android:focusable="false"
+                android:padding="9dp"
                 android:text="" />
         </LinearLayout>
     </LinearLayout>
@@ -147,32 +148,22 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@android:drawable/ic_media_pause"
         android:focusable="false"
-        android:visibility="gone"/>
+        android:src="@android:drawable/ic_media_pause"
+        android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/controller_ff"
-        android:layout_width="160dp"
+    <ProgressBar
+        android:id="@+id/loadingBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/time_ff"
+        style="@android:style/TextAppearance.Large.Inverse"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|center"
-        android:orientation="vertical">
+        android:focusable="false"
+        android:text="00:00:00" />
 
-        <TextView
-            android:id="@+id/time_ff"
-            style="@android:style/TextAppearance.Large.Inverse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:text="00:00:00"/>
-
-        <ProgressBar
-            android:id="@+id/progress_ff"
-            style="@style/Widget.AppCompat.SeekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:max="1000"/>
-
-    </LinearLayout>
 </FrameLayout>

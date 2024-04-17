@@ -53,12 +53,12 @@ public class JSBridge {
             JSONObject options = new JSONObject(JsonStr);
             String url = options.getString("url");
             if(!url.equals("")){
-                VLCPlayer player = new VLCPlayer(context);
-                player.init();
-                player.setMedia(url);
                 ((MainActivity)context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        VLCPlayer player = new VLCPlayer(context);
+                        player.init();
+                        player.setMedia(url);
                         ((MainActivity)context).addContentView(player,
                                 new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                         player.playORpause();
