@@ -264,10 +264,9 @@ public class VLCPlayer extends VLCVideoLayout implements View.OnClickListener, S
     }
 
     public void setMedia(String url) {
-        Media media = new Media(mLibVLC, Uri.parse(url));
-        media.setHWDecoderEnabled(url.contains("hacc=true"), url.contains("forcehacc=true"));
-        mPlayer.setMedia(media);
-        media.release();
+        Uri uri = Uri.parse(currItem.Url);
+        Media media = new Media(libVLC,uri);
+        media.setHWDecoderEnabled(JfClient.config.isHAACC(),JfClient.config.isFORCE_HAACC());
     }
 
     public void playORpause() {
