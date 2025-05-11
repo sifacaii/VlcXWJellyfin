@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"በአነስተኛ ማህደረ ትውስታ ምክንያት ቀዳሚውን ክወና ማጠናቀቅ አልተቻለም"</string>
+<string name="opening_file_error">"የተመረጠውን ፋይል መክፈት አልተሳካም"</string>
+<string name="copy_to_clipboard_failure_message">"ወደ ቅንጥብ ሰሌዳው መቅዳት አልተሳካም"</string>
+<string name="url_copied">"ዩአርኤል ተቀድቷል።"</string>
+</resources>
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"మరింత"</string>
+<string name="color_picker_hue">"వర్ణం"</string>
+<string name="color_picker_saturation">"సంతృప్తత"</string>
+<string name="color_picker_value">"విలువ"</string>
+<string name="color_picker_button_set">"సెట్ చెయ్యి"</string>
+<string name="color_picker_button_cancel">"రద్దు చేయి"</string>
+<string name="color_picker_dialog_title">"రంగుని ఎంచుకోండి"</string>
+<string name="color_picker_button_red">"ఎరుపు"</string>
+<string name="color_picker_button_cyan">"నీలి ఆకుపచ్చ"</string>
+<string name="color_picker_button_blue">"నీలం"</string>
+<string name="color_picker_button_green">"ఆకుపచ్చ"</string>
+<string name="color_picker_button_magenta">"మెజెంటా"</string>
+<string name="color_picker_button_yellow">"పసుపు"</string>
+<string name="color_picker_button_black">"నలుపు"</string>
+<string name="color_picker_button_white">"తెలుపు"</string>
+</resources>
+

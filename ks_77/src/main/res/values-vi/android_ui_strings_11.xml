@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Không thể hoàn tất thao tác trước do bộ nhớ thấp"</string>
+<string name="opening_file_error">"Không mở được tệp đã chọn"</string>
+<string name="copy_to_clipboard_failure_message">"Sao chép sang khay nhớ tạm không thành công"</string>
+<string name="url_copied">"Đã sao chép URL."</string>
+</resources>
+

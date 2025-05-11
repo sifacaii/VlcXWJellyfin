@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Edellistä toimintoa ei voi suorittaa. Muisti ei riitä."</string>
+<string name="opening_file_error">"Valittua tiedostoa ei voi avata"</string>
+<string name="copy_to_clipboard_failure_message">"Kopiointi leikepöydälle epäonnistui"</string>
+<string name="url_copied">"URL-osoite kopioitu"</string>
+</resources>
+

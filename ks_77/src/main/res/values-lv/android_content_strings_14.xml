@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"Kopīgot"</string>
+<string name="actionbar_web_search">"Meklēšana tīmeklī"</string>
+<string name="actionbar_textselection_title">"Teksta atlase"</string>
+<string name="add_to_dictionary">"Pievienot vārdnīcai"</string>
+<string name="delete_suggestion_text">"Dzēst"</string>
+<string name="profiler_started_toast">"Profilētājs startēts."</string>
+<string name="profiler_stopped_toast">"Profilētāja izpilde ir pabeigta. Rezultāti ir pieejami šeit: %1$s."</string>
+<string name="profiler_no_storage_toast">"Nevar startēt profilētāju, jo ārējā krātuve nav gatava."</string>
+<string name="profiler_error_toast">"Neizdevās startēt profilētāju."</string>
+<string name="accessibility_date_picker_month">"Mēnesis"</string>
+<string name="accessibility_date_picker_year">"Gads"</string>
+<string name="date_picker_dialog_set">"Iestatīt"</string>
+<string name="month_picker_dialog_title">"Mēneša iestatīšana"</string>
+<string name="accessibility_date_picker_week">"Nedēļa"</string>
+<string name="week_picker_dialog_title">"Nedēļas iestatīšana"</string>
+<string name="time_picker_dialog_am">"AM"</string>
+<string name="time_picker_dialog_pm">"PM"</string>
+<string name="time_picker_dialog_title">"Laika iestatīšana"</string>
+<string name="accessibility_time_picker_hour">"Stundas"</string>
+<string name="accessibility_time_picker_minute">"Minūtes"</string>
+<string name="accessibility_time_picker_second">"Sekundes"</string>
+<string name="accessibility_time_picker_milli">"Milisekundes"</string>
+<string name="accessibility_time_picker_ampm">"priekšpusdienā/pēcpusdienā"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">":"</string>
+<string name="date_time_picker_dialog_title">"Datuma un laika iestatīšana"</string>
+<string name="accessibility_datetime_picker_date">"Datums"</string>
+<string name="accessibility_datetime_picker_time">"Laiks"</string>
+<string name="date_picker_dialog_other_button_label">"Cits"</string>
+<string name="date_picker_dialog_title">"Datuma iestatīšana"</string>
+<string name="date_picker_dialog_clear">"Notīrīt"</string>
+</resources>
+

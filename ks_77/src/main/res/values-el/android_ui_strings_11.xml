@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Δεν ήταν δυνατή η ολοκλήρωση της προηγούμενης λειτουργίας λόγω χαμηλού επιπέδου μνήμης"</string>
+<string name="opening_file_error">"Αποτυχ. ανοίγμ. επιλεγμ. αρχείου"</string>
+<string name="copy_to_clipboard_failure_message">"Αποτυχία αντιγραφής στο πρόχειρο"</string>
+<string name="url_copied">"Έγινε αντιγραφή του URL."</string>
+</resources>
+

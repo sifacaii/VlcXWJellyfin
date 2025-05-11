@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Eelmist toimingut ei saa vähese mälu tõttu lõpetada"</string>
+<string name="opening_file_error">"Valit. faili avamine ebaõnnestus"</string>
+<string name="copy_to_clipboard_failure_message">"Lõikelauale kopeerimine ebaõnnestus"</string>
+<string name="url_copied">"URL on kopeeritud."</string>
+</resources>
+

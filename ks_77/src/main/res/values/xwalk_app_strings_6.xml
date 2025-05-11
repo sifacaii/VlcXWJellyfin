@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="startup_not_found_title">"Crosswalk Project Service Not Found"</string>
+<string name="startup_not_found_message">"APP_NAME requires the Crosswalk Project Service to work. Please install it from the app store, then restart APP_NAME."</string>
+<string name="startup_older_version_title">"New Crosswalk Project Service Required"</string>
+<string name="startup_older_version_message">"The version of the Crosswalk Project Service on this system must be updated. Please install it from the app store, then restart APP_NAME."</string>
+<string name="startup_newer_version_title">"Incompatible Crosswalk Project Service"</string>
+<string name="startup_newer_version_message">"APP_NAME is not compatible with the installed version of the Crosswalk Project Service."</string>
+<string name="startup_architecture_mismatch_title">"Mismatch of CPU Architecture"</string>
+<string name="startup_architecture_mismatch_message">"The Crosswalk Project Service must be updated to match the CPU architecture of the device. Please install it from the app store, then restart APP_NAME."</string>
+<string name="startup_signature_check_error_title">"The Crosswalk Project Signature Verification Failed"</string>
+<string name="startup_signature_check_error_message">"The integrity of the Crosswalk Project Service cannot be verified. Please uninstall it and restart APP_NAME."</string>
+<string name="crosswalk_install_title">"Crosswalk Project Install"</string>
+<string name="download_failed_message">"Download failed."</string>
+<string name="decompression_progress_message">"Decompressing the Crosswalk Project Service…"</string>
+<string name="download_progress_message">"Downloading the Crosswalk Project Service from remote host…"</string>
+<string name="select_store_message">"Please select STORE_NAME to download the Crosswalk Project Service."</string>
+<string name="unsupported_store_message">"The application stores on your device don\'t support Crosswalk Project Service. Please download Crosswalk Project Service manually from the official website (https://crosswalk-project.org/)."</string>
+<string name="google_play_store">"Google Play Store"</string>
+<string name="xwalk_get_crosswalk">"Get Crosswalk"</string>
+<string name="xwalk_cancel">"Cancel"</string>
+<string name="xwalk_continue">"Continue"</string>
+<string name="xwalk_close">"Close"</string>
+<string name="xwalk_retry">"Retry"</string>
+</resources>
+

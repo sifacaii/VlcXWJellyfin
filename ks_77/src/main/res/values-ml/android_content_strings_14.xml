@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"പങ്കിടുക"</string>
+<string name="actionbar_web_search">"വെബ് തിരയൽ"</string>
+<string name="actionbar_textselection_title">"ടെക്‌സ്റ്റ് തിരഞ്ഞെടുക്കൽ"</string>
+<string name="add_to_dictionary">"നിഘണ്ടുവിൽ ചേർക്കുക"</string>
+<string name="delete_suggestion_text">"ഇല്ലാതാക്കുക"</string>
+<string name="profiler_started_toast">"പ്രൊഫൈലർ ആരംഭിച്ചു"</string>
+<string name="profiler_stopped_toast">"പ്രൊഫൈലർ പൂർത്തിയായി. ഫലങ്ങൾ %1$s എന്നതിൽ ഉണ്ട്."</string>
+<string name="profiler_no_storage_toast">"ബാഹ്യ സംഭരണം തയ്യാറല്ലാത്തതിനാൽ പ്രൊഫൈലർ ആരംഭിക്കാനായില്ല"</string>
+<string name="profiler_error_toast">"പ്രൊഫൈലർ ആരംഭിക്കുന്നത് പരാജയപ്പെട്ടു"</string>
+<string name="accessibility_date_picker_month">"മാസം"</string>
+<string name="accessibility_date_picker_year">"വര്‍ഷം"</string>
+<string name="date_picker_dialog_set">"സജ്ജമാക്കുക"</string>
+<string name="month_picker_dialog_title">"മാസം സജ്ജമാക്കുക"</string>
+<string name="accessibility_date_picker_week">"ആഴ്‌ച"</string>
+<string name="week_picker_dialog_title">"ആഴ്‌ച സജ്ജമാക്കുക"</string>
+<string name="time_picker_dialog_am">"AM"</string>
+<string name="time_picker_dialog_pm">"PM"</string>
+<string name="time_picker_dialog_title">"സമയം സജ്ജമാക്കുക"</string>
+<string name="accessibility_time_picker_hour">"മണിക്കൂർ"</string>
+<string name="accessibility_time_picker_minute">"മിനിറ്റ്"</string>
+<string name="accessibility_time_picker_second">"സെക്കൻഡ്"</string>
+<string name="accessibility_time_picker_milli">"മില്ലിസെക്കൻഡ്"</string>
+<string name="accessibility_time_picker_ampm">"AM/PM"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"തീയതിയും സമയവും സജ്ജമാക്കുക"</string>
+<string name="accessibility_datetime_picker_date">"തീയതി"</string>
+<string name="accessibility_datetime_picker_time">"സമയം"</string>
+<string name="date_picker_dialog_other_button_label">"മറ്റുള്ളവ"</string>
+<string name="date_picker_dialog_title">"തീയതി സജ്ജമാക്കുക"</string>
+<string name="date_picker_dialog_clear">"മായ്‌ക്കുക"</string>
+</resources>
+

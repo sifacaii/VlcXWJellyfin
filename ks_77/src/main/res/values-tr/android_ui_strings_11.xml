@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Bellek yetersiz olduğundan önceki işlem tamamlanamadı"</string>
+<string name="opening_file_error">"Seçilen dosya açılamadı"</string>
+<string name="copy_to_clipboard_failure_message">"Panoya kopyalanamadı"</string>
+<string name="url_copied">"URL kopyalandı."</string>
+</resources>
+

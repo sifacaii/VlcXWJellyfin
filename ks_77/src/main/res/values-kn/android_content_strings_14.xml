@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="actionbar_share">"ಹಂಚಿಕೊಳ್ಳು"</string>
+<string name="actionbar_web_search">"ವೆಬ್ ಹುಡುಕಾಟ"</string>
+<string name="actionbar_textselection_title">"ಪಠ್ಯ ಆಯ್ಕೆ"</string>
+<string name="add_to_dictionary">"ನಿಘಂಟಿಗೆ ಸೇರಿಸಿ"</string>
+<string name="delete_suggestion_text">"ಅಳಿಸಿ"</string>
+<string name="profiler_started_toast">"ಪ್ರೊಫೈಲರ್ ಪ್ರಾರಂಭಗೊಂಡಿದೆ"</string>
+<string name="profiler_stopped_toast">"ಪ್ರೊಫೈಲರ್ ಪೂರ್ಣಗೊಂಡಿದೆ. ಫಲಿತಾಂಶಗಳು %1$s ರಲ್ಲಿದೆ."</string>
+<string name="profiler_no_storage_toast">"ಬಾಹ್ಯ ಸಂಗ್ರಹವು ಸಿದ್ಧವಾಗಿಲ್ಲದ ಕಾರಣ ಪ್ರೊಫೈಲರ್ ಅನ್ನು ಪ್ರಾರಂಭಿಸಲಾಗುವುದಿಲ್ಲ"</string>
+<string name="profiler_error_toast">"ಪ್ರೊಫೈಲರ್ ಪ್ರಾರಂಭಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"</string>
+<string name="accessibility_date_picker_month">"ತಿಂಗಳು"</string>
+<string name="accessibility_date_picker_year">"ವರ್ಷ"</string>
+<string name="date_picker_dialog_set">"ಹೊಂದಿಸು"</string>
+<string name="month_picker_dialog_title">"ತಿಂಗಳನ್ನು ಹೊಂದಿಸಿ"</string>
+<string name="accessibility_date_picker_week">"ವಾರ"</string>
+<string name="week_picker_dialog_title">"ವಾರ ಹೊಂದಿಸಿ"</string>
+<string name="time_picker_dialog_am">"ಬೆಳಿಗ್ಗೆ"</string>
+<string name="time_picker_dialog_pm">"ಸಂಜೆ"</string>
+<string name="time_picker_dialog_title">"ಸಮಯವನ್ನು ಹೊಂದಿಸಿ"</string>
+<string name="accessibility_time_picker_hour">"ಗಂಟೆ"</string>
+<string name="accessibility_time_picker_minute">"ನಿಮಿಷ"</string>
+<string name="accessibility_time_picker_second">"ಸೆಕೆಂಡ್"</string>
+<string name="accessibility_time_picker_milli">"ಮಿಲಿಸೆಕೆಂಡ್‌‌"</string>
+<string name="accessibility_time_picker_ampm">"AM/PM"</string>
+<string name="time_picker_dialog_hour_minute_separator">":"</string>
+<string name="time_picker_dialog_minute_second_separator">":"</string>
+<string name="time_picker_dialog_second_subsecond_separator">"."</string>
+<string name="date_time_picker_dialog_title">"ದಿನಾಂಕ ಮತ್ತು ಸಮಯವನ್ನು ಹೊಂದಿಸಿ"</string>
+<string name="accessibility_datetime_picker_date">"ದಿನಾಂಕ"</string>
+<string name="accessibility_datetime_picker_time">"ಸಮಯ"</string>
+<string name="date_picker_dialog_other_button_label">"ಇತರೆ"</string>
+<string name="date_picker_dialog_title">"ದಿನಾಂಕವನ್ನು ಹೊಂದಿಸಿ"</string>
+<string name="date_picker_dialog_clear">"ತೆರವುಗೊಳಿಸಿ"</string>
+</resources>
+

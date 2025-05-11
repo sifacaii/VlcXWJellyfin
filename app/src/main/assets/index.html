@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>服务器选择</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            background-color: #101010;
+            color: #FFF;
+            font-size: 14px;
+        }
+
+        input:focus {
+            background: #00A4DC;
+            outline: 2px solid #00A4DC;
+        }
+
+        .container {
+            width: 60%;
+            height: 100%;
+            margin: 1em auto 1em auto;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+
+        }
+
+        .container div {
+            margin-top: 1em;
+        }
+
+        .container input {
+            width: 100%;
+            height: 1.6em;
+            box-sizing: border-box;
+            font-size: 2em;
+        }
+
+        .checkbox-wrapper {
+            vertical-align: middle;
+        }
+
+        .checkbox-wrapper input {
+            width: 1.6em;
+            vertical-align: middle;
+        }
+
+        .checkbox-wrapper label {
+            vertical-align: middle;
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body onload="Init()">
+    <div class="container">
+        <img src="banner-dark.png" style="width: 50%;margin-left: auto;margin-right: auto;">
+
+        <div class="checkbox-wrapper">
+            <label>页面布局：</label>
+            <input type="checkbox" id="tv_layout" tabindex="1" />
+            <label for="tv_layout">电视</label>
+            <!-- <input type="checkbox" id="mobile_layout" tabindex="2" />
+            <label for="mobile_layout">手机</label> -->
+        </div>
+        <div>
+            <input type="text" id="base_url" placeholder="请输入服务器地址。" value="" tabindex="3" />
+        </div>
+        <div class="checkbox-wrapper">
+            <input type="checkbox" id="auto_connect" tabindex="4" />
+            <label for="auto_connect">下次自动连接.</label>
+        </div>
+        <div>
+            <input type="button" id="connect_btn" value="连接服务器" onclick="connect()" tabindex="5" />
+        </div>
+        <div>
+            <text style="color: red;font-size: 2em;"></text>
+        </div>
+    </div>
+    <script>
+        const urlInput = document.querySelector("#base_url");
+        const connInput = document.querySelector("#connect_btn");
+        var inputs = null;
+
+        function Init() {
+            let serverInfo = localStorage.getItem("saveServer") || "{}";
+            let serverJson = JSON.parse(serverInfo);
+            if (serverJson && serverJson.url) {
+                urlInput.value = serverJson.url;
+                connInput.focus();
+            } else {
+                urlInput.focus();
+            }
+
+            inputs = document.querySelectorAll("input");
+
+            document.querySelector('#auto_connect').checked = localStorage.getItem("auto_connect") == 'true';
+            document.querySelector('#tv_layout').checked = localStorage.getItem("tv_layout") == 'true';
+
+            let query = window.location.search;
+            let autoConnect = localStorage.getItem("auto_connect") == 'true' ? true : false;
+            if (!query.includes('autoConnect=false') && autoConnect) {
+                connect();
+            }
+        }
+
+        function connect() {
+            let url = urlInput.value;
+            url = url.trimLeft ? url.trimLeft() : url.trimStart();
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "http://" + url;
+            }
+
+            if (!url.endsWith('/')) {
+                url = url + '/'
+            }
+
+            let infoUrl = url + 'System/Info/Public'
+            fetch(infoUrl, { method: 'GET', mode: 'cors' })
+                .then(rsp => {
+                    rsp.json().then(info => {
+                        if (info && info.Id) {
+                            info['url'] = url;
+                            localStorage.setItem('saveServer', JSON.stringify(info));
+
+                            if (document.querySelector('#auto_connect').checked) {
+                                localStorage.setItem('auto_connect', 'true');
+                            }
+
+                            if (document.querySelector('#tv_layout').checked) {
+                                localStorage.setItem('tv_layout', 'true');
+                                window['NativeApi'].setLayout('tv');
+                            }else{
+                                localStorage.setItem('tv_layout', 'false');
+                                window['NativeApi'].setLayout('mobile');
+                            }
+
+                            location.href = url;
+                        } else {
+                            document.querySelector("text").innerHTML = "无效的服务器，请检查地址。";
+                        }
+                    });
+                })
+                .catch(error => {
+                    document.querySelector("text").innerHTML = (error == null ? "" : error) + "。<br/>无效的服务器，请检查地址。";
+                });
+        }
+
+
+        document.onkeydown = function (evt) {
+            evt = evt || window.event;
+            switch (evt.keyCode) {
+                // case 37: //左
+                //     navigateTo('left');
+                //     evt.preventDefault();
+                //     break;
+                // case 39: //右
+                //     navigateTo('right');
+                //     evt.preventDefault();
+                //     break;
+                // case 38: //上
+                //     navigateTo('up');
+                //     evt.preventDefault();
+                //     break;
+                // case 40: //下
+                //     navigateTo('down');
+                //     evt.preventDefault();
+                //     break;
+                // case 27:
+                // case 461: // Back
+                //     console.log('back');
+                //     evt.preventDefault();
+                //     break;
+            }
+        };
+
+        function navigateTo(arrow) {
+            let curr = document.activeElement;
+            let tmp = [];
+            for (let i = 0; i < inputs.length; i++) {
+                let yy = inputs[i].offsetTop - curr.offsetTop;
+                let xx = inputs[i].offsetLeft - curr.offsetLeft;
+                if (arrow === 'up' && yy < 0) {
+                    tmp.push([yy, inputs[i]]);
+                } else if (arrow === 'down' && yy > 0) {
+                    tmp.push([yy, inputs[i]]);
+                } else if (arrow === 'left' && xx < 0) {
+                    tmp.push([xx, inputs[i]]);
+                } else if (arrow === 'right' && xx > 0) {
+                    tmp.push([xx, inputs[i]]);
+                }
+            }
+            if (tmp.length > 0) {
+                tmp.sort((a, b) => {
+                    if (arrow === 'up' || arrow === 'left') return b[0] - a[0];
+                    if (arrow === 'down' || arrow === 'right') return a[0] - b[0];
+                });
+                let nextEle = tmp[0][1];
+                nextEle.focus();
+            }
+        }
+
+        window['InnerComponents'] = new function () {
+            this.goBack = function () {
+                window['NativeApi'].exitApp();
+            }
+        };
+
+    </script>
+</body>
+
+</html>

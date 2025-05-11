@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Iepriekšējo darbību nevar pabeigt mazā atmiņas apjoma dēļ."</string>
+<string name="opening_file_error">"Neizdevās atvērt atlasīto failu."</string>
+<string name="copy_to_clipboard_failure_message">"Neizdevās kopēt starpliktuvē."</string>
+<string name="url_copied">"Vietrādis URL nokopēts"</string>
+</resources>
+

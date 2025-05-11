@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="low_memory_error">"Zbyt mało pamięci, by ukończyć poprzednią operację"</string>
+<string name="opening_file_error">"Nie udało się otworzyć pliku"</string>
+<string name="copy_to_clipboard_failure_message">"Nie udało się skopiować do schowka"</string>
+<string name="url_copied">"URL został skopiowany."</string>
+</resources>
+

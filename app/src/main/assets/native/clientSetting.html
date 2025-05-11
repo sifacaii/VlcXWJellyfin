@@ -1,0 +1,39 @@
+<div class="formDialog" style="height: 100%;">
+    <div class="formDialogHeader">
+        <button type="button" is="paper-icon-button-light" class="btnCloseDialog autoSize show-focus" title="返回">
+            <span class="material-icons arrow_back" aria-hidden="true"></span>
+        </button>
+        <h3 class="formDialogHeaderTitle">
+            客户端设置
+        </h3>
+    </div>
+    <div class="formDialogContent smoothScrollY" style="padding: 0.5em 1em 10em 1em;">
+        <form class="" style="margin:auto;">
+            <div class="verticalSection">
+                <h2 class="sectionTitle">播放设置</h2>
+
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label>
+                        <input is="emby-checkbox" type="checkbox" id="useExternalplayer" />
+                        <span>调用外部播放器</span>
+                    </label>
+                    <div class="fieldDescription checkboxFieldDescription"></div>
+                </div>
+
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label>
+                        <input is="emby-checkbox" type="checkbox" id="forceDirectPlay" />
+                        <span>直接播放</span>
+                    </label>
+                    <div class="fieldDescription checkboxFieldDescription">选中此项将强制直接播放，不再服务器转码。</div>
+                    <div class="fieldDescription checkboxFieldDescription">此项对调用外部播放器和网页播放都有影响。</div>
+                </div>
+            </div>            
+        </form>
+    </div>
+    <div class="formDialogFooter">
+        <button is="emby-button" type="button" id="clientSettingSaveBtn" class="raised block formDialogFooterItem">
+            <span>保存</span>
+        </button>
+    </div>
+</div>

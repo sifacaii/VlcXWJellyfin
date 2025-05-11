@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<string name="color_picker_button_more">"ಇನ್ನಷ್ಟು"</string>
+<string name="color_picker_hue">"ವರ್ಣ"</string>
+<string name="color_picker_saturation">"ಸ್ಯಾಚುರೇಶನ್"</string>
+<string name="color_picker_value">"ಮೌಲ್ಯ"</string>
+<string name="color_picker_button_set">"ಹೊಂದಿಸು"</string>
+<string name="color_picker_button_cancel">"ರದ್ದುಮಾಡಿ"</string>
+<string name="color_picker_dialog_title">"ಬಣ್ಣವನ್ನು ಆಯ್ಕೆಮಾಡಿ"</string>
+<string name="color_picker_button_red">"ಕೆಂಪು"</string>
+<string name="color_picker_button_cyan">"ಹಸಿರುನೀಲಿ"</string>
+<string name="color_picker_button_blue">"ನೀಲಿ"</string>
+<string name="color_picker_button_green">"ಹಸಿರು"</string>
+<string name="color_picker_button_magenta">"ಮಜೆಂತಾ"</string>
+<string name="color_picker_button_yellow">"ಹಳದಿ"</string>
+<string name="color_picker_button_black">"ಕಪ್ಪು"</string>
+<string name="color_picker_button_white">"ಬಿಳಿ"</string>
+</resources>
+
