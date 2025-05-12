@@ -113,6 +113,48 @@ public class MediaPlayerBridge {
     }
 
     @CalledByNative
+    protected boolean hasVideo() {
+        return hasTrack(MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO);
+    }
+
+    @CalledByNative
+    protected boolean hasAudio() {
+        return hasTrack(MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO);
+    }
+
+    private boolean hasTrack(int trackType) {
+        try {
+            MediaPlayer.TrackInfo trackInfo[] = getLocalPlayer().getTrackInfo();
+
+            // HLS media does not have the track info, so we treat them conservatively.
+            if (trackInfo.length == 0) return true;
+
+            for (MediaPlayer.TrackInfo info : trackInfo) {
+                // TODO(zqzhang): may be we can have a histogram recording
+                // media track types in the future.
+                // See http://crbug.com/571411
+                if (trackType == info.getTrackType()) return true;
+                if (MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN == info.getTrackType()) return true;
+            }
+        } catch (RuntimeException e) {
+            // Exceptions may come from getTrackInfo (IllegalStateException/RuntimeException), or
+            // from some customized OS returning null TrackInfos (NullPointerException).
+            return true;
+        }
+        return false;
+    }
+
+    @CalledByNative
+    protected int getVideoWidth() {
+        return getLocalPlayer().getVideoWidth();
+    }
+
+    @CalledByNative
+    protected int getVideoHeight() {
+        return getLocalPlayer().getVideoHeight();
+    }
+
+    @CalledByNative
     protected void release() {
         cancelLoadDataUriTask();
         getLocalPlayer().release();

@@ -3,14 +3,12 @@ package org.libvlc;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.util.Log;
 import android.view.Surface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
@@ -21,7 +19,6 @@ import com.google.android.exoplayer2.video.VideoSize;
 import org.chromium.base.ContextUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class VExoPlayer extends MediaPlayer {
@@ -32,7 +29,7 @@ public class VExoPlayer extends MediaPlayer {
         RenderersFactory renderersFactory = new DefaultRenderersFactory(ContextUtils.getApplicationContext())
                 .setEnableDecoderFallback(true)
                 .setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
-        ePlayer = new SimpleExoPlayer.Builder(ContextUtils.getApplicationContext(),renderersFactory).build();
+        ePlayer = new SimpleExoPlayer.Builder(ContextUtils.getApplicationContext(), renderersFactory).build();
 
     }
 
@@ -45,7 +42,7 @@ public class VExoPlayer extends MediaPlayer {
 
     @Override
     public void prepareAsync() {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.prepare();
     }
 
@@ -67,50 +64,69 @@ public class VExoPlayer extends MediaPlayer {
 
     @Override
     public int getDuration() {
-        if(ePlayer == null) return 0;
+        if (ePlayer == null) return 0;
         return (int) ePlayer.getDuration();
     }
 
     @Override
+    public TrackInfo[] getTrackInfo() throws IllegalStateException {
+        TrackInfo[] trackInfos = null;
+        trackInfos = new TrackInfo[0];
+        return trackInfos;
+    }
+
+    @Override
+    public int getVideoWidth() {
+        if (ePlayer == null) return 0;
+        return ePlayer.getVideoSize().width;
+    }
+
+    @Override
+    public int getVideoHeight() {
+        if (ePlayer == null) return 0;
+        return ePlayer.getVideoSize().height;
+    }
+
+    @Override
     public void release() {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.release();
     }
 
     @Override
     public void setVolume(float leftVolume, float rightVolume) {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.setVolume((float) leftVolume);
     }
 
     @Override
     public void start() {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.play();
     }
 
     @Override
     public void pause() {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.pause();
     }
 
     @Override
     public void seekTo(int msec) throws IllegalStateException {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.seekTo(msec);
     }
 
     @Override
     public void setDataSource(@NonNull Context context, @NonNull Uri uri, @Nullable Map<String, String> headers) throws IOException, IllegalArgumentException, IllegalStateException, SecurityException {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         MediaItem mediaItem = MediaItem.fromUri(uri);
         ePlayer.setMediaItem(mediaItem);
     }
 
     @Override
     public void setOnCompletionListener(MediaPlayer.OnCompletionListener listener) {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.addListener(new Player.Listener() {
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
@@ -123,7 +139,7 @@ public class VExoPlayer extends MediaPlayer {
 
     @Override
     public void setOnErrorListener(MediaPlayer.OnErrorListener listener) {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.addListener(new Player.Listener() {
             @Override
             public void onPlayerError(PlaybackException error) {
@@ -149,7 +165,7 @@ public class VExoPlayer extends MediaPlayer {
 
     @Override
     public void setOnPreparedListener(MediaPlayer.OnPreparedListener listener) {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.addListener(new Player.Listener() {
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
@@ -162,7 +178,7 @@ public class VExoPlayer extends MediaPlayer {
 
     @Override
     public void setOnVideoSizeChangedListener(MediaPlayer.OnVideoSizeChangedListener listener) {
-        if(ePlayer == null) return;
+        if (ePlayer == null) return;
         ePlayer.addListener(new Player.Listener() {
             @Override
             public void onVideoSizeChanged(VideoSize videoSize) {
