@@ -61,19 +61,15 @@ public class JSBridge {
         });
     }
 
+    String appLayout = "tv";
+    @JavascriptInterface
+    public String getLayout(){
+        return appLayout;
+    }
+
     @JavascriptInterface
     public void setLayout(String layout) {
-        String ua = "chrome/77.0.3865.92 crosswalk/77.0.3.0 iphone";
-        if(layout.equals("tv")){
-            ua = "chrome/77.0.3865.92 crosswalk/77.0.3.0 web0s";
-        }
-        String finalUa = ua;
-        ((MainActivity)context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                xWalkView.setUserAgentString(finalUa);
-            }
-        });
+        appLayout = layout;
     }
 
     @JavascriptInterface

@@ -1,6 +1,9 @@
 (function (AppInfo) {
     'use strict';
 
+    // 禁用 hls.js 播放器
+    window.MediaSource = null;
+
     var AppInfo = {
         deviceId: window['NativeApi'].getDeviceId(),
         deviceName: window['NativeApi'].getDeviceName(),
@@ -10,7 +13,7 @@
 
     // List of supported features
     var SupportedFeatures = [
-        //'fullscreenchange',
+        'fullscreenchange',
         'exit',
         'externallinks',
         'htmlaudioautoplay',
@@ -32,6 +35,9 @@
         '_outputInnerComponent',
         '_ExternalPlayer'
     ];
+
+    //默认布局
+    var defaultLayout = window['NativeApi'].getLayout() || 'tv';
 
     window.NativeShell = {
         AppHost: {
@@ -60,12 +66,14 @@
             },
 
             getDefaultLayout: function () {
-                return 'mobile';
+                return defaultLayout;
             },
 
             getDeviceProfile: getDeviceProfile,
 
             supports: function (command) {
+                if(command === 'fullscreenchange' && defaultLayout === 'tv') return false;
+
                 var isSupported = command && SupportedFeatures.indexOf(command.toLowerCase()) != -1;
                 return isSupported;
             }
@@ -92,11 +100,9 @@
         },
 
         enableFullscreen() {
-            //window.JSBridge.postMessage({ "func": "enableFullscreen" });
         },
 
         disableFullscreen() {
-            //window.JSBridge.postMessage({ "func": "disableFullscreen" });
         },
     };
 })();

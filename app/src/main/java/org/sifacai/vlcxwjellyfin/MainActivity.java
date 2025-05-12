@@ -29,33 +29,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.pakdata.xwalk.refactor.XWalkClient;
 import com.pakdata.xwalk.refactor.XWalkPreferences;
 import com.pakdata.xwalk.refactor.XWalkResourceClient;
 import com.pakdata.xwalk.refactor.XWalkSettings;
+import com.pakdata.xwalk.refactor.XWalkUIClient;
 import com.pakdata.xwalk.refactor.XWalkView;
+import com.pakdata.xwalk.refactor.XWalkWebChromeClient;
 import com.pakdata.xwalk.refactor.XWalkWebResourceRequest;
 import com.pakdata.xwalk.refactor.XWalkWebResourceResponse;
 
-import org.chromium.url.mojom.Url;
 import org.xwalk.core.XWalkInitializer;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
 import java.util.Locale;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 public class MainActivity extends AppCompatActivity implements XWalkInitializer.XWalkInitListener {
 
@@ -80,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
+        XWalkPreferences.setValue(XWalkPreferences.ALLOW_UNIVERSAL_ACCESS_FROM_FILE,true);
 
         parent = findViewById(R.id.main);
 
@@ -119,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
         xWalkView = new XWalkView(this);
 
         xWalkView.addJavascriptInterface(new JSBridge(this, xWalkView), "NativeApi");
+
+        xWalkView.setUIClient(new MXWalkUIClient(xWalkView));
 
         xWalkView.setResourceClient(new XWalkResourceClient() {
             @Override
@@ -160,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
         settings.setCacheMode(XWalkSettings.LOAD_NO_CACHE);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        //settings.setUserAgentString("chrome/77.0.3865.92 crosswalk/77.0.3.0 iphone");
+        settings.setUserAgentString("chrome/77.0.3865.92 crosswalk/77.0.3.0");
 
         parent.addView(xWalkView,
                 new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
