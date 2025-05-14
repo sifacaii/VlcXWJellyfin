@@ -69,10 +69,10 @@
                 return defaultLayout;
             },
 
-            getDeviceProfile: getDeviceProfile,
+            getDeviceProfile: getDeviceProfileAndroid,
 
             supports: function (command) {
-                if(command === 'fullscreenchange' && defaultLayout === 'tv') return false;
+                if (command === 'fullscreenchange' && defaultLayout === 'tv') return false;
 
                 var isSupported = command && SupportedFeatures.indexOf(command.toLowerCase()) != -1;
                 return isSupported;
@@ -142,120 +142,130 @@ window._ExternalPlayer = function () {
 
 const DeviceCodecInfo = JSON.parse(window.NativeApi.getMediaCodecInfo());
 
-function getDeviceProfile(profileBuilder) {
-    //console.log(DeviceCodecInfo);
+const CodecProfiles = [];
+if (DeviceCodecInfo.vp9) {
+    CodecProfiles.push({
+        "Type": "Video",
+        "Codec": "vp9",
+        "Conditions": [
+            {
+                "Condition": "EqualsAny",
+                "Property": "VideoRangeType",
+                "Value": "SDR",
+                "IsRequired": false
+            }
+        ]
+    });
+}
+if (DeviceCodecInfo.h264) {
+    CodecProfiles.push(
+        {
+            "Type": "Video",
+            "Codec": "h264",
+            "Conditions": [
+                {
+                    "Condition": "EqualsAny",
+                    "Property": "VideoProfile",
+                    "Value": "high|main|baseline|constrained baseline" + (DeviceCodecInfo.h264High10 ? "|high 10" : ""),
+                    "IsRequired": false
+                },
+                {
+                    "Condition": "LessThanEqual",
+                    "Property": "VideoLevel",
+                    "Value": DeviceCodecInfo.h264Level ? DeviceCodecInfo.h264Level : 41,
+                    "IsRequired": false
+                }
+            ]
+        }
+    );
+}
+if (DeviceCodecInfo.hevc) {
+    CodecProfiles.push(
+        {
+            "Type": "Video",
+            "Codec": "hevc",
+            "Conditions": [
+                {
+                    "Condition": "EqualsAny",
+                    "Property": "VideoProfile",
+                    "Value": "main",
+                    "IsRequired": false
+                },
+                {
+                    "Condition": "LessThanEqual",
+                    "Property": "VideoLevel",
+                    "Value": DeviceCodecInfo.hevcLevel ? DeviceCodecInfo.hevcLevel : 120,
+                    "IsRequired": false
+                }
+            ]
+        }
+    );
+}
+if (DeviceCodecInfo.av1) {
+    CodecProfiles.push(
+        {
+            "Type": "Video",
+            "Codec": "av1",
+            "Conditions": [
+                {
+                    "Condition": "EqualsAny",
+                    "Property": "VideoProfile",
+                    "Value": "main",
+                    "IsRequired": false
+                },
+                {
+                    "Condition": "EqualsAny",
+                    "Property": "VideoRangeType",
+                    "Value": "SDR",
+                    "IsRequired": false
+                },
+                {
+                    "Condition": "LessThanEqual",
+                    "Property": "VideoLevel",
+                    "Value": DeviceCodecInfo.av1Level ? DeviceCodecInfo.av1Level : 15,
+                    "IsRequired": false
+                }
+            ]
+        }
+    );
+}
 
-    let maxResolutionAVC = DeviceCodecInfo.maxResolutionAVC ? DeviceCodecInfo.maxResolutionAVC : "1280*720";
-    let maxResolutionHevc = DeviceCodecInfo.maxResolutionHevc ? DeviceCodecInfo.maxResolutionHevc : "1920*1080";
-    let maxResolutionAV1 = DeviceCodecInfo.maxResolutionAV1 ? DeviceCodecInfo.maxResolutionAV1 : "1920*1080";
+const VideoCodec = (DeviceCodecInfo.av1 ? "av1," : "") +
+    (DeviceCodecInfo.hevc ? "hevc," : "") +
+    (DeviceCodecInfo.h264 ? "h264," : "") +
+    (DeviceCodecInfo.vp9 ? "vp9," : "") +
+    (DeviceCodecInfo.vp8 ? "vp8," : "") +
+    "mpeg,mpeg2video";
 
-    let avcResolution = maxResolutionAVC.split('*');
-    let hevcResolution = maxResolutionHevc.split('*');
-    let av1Resolution = maxResolutionAV1.split('*');
+const DirectPlayProfiles = [
+    {
+        "Container": "asf,hls,m4v,mkv,mov,mp4,ogm,ogv,ts,vob,webm,wmv,xvid",
+        "AudioCodec": DeviceCodecInfo.audioList,
+        "VideoCodec": VideoCodec,
+        "Type": "Video"
+    },
+    {
+        "Container": "",
+        "AudioCodec": DeviceCodecInfo.audioList,
+        "Type": "Audio"
+    },
+    { 'Type': 'Photo' }
+]
+
+function getDeviceProfileAndroid(profileBuilder) {
 
     var profile = {
         Name: 'AndroidTV-Profile',
         MaxStreamingBitrate: 120000000,
         MaxStaticBitrate: 100000000,
         MusicStreamingTranscodingBitrate: 384000,
-        DirectPlayProfiles: [
-            {
-                "Container": "asf,hls,m4v,mkv,mov,mp4,ogm,ogv,ts,vob,webm,wmv,xvid",
-                //"AudioCodec": "aac,aac_latm,ac3,alac,dca,dts,eac3,flac,mlp,mp2,mp3,opus,pcm_alaw,pcm_mulaw,pcm_s16le,pcm_s20le,pcm_s24le,truehd,vorbis",
-                "AudioCodec": DeviceCodecInfo.audioList,
-                "VideoCodec": (DeviceCodecInfo.supportsAV1 ? "av1," : "") +
-                    (DeviceCodecInfo.supportsAVC ? "h264," : "") +
-                    (DeviceCodecInfo.supportsHevc ? "hevc," : "") + "mpeg,mpeg2video,vp8,vp9",
-                "Type": "Video"
-            },
-            {
-                "Container": "",
-                "AudioCodec": DeviceCodecInfo.audioList,
-                "VideoCodec": "",
-                "Type": "Audio"
-            },
-            { 'Type': 'Photo' }
-        ],
-        CodecProfiles: [
-            DeviceCodecInfo.supportsAVC ? {
-                "Type": "Video",
-                "Codec": "h264",
-                "Conditions": [
-                    {
-                        "Condition": "EqualsAny",
-                        "Property": "VideoProfile",
-                        "Value": "high|main|baseline|constrained baseline" + (DeviceCodecInfo.supportsAVCHigh10 ? "|high 10" : ""),
-                        "IsRequired": false
-                    },
-                    {
-                        "Condition": "LessThanEqual",
-                        "Property": "VideoLevel",
-                        "Value": DeviceCodecInfo.avcMainLevel,
-                        "IsRequired": false
-                    },
-                    {
-                        "Condition": "LessThanEqual",
-                        "Property": "Width",
-                        "Value": avcResolution[0],
-                        "IsRequired": false
-                    },
-                    {
-                        "Condition": "LessThanEqual",
-                        "Property": "Height",
-                        "Value": avcResolution[1],
-                        "IsRequired": false
-                    }
-                ]
-            } : {},
-            DeviceCodecInfo.supportsHevc ? {
-                "Type": "Video",
-                "Codec": "hevc",
-                "Conditions": [
-                    {
-                        "Condition": "EqualsAny",
-                        "Property": "VideoProfile",
-                        "Value": "main",
-                        "IsRequired": false
-                    },
-                    {
-                        "Condition": "EqualsAny",
-                        "Property": "VideoRangeType",
-                        "Value": "SDR|HDR10|HLG",
-                        "IsRequired": false
-                    },
-                    {
-                        "Condition": "LessThanEqual",
-                        "Property": "VideoLevel",
-                        "Value": DeviceCodecInfo.hevcMainLevel,
-                        "IsRequired": false
-                    },
-                    {
-                        "Condition": "LessThanEqual",
-                        "Property": "Width",
-                        "Value": hevcResolution[0],
-                        "IsRequired": false
-                    },
-                    {
-                        "Condition": "LessThanEqual",
-                        "Property": "Height",
-                        "Value": hevcResolution[1],
-                        "IsRequired": false
-                    }
-                ]
-            } : {},
-            DeviceCodecInfo.supportsAV1 ? {
-                "Type": "Video",
-                "Codec": "av1"
-            } : {}
-        ],
+        DirectPlayProfiles: DirectPlayProfiles,
+        CodecProfiles: CodecProfiles,
         TranscodingProfiles: [
             {
                 "Container": "ts",
                 "Type": "Video",
-                "VideoCodec":
-                    (DeviceCodecInfo.supportsAV1 ? "av1," : "") +
-                    (DeviceCodecInfo.supportsHevc ? "hevc," : "") +
-                    (DeviceCodecInfo.supportsAVC ? "h264," : "") + "vp9,vp8,mpeg4,mpeg2video",
+                "VideoCodec": VideoCodec,
                 "AudioCodec": DeviceCodecInfo.audioList,
                 "Protocol": "hls",
                 "EnableSubtitlesInManifest": true,
@@ -265,7 +275,6 @@ function getDeviceProfile(profileBuilder) {
             {
                 "Container": "mp3",
                 "Type": "Audio",
-                "VideoCodec": "",
                 "AudioCodec": "mp3",
                 "Protocol": "http",
                 "Conditions": []
@@ -315,7 +324,6 @@ function getDeviceProfile(profileBuilder) {
             {
                 "Container": "mp3",
                 "Type": "Audio",
-                "VideoCodec": "",
                 "AudioCodec": "mp3",
                 "Protocol": "http",
                 "Conditions": []
