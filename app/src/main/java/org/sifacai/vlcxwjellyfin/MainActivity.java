@@ -1,41 +1,25 @@
 package org.sifacai.vlcxwjellyfin;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.net.http.SslError;
-import android.net.http.UrlRequest;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.pakdata.xwalk.refactor.XWalkClient;
 import com.pakdata.xwalk.refactor.XWalkPreferences;
 import com.pakdata.xwalk.refactor.XWalkResourceClient;
 import com.pakdata.xwalk.refactor.XWalkSettings;
-import com.pakdata.xwalk.refactor.XWalkUIClient;
 import com.pakdata.xwalk.refactor.XWalkView;
-import com.pakdata.xwalk.refactor.XWalkWebChromeClient;
 import com.pakdata.xwalk.refactor.XWalkWebResourceRequest;
 import com.pakdata.xwalk.refactor.XWalkWebResourceResponse;
 
