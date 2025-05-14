@@ -94,6 +94,11 @@ public class CodecUtils {
             }
         }
 
+        try {
+            proJson.put("audolist",String.join(",",audioList));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
         return proJson.toString();
     }
 
