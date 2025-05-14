@@ -159,7 +159,7 @@ public class CodecUtils {
         for (MediaCodecInfo info : infos) {
             MediaCodecInfo.CodecCapabilities capabilities = info.getCapabilitiesForType(mime);
             for (MediaCodecInfo.CodecProfileLevel profileLevel : capabilities.profileLevels) {
-                Log.d(TAG, String.format("%s %s: profile:%d , level:%d",info.getName(),mime,profileLevel.profile,profileLevel.level));
+                //Log.d(TAG, String.format("%s %s: profile:%d , level:%d",info.getName(),mime,profileLevel.profile,profileLevel.level));
                 if(profileLevel.level > level) level = profileLevel.level;
             }
         }
@@ -209,7 +209,7 @@ public class CodecUtils {
         for (MediaCodecInfo info : infos) {
             MediaCodecInfo.CodecCapabilities capabilities = info.getCapabilitiesForType(mime);
             for (MediaCodecInfo.CodecProfileLevel profileLevel : capabilities.profileLevels) {
-                Log.d(TAG, String.format("%s %s：profile：%d，level：%d", mime, info.getName(), profileLevel.profile, profileLevel.level));
+                Log.d(TAG, String.format("%s %s：profilea：%d，level：%d", mime, info.getName(), profileLevel.profile, profileLevel.level));
             }
         }
     }
