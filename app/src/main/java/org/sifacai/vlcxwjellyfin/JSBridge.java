@@ -19,6 +19,7 @@ import org.chromium.ui.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sifacai.vlcxwjellyfin.Utils.CodecUtils;
 
 import java.util.HashMap;
 
@@ -104,8 +105,8 @@ public class JSBridge {
 
     @JavascriptInterface
     public String getMediaCodecInfo(){
-        DeviceProfile dp = new DeviceProfile();
-        return dp.getMediaCodecInfo();
+        CodecUtils cu = new CodecUtils();
+        return cu.getSupportedCodec();
     }
 
     @JavascriptInterface
