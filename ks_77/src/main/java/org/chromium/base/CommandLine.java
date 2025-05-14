@@ -1,7 +1,16 @@
+// Copyright 2013 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 package org.chromium.base;
 
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
+import org.chromium.base.annotations.MainDex;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,132 +18,195 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
-import org.chromium.base.annotations.MainDex;
-import org.chromium.content.browser.accessibility.captioning.CaptioningChangeDelegate;
 
+/**
+ * Java mirror of base/command_line.h.
+ * Android applications don't have command line arguments. Instead, they're "simulated" by reading a
+ * file at a specific location early during startup. Applications each define their own files, e.g.,
+ * ContentShellApplication.COMMAND_LINE_FILE.
+ **/
 @MainDex
-/* loaded from: xwalk_main_fat-77.3.aar:classes.jar:org/chromium/base/CommandLine.class */
 public abstract class CommandLine {
-    private static final AtomicReference<CommandLine> sCommandLine;
-    private static final String TAG = "CommandLine";
-    private static final String SWITCH_PREFIX = "--";
-    private static final String SWITCH_TERMINATOR = "--";
-    private static final String SWITCH_VALUE_SEPARATOR = "=";
-    static final /* synthetic */ boolean $assertionsDisabled;
-
+    // Public abstract interface, implemented in derived classes.
+    // All these methods reflect their native-side counterparts.
+    /**
+     *  Returns true if this command line contains the given switch.
+     *  (Switch names ARE case-sensitive).
+     */
     @VisibleForTesting
-    public abstract boolean hasSwitch(String str);
+    public abstract boolean hasSwitch(String switchString);
 
-    public abstract String getSwitchValue(String str);
+    /**
+     * Return the value associated with the given switch, or null.
+     * @param switchString The switch key to lookup. It should NOT start with '--' !
+     * @return switch value, or null if the switch is not set or set to empty.
+     */
+    public abstract String getSwitchValue(String switchString);
 
-    @VisibleForTesting
-    public abstract void appendSwitch(String str);
-
-    public abstract void appendSwitchWithValue(String str, String str2);
-
-    public abstract void appendSwitchesAndArguments(String[] strArr);
-
-    protected abstract String[] getCommandLineArguments();
-
-    /* JADX INFO: Access modifiers changed from: private */
-    public static native void nativeInit(String[] strArr);
-
-    /* JADX INFO: Access modifiers changed from: private */
-    public static native boolean nativeHasSwitch(String str);
-
-    /* JADX INFO: Access modifiers changed from: private */
-    public static native String nativeGetSwitchValue(String str);
-
-    /* JADX INFO: Access modifiers changed from: private */
-    public static native void nativeAppendSwitch(String str);
-
-    /* JADX INFO: Access modifiers changed from: private */
-    public static native void nativeAppendSwitchWithValue(String str, String str2);
-
-    /* JADX INFO: Access modifiers changed from: private */
-    public static native void nativeAppendSwitchesAndArguments(String[] strArr);
-
-    static {
-        $assertionsDisabled = !CommandLine.class.desiredAssertionStatus();
-        sCommandLine = new AtomicReference<>();
-    }
-
+    /**
+     * Return the value associated with the given switch, or {@code defaultValue} if the switch
+     * was not specified.
+     * @param switchString The switch key to lookup. It should NOT start with '--' !
+     * @param defaultValue The default value to return if the switch isn't set.
+     * @return Switch value, or {@code defaultValue} if the switch is not set or set to empty.
+     */
     public String getSwitchValue(String switchString, String defaultValue) {
         String value = getSwitchValue(switchString);
         return TextUtils.isEmpty(value) ? defaultValue : value;
     }
 
+    /**
+     * Append a switch to the command line.  There is no guarantee
+     * this action happens before the switch is needed.
+     * @param switchString the switch to add.  It should NOT start with '--' !
+     */
+    @VisibleForTesting
+    public abstract void appendSwitch(String switchString);
+
+    /**
+     * Append a switch and value to the command line.  There is no
+     * guarantee this action happens before the switch is needed.
+     * @param switchString the switch to add.  It should NOT start with '--' !
+     * @param value the value for this switch.
+     * For example, --foo=bar becomes 'foo', 'bar'.
+     */
+    public abstract void appendSwitchWithValue(String switchString, String value);
+
+    /**
+     * Append switch/value items in "command line" format (excluding argv[0] program name).
+     * E.g. { '--gofast', '--username=fred' }
+     * @param array an array of switch or switch/value items in command line format.
+     *   Unlike the other append routines, these switches SHOULD start with '--' .
+     *   Unlike init(), this does not include the program name in array[0].
+     */
+    public abstract void appendSwitchesAndArguments(String[] array);
+
+    /**
+     * Determine if the command line is bound to the native (JNI) implementation.
+     * @return true if the underlying implementation is delegating to the native command line.
+     */
     public boolean isNativeImplementation() {
         return false;
     }
 
-    protected void destroy() {
-    }
+    /**
+     * Returns the switches and arguments passed into the program, with switches and their
+     * values coming before all of the arguments.
+     */
+    protected abstract String[] getCommandLineArguments();
 
+    /**
+     * Destroy the command line. Called when a different instance is set.
+     * @see #setInstance
+     */
+    protected void destroy() {}
+
+    private static final AtomicReference<CommandLine> sCommandLine =
+            new AtomicReference<CommandLine>();
+
+    /**
+     * @return true if the command line has already been initialized.
+     */
     public static boolean isInitialized() {
         return sCommandLine.get() != null;
     }
 
+    // Equivalent to CommandLine::ForCurrentProcess in C++.
     @VisibleForTesting
     public static CommandLine getInstance() {
         CommandLine commandLine = sCommandLine.get();
-        if ($assertionsDisabled || commandLine != null) {
-            return commandLine;
-        }
-        throw new AssertionError();
+        assert commandLine != null;
+        return commandLine;
     }
 
+    /**
+     * Initialize the singleton instance, must be called exactly once (either directly or
+     * via one of the convenience wrappers below) before using the static singleton instance.
+     * @param args command line flags in 'argv' format: args[0] is the program name.
+     */
     public static void init(@Nullable String[] args) {
         setInstance(new JavaCommandLine(args));
     }
 
+    /**
+     * Initialize the command line from the command-line file.
+     *
+     * @param file The fully qualified command line file.
+     */
     public static void initFromFile(String file) {
         char[] buffer = readFileAsUtf8(file);
         init(buffer == null ? null : tokenizeQuotedArguments(buffer));
     }
 
+    /**
+     * Resets both the java proxy and the native command lines. This allows the entire
+     * command line initialization to be re-run including the call to onJniLoaded.
+     */
     @VisibleForTesting
     public static void reset() {
         setInstance(null);
     }
 
+    /**
+     * Parse command line flags from a flat buffer, supporting double-quote enclosed strings
+     * containing whitespace. argv elements are derived by splitting the buffer on whitepace;
+     * double quote characters may enclose tokens containing whitespace; a double-quote literal
+     * may be escaped with back-slash. (Otherwise backslash is taken as a literal).
+     * @param buffer A command line in command line file format as described above.
+     * @return the tokenized arguments, suitable for passing to init().
+     */
     @VisibleForTesting
     public static String[] tokenizeQuotedArguments(char[] buffer) {
-        if (buffer.length > 65536) {
+        // Just field trials can take up to 10K of command line.
+        if (buffer.length > 64 * 1024) {
+            // Check that our test runners are setting a reasonable number of flags.
             throw new RuntimeException("Flags file too big: " + buffer.length);
         }
-        ArrayList<String> args = new ArrayList<>();
+
+        ArrayList<String> args = new ArrayList<String>();
         StringBuilder arg = null;
-        char currentQuote = 0;
+        final char noQuote = '\0';
+        final char singleQuote = '\'';
+        final char doubleQuote = '"';
+        char currentQuote = noQuote;
         for (char c : buffer) {
-            if ((currentQuote == 0 && (c == '\'' || c == '\"')) || c == currentQuote) {
+            // Detect start or end of quote block.
+            if ((currentQuote == noQuote && (c == singleQuote || c == doubleQuote))
+                    || c == currentQuote) {
                 if (arg != null && arg.length() > 0 && arg.charAt(arg.length() - 1) == '\\') {
+                    // Last char was a backslash; pop it, and treat c as a literal.
                     arg.setCharAt(arg.length() - 1, c);
                 } else {
-                    currentQuote = currentQuote == 0 ? c : (char) 0;
+                    currentQuote = currentQuote == noQuote ? c : noQuote;
                 }
-            } else if (currentQuote == 0 && Character.isWhitespace(c)) {
+            } else if (currentQuote == noQuote && Character.isWhitespace(c)) {
                 if (arg != null) {
                     args.add(arg.toString());
                     arg = null;
                 }
             } else {
-                if (arg == null) {
-                    arg = new StringBuilder();
-                }
+                if (arg == null) arg = new StringBuilder();
                 arg.append(c);
             }
         }
         if (arg != null) {
-            if (currentQuote != 0) {
-                android.util.Log.w(TAG, "Unterminated quoted string: " + ((Object) arg));
+            if (currentQuote != noQuote) {
+                Log.w(TAG, "Unterminated quoted string: " + arg);
             }
             args.add(arg.toString());
         }
-        return (String[]) args.toArray(new String[args.size()]);
+        return args.toArray(new String[args.size()]);
     }
 
+    private static final String TAG = "CommandLine";
+    private static final String SWITCH_PREFIX = "--";
+    private static final String SWITCH_TERMINATOR = SWITCH_PREFIX;
+    private static final String SWITCH_VALUE_SEPARATOR = "=";
+
     public static void enableNativeProxy() {
+        // Make a best-effort to ensure we make a clean (atomic) switch over from the old to
+        // the new command line implementation. If another thread is modifying the command line
+        // when this happens, all bets are off. (As per the native CommandLine).
         sCommandLine.set(new NativeCommandLine(getJavaSwitchesOrNull()));
     }
 
@@ -154,172 +226,165 @@ public abstract class CommandLine {
         }
     }
 
+    /**
+     * @param fileName the file to read in.
+     * @return Array of chars read from the file, or null if the file cannot be read.
+     */
     private static char[] readFileAsUtf8(String fileName) {
         File f = new File(fileName);
-        try {
-            FileReader reader = new FileReader(f);
+        try (FileReader reader = new FileReader(f)) {
             char[] buffer = new char[(int) f.length()];
             int charsRead = reader.read(buffer);
-            char[] copyOfRange = Arrays.copyOfRange(buffer, 0, charsRead);
-            if (0 != 0) {
-                reader.close();
-            } else {
-                reader.close();
-            }
-            return copyOfRange;
+            // charsRead < f.length() in the case of multibyte characters.
+            return Arrays.copyOfRange(buffer, 0, charsRead);
         } catch (IOException e) {
-            return null;
+            return null; // Most likely file not found.
         }
     }
 
-    private CommandLine() {
-    }
+    private CommandLine() {}
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: xwalk_main_fat-77.3.aar:classes.jar:org/chromium/base/CommandLine$JavaCommandLine.class */
-    public static class JavaCommandLine extends CommandLine {
-        private HashMap<String, String> mSwitches;
-        private ArrayList<String> mArgs;
-        private int mArgsBegin;
-        static final /* synthetic */ boolean $assertionsDisabled;
+    private static class JavaCommandLine extends CommandLine {
+        private HashMap<String, String> mSwitches = new HashMap<String, String>();
+        private ArrayList<String> mArgs = new ArrayList<String>();
 
-        static {
-            $assertionsDisabled = !CommandLine.class.desiredAssertionStatus();
-        }
+        // The arguments begin at index 1, since index 0 contains the executable name.
+        private int mArgsBegin = 1;
 
         JavaCommandLine(@Nullable String[] args) {
-            super();
-            this.mSwitches = new HashMap<>();
-            this.mArgs = new ArrayList<>();
-            this.mArgsBegin = 1;
             if (args == null || args.length == 0 || args[0] == null) {
-                this.mArgs.add(CaptioningChangeDelegate.DEFAULT_CAPTIONING_PREF_VALUE);
+                mArgs.add("");
             } else {
-                this.mArgs.add(args[0]);
+                mArgs.add(args[0]);
                 appendSwitchesInternal(args, 1);
             }
-            if (!$assertionsDisabled && this.mArgs.size() <= 0) {
-                throw new AssertionError();
-            }
+            // Invariant: we always have the argv[0] program name element.
+            assert mArgs.size() > 0;
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         protected String[] getCommandLineArguments() {
-            return (String[]) this.mArgs.toArray(new String[this.mArgs.size()]);
+            return mArgs.toArray(new String[mArgs.size()]);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public boolean hasSwitch(String switchString) {
-            return this.mSwitches.containsKey(switchString);
+            return mSwitches.containsKey(switchString);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public String getSwitchValue(String switchString) {
-            String value = this.mSwitches.get(switchString);
-            if (value == null || value.isEmpty()) {
-                return null;
-            }
-            return value;
+            // This is slightly round about, but needed for consistency with the NativeCommandLine
+            // version which does not distinguish empty values from key not present.
+            String value = mSwitches.get(switchString);
+            return value == null || value.isEmpty() ? null : value;
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public void appendSwitch(String switchString) {
             appendSwitchWithValue(switchString, null);
         }
 
-        @Override // org.chromium.base.CommandLine
+        /**
+         * Appends a switch to the current list.
+         * @param switchString the switch to add.  It should NOT start with '--' !
+         * @param value the value for this switch.
+         */
+        @Override
         public void appendSwitchWithValue(String switchString, String value) {
-            this.mSwitches.put(switchString, value == null ? CaptioningChangeDelegate.DEFAULT_CAPTIONING_PREF_VALUE : value);
-            String combinedSwitchString = "--" + switchString;
+            mSwitches.put(switchString, value == null ? "" : value);
+
+            // Append the switch and update the switches/arguments divider mArgsBegin.
+            String combinedSwitchString = SWITCH_PREFIX + switchString;
             if (value != null && !value.isEmpty()) {
-                combinedSwitchString = combinedSwitchString + CommandLine.SWITCH_VALUE_SEPARATOR + value;
+                combinedSwitchString += SWITCH_VALUE_SEPARATOR + value;
             }
-            ArrayList<String> arrayList = this.mArgs;
-            int i = this.mArgsBegin;
-            this.mArgsBegin = i + 1;
-            arrayList.add(i, combinedSwitchString);
+
+            mArgs.add(mArgsBegin++, combinedSwitchString);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public void appendSwitchesAndArguments(String[] array) {
             appendSwitchesInternal(array, 0);
         }
 
+        // Add the specified arguments, but skipping the first |skipCount| elements.
         private void appendSwitchesInternal(String[] array, int skipCount) {
             boolean parseSwitches = true;
             for (String arg : array) {
                 if (skipCount > 0) {
-                    skipCount--;
+                    --skipCount;
+                    continue;
+                }
+
+                if (arg.equals(SWITCH_TERMINATOR)) {
+                    parseSwitches = false;
+                }
+
+                if (parseSwitches && arg.startsWith(SWITCH_PREFIX)) {
+                    String[] parts = arg.split(SWITCH_VALUE_SEPARATOR, 2);
+                    String value = parts.length > 1 ? parts[1] : null;
+                    appendSwitchWithValue(parts[0].substring(SWITCH_PREFIX.length()), value);
                 } else {
-                    if (arg.equals("--")) {
-                        parseSwitches = false;
-                    }
-                    if (parseSwitches && arg.startsWith("--")) {
-                        String[] parts = arg.split(CommandLine.SWITCH_VALUE_SEPARATOR, 2);
-                        String value = parts.length > 1 ? parts[1] : null;
-                        appendSwitchWithValue(parts[0].substring("--".length()), value);
-                    } else {
-                        this.mArgs.add(arg);
-                    }
+                    mArgs.add(arg);
                 }
             }
         }
     }
 
-    /* loaded from: xwalk_main_fat-77.3.aar:classes.jar:org/chromium/base/CommandLine$NativeCommandLine.class */
     private static class NativeCommandLine extends CommandLine {
-        static final /* synthetic */ boolean $assertionsDisabled;
-
-        static {
-            $assertionsDisabled = !CommandLine.class.desiredAssertionStatus();
-        }
-
         public NativeCommandLine(@Nullable String[] args) {
-            super();
-            CommandLine.nativeInit(args);
+            nativeInit(args);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public boolean hasSwitch(String switchString) {
-            return CommandLine.nativeHasSwitch(switchString);
+            return nativeHasSwitch(switchString);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public String getSwitchValue(String switchString) {
-            return CommandLine.nativeGetSwitchValue(switchString);
+            return nativeGetSwitchValue(switchString);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public void appendSwitch(String switchString) {
-            CommandLine.nativeAppendSwitch(switchString);
+            nativeAppendSwitch(switchString);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public void appendSwitchWithValue(String switchString, String value) {
-            CommandLine.nativeAppendSwitchWithValue(switchString, value);
+            nativeAppendSwitchWithValue(switchString, value);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public void appendSwitchesAndArguments(String[] array) {
-            CommandLine.nativeAppendSwitchesAndArguments(array);
+            nativeAppendSwitchesAndArguments(array);
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         public boolean isNativeImplementation() {
             return true;
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         protected String[] getCommandLineArguments() {
-            if ($assertionsDisabled) {
-                return null;
-            }
-            throw new AssertionError();
+            assert false;
+            return null;
         }
 
-        @Override // org.chromium.base.CommandLine
+        @Override
         protected void destroy() {
+            // TODO(https://crbug.com/771205): Downgrade this to an assert once we have eliminated
+            // tests that do this.
             throw new IllegalStateException("Can't destroy native command line after startup");
         }
     }
+
+    private static native void nativeInit(String[] args);
+    private static native boolean nativeHasSwitch(String switchString);
+    private static native String nativeGetSwitchValue(String switchString);
+    private static native void nativeAppendSwitch(String switchString);
+    private static native void nativeAppendSwitchWithValue(String switchString, String value);
+    private static native void nativeAppendSwitchesAndArguments(String[] array);
 }
