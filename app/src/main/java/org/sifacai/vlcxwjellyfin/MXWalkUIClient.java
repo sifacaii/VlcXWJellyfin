@@ -44,5 +44,9 @@ public class MXWalkUIClient extends XWalkUIClient {
         }
     }
 
-
+    @Override
+    public boolean onConsoleMessage(XWalkView view, String message, int lineNumber, String sourceId, ConsoleMessageType messageType) {
+        //Log.d("浏览器console：", message);
+        return super.onConsoleMessage(view, message, lineNumber, sourceId, messageType);
+    }
 }
