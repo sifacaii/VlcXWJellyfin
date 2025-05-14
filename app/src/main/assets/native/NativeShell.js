@@ -141,10 +141,29 @@ window._ExternalPlayer = function () {
 }
 
 const DeviceCodecInfo = JSON.parse(window.NativeApi.getMediaCodecInfo());
+console.log(DeviceCodecInfo);
 
 const CodecProfiles = [];
+
+if (DeviceCodecInfo.vp8) {
+    let cp = {
+        "Type": "Video",
+        "Codec": "vp8",
+        "Conditions": []
+    }
+    if (DeviceCodecInfo.vp8.level) {
+        cp["Conditions"].push({
+            "Condition": "LessThanEqual",
+            "Property": "VideoLevel",
+            "Value": DeviceCodecInfo.vp8.level,
+            "IsRequired": false
+        });
+    }
+    CodecProfiles.push(cp);
+}
+
 if (DeviceCodecInfo.vp9) {
-    CodecProfiles.push({
+    let cp = {
         "Type": "Video",
         "Codec": "vp9",
         "Conditions": [
@@ -155,84 +174,97 @@ if (DeviceCodecInfo.vp9) {
                 "IsRequired": false
             }
         ]
-    });
-}
-if (DeviceCodecInfo.h264) {
-    CodecProfiles.push(
-        {
-            "Type": "Video",
-            "Codec": "h264",
-            "Conditions": [
-                {
-                    "Condition": "EqualsAny",
-                    "Property": "VideoProfile",
-                    "Value": "high|main|baseline|constrained baseline" + (DeviceCodecInfo.h264High10 ? "|high 10" : ""),
-                    "IsRequired": false
-                },
-                {
-                    "Condition": "LessThanEqual",
-                    "Property": "VideoLevel",
-                    "Value": DeviceCodecInfo.h264Level ? DeviceCodecInfo.h264Level : 41,
-                    "IsRequired": false
-                }
-            ]
-        }
-    );
-}
-if (DeviceCodecInfo.hevc) {
-    CodecProfiles.push(
-        {
-            "Type": "Video",
-            "Codec": "hevc",
-            "Conditions": [
-                {
-                    "Condition": "EqualsAny",
-                    "Property": "VideoProfile",
-                    "Value": "main",
-                    "IsRequired": false
-                },
-                {
-                    "Condition": "LessThanEqual",
-                    "Property": "VideoLevel",
-                    "Value": DeviceCodecInfo.hevcLevel ? DeviceCodecInfo.hevcLevel : 120,
-                    "IsRequired": false
-                }
-            ]
-        }
-    );
-}
-if (DeviceCodecInfo.av1) {
-    CodecProfiles.push(
-        {
-            "Type": "Video",
-            "Codec": "av1",
-            "Conditions": [
-                {
-                    "Condition": "EqualsAny",
-                    "Property": "VideoProfile",
-                    "Value": "main",
-                    "IsRequired": false
-                },
-                {
-                    "Condition": "EqualsAny",
-                    "Property": "VideoRangeType",
-                    "Value": "SDR",
-                    "IsRequired": false
-                },
-                {
-                    "Condition": "LessThanEqual",
-                    "Property": "VideoLevel",
-                    "Value": DeviceCodecInfo.av1Level ? DeviceCodecInfo.av1Level : 15,
-                    "IsRequired": false
-                }
-            ]
-        }
-    );
+    }
+    if (DeviceCodecInfo.vp9.level) {
+        cp["Conditions"].push({
+            "Condition": "LessThanEqual",
+            "Property": "VideoLevel",
+            "Value": DeviceCodecInfo.vp9.level,
+            "IsRequired": false
+        });
+    }
+    CodecProfiles.push(cp);
 }
 
-const VideoCodec = (DeviceCodecInfo.av1 ? "av1," : "") +
+if (DeviceCodecInfo.avc) {
+    let cp = {
+        "Type": "Video",
+        "Codec": "h264",
+        "Conditions": [{
+            "Condition": "EqualsAny",
+            "Property": "VideoProfile",
+            "Value": "main|baseline|constrained baseline" +
+                (DeviceCodecInfo.avc.profile >= 3 ? "|high" : "") +
+                (DeviceCodecInfo.avc.profile >= 4 ? "|high 10" : ""),
+            "IsRequired": false
+        }]
+    }
+    if (DeviceCodecInfo.avc.level) {
+        cp["Conditions"].push({
+            "Condition": "LessThanEqual",
+            "Property": "VideoLevel",
+            "Value": DeviceCodecInfo.avc.level,
+            "IsRequired": false
+        });
+    }
+    CodecProfiles.push(cp);
+}
+
+if (DeviceCodecInfo.hevc) {
+    let cp = {
+        "Type": "Video",
+        "Codec": "hevc",
+        "Conditions": [{
+            "Condition": "EqualsAny",
+            "Property": "VideoProfile",
+            "Value": "main",
+            "IsRequired": false
+        }]
+    }
+    if (DeviceCodecInfo.hevc.level) {
+        cp["Conditions"].push({
+            "Condition": "LessThanEqual",
+            "Property": "VideoLevel",
+            "Value": DeviceCodecInfo.hevc.level,
+            "IsRequired": false
+        });
+    }
+    CodecProfiles.push(cp);
+}
+
+if (DeviceCodecInfo.av01) {
+    let cp = {
+        "Type": "Video",
+        "Codec": "av1",
+        "Conditions": [
+            {
+                "Condition": "EqualsAny",
+                "Property": "VideoProfile",
+                "Value": "main",
+                "IsRequired": false
+            },
+            {
+                "Condition": "EqualsAny",
+                "Property": "VideoRangeType",
+                "Value": "SDR",
+                "IsRequired": false
+            }
+        ]
+    }
+    if (DeviceCodecInfo.av01.level) {
+        cp["Conditions"].push({
+            "Condition": "LessThanEqual",
+            "Property": "VideoLevel",
+            "Value": DeviceCodecInfo.av01.level,
+            "IsRequired": false
+        });
+    }
+    CodecProfiles.push(cp);
+}
+
+const VideoCodec = (DeviceCodecInfo.av01 ? "av1," : "") +
     (DeviceCodecInfo.hevc ? "hevc," : "") +
-    (DeviceCodecInfo.h264 ? "h264," : "") +
+    (DeviceCodecInfo.avc ? "h264," : "") +
     (DeviceCodecInfo.vp9 ? "vp9," : "") +
     (DeviceCodecInfo.vp8 ? "vp8," : "") +
     "mpeg,mpeg2video";
@@ -240,13 +272,13 @@ const VideoCodec = (DeviceCodecInfo.av1 ? "av1," : "") +
 const DirectPlayProfiles = [
     {
         "Container": "asf,hls,m4v,mkv,mov,mp4,ogm,ogv,ts,vob,webm,wmv,xvid",
-        "AudioCodec": DeviceCodecInfo.audioList,
+        "AudioCodec": DeviceCodecInfo.audiolist,
         "VideoCodec": VideoCodec,
         "Type": "Video"
     },
     {
         "Container": "",
-        "AudioCodec": DeviceCodecInfo.audioList,
+        "AudioCodec": DeviceCodecInfo.audiolist,
         "Type": "Audio"
     },
     { 'Type': 'Photo' }
@@ -266,7 +298,8 @@ function getDeviceProfileAndroid(profileBuilder) {
                 "Container": "ts",
                 "Type": "Video",
                 "VideoCodec": VideoCodec,
-                "AudioCodec": DeviceCodecInfo.audioList,
+                "AudioCodec": DeviceCodecInfo.audiolist,
+                "Context": "Streaming",
                 "Protocol": "hls",
                 "EnableSubtitlesInManifest": true,
                 "Conditions": [],
