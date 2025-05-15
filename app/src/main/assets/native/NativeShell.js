@@ -69,7 +69,9 @@
                 return defaultLayout;
             },
 
-            getDeviceProfile: testProfiles,
+            getDeviceProfile: function () {
+                return window.DeviceProfile.getProfiles();
+            },
 
             supports: function (command) {
                 if (command === 'fullscreenchange' && defaultLayout === 'tv') return false;
@@ -138,37 +140,4 @@ window._ExternalPlayer = function () {
             resolve(ExternalPlayerPlugin);
         });
     });
-}
-
-
-function testProfiles(profileBuilder) {
-    let p = profileBuilder();
-
-    p['TranscodingProfiles'] = [
-        {
-            "Container": "ts",
-            "Type": "Video",
-            "VideoCodec": "hevc",
-            "AudioCodec": "mp3,aac",
-            "Context": "Streaming",
-            "Protocol": "hls",
-            "EnableSubtitlesInManifest": true,
-            "Conditions": [],
-            'MaxAudioChannels': '2'
-        },
-        {
-            "Container": "mp3",
-            "Type": "Audio",
-            "AudioCodec": "mp3",
-            "Protocol": "http",
-            "Conditions": []
-        }
-    ];
-
-    return p;
-}
-
-
-function getDeviceProfileAndroid(profileBuilder) {
-    console.log(window);
 }
