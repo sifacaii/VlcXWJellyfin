@@ -183,6 +183,20 @@ class DeviceCodecInfo {
     }
 
     getProfiles() {
+        let pz = {
+            "Type": "Video",
+            "Conditions": [
+                {
+                    Condition: 'LessThanEqual',
+                    Property: 'Width',
+                    Value: 1280,
+                    IsRequired: false
+                }
+            ]
+        };
+
+        this.CodecProfiles.push(pz);
+
         this.profile['CodecProfiles'] = this.CodecProfiles;
 
         this.profile['DirectPlayProfiles'] = [
