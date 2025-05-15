@@ -69,7 +69,7 @@
                 return defaultLayout;
             },
 
-            getDeviceProfile: getDeviceProfileAndroid,
+            getDeviceProfile: testProfiles,
 
             supports: function (command) {
                 if (command === 'fullscreenchange' && defaultLayout === 'tv') return false;
@@ -140,229 +140,35 @@ window._ExternalPlayer = function () {
     });
 }
 
-const DeviceCodecInfo = JSON.parse(window.NativeApi.getMediaCodecInfo());
-console.log(DeviceCodecInfo);
 
-const CodecProfiles = [];
+function testProfiles(profileBuilder) {
+    let p = profileBuilder();
 
-if (DeviceCodecInfo.vp8) {
-    let cp = {
-        "Type": "Video",
-        "Codec": "vp8",
-        "Conditions": []
-    }
-    if (DeviceCodecInfo.vp8.level) {
-        cp["Conditions"].push({
-            "Condition": "LessThanEqual",
-            "Property": "VideoLevel",
-            "Value": DeviceCodecInfo.vp8.level,
-            "IsRequired": false
-        });
-    }
-    CodecProfiles.push(cp);
+    p['TranscodingProfiles'] = [
+        {
+            "Container": "ts",
+            "Type": "Video",
+            "VideoCodec": "hevc",
+            "AudioCodec": "mp3,aac",
+            "Context": "Streaming",
+            "Protocol": "hls",
+            "EnableSubtitlesInManifest": true,
+            "Conditions": [],
+            'MaxAudioChannels': '2'
+        },
+        {
+            "Container": "mp3",
+            "Type": "Audio",
+            "AudioCodec": "mp3",
+            "Protocol": "http",
+            "Conditions": []
+        }
+    ];
+
+    return p;
 }
 
-if (DeviceCodecInfo.vp9) {
-    let cp = {
-        "Type": "Video",
-        "Codec": "vp9",
-        "Conditions": [
-            {
-                "Condition": "EqualsAny",
-                "Property": "VideoRangeType",
-                "Value": "SDR",
-                "IsRequired": false
-            }
-        ]
-    }
-    if (DeviceCodecInfo.vp9.level) {
-        cp["Conditions"].push({
-            "Condition": "LessThanEqual",
-            "Property": "VideoLevel",
-            "Value": DeviceCodecInfo.vp9.level,
-            "IsRequired": false
-        });
-    }
-    CodecProfiles.push(cp);
-}
-
-if (DeviceCodecInfo.avc) {
-    let cp = {
-        "Type": "Video",
-        "Codec": "h264",
-        "Conditions": [{
-            "Condition": "EqualsAny",
-            "Property": "VideoProfile",
-            "Value": "main|baseline|constrained baseline" +
-                (DeviceCodecInfo.avc.profile >= 3 ? "|high" : "") +
-                (DeviceCodecInfo.avc.profile >= 4 ? "|high 10" : ""),
-            "IsRequired": false
-        }]
-    }
-    if (DeviceCodecInfo.avc.level) {
-        cp["Conditions"].push({
-            "Condition": "LessThanEqual",
-            "Property": "VideoLevel",
-            "Value": DeviceCodecInfo.avc.level,
-            "IsRequired": false
-        });
-    }
-    CodecProfiles.push(cp);
-}
-
-if (DeviceCodecInfo.hevc) {
-    let cp = {
-        "Type": "Video",
-        "Codec": "hevc",
-        "Conditions": [{
-            "Condition": "EqualsAny",
-            "Property": "VideoProfile",
-            "Value": "main",
-            "IsRequired": false
-        }]
-    }
-    if (DeviceCodecInfo.hevc.level) {
-        cp["Conditions"].push({
-            "Condition": "LessThanEqual",
-            "Property": "VideoLevel",
-            "Value": DeviceCodecInfo.hevc.level,
-            "IsRequired": false
-        });
-    }
-    CodecProfiles.push(cp);
-}
-
-if (DeviceCodecInfo.av01) {
-    let cp = {
-        "Type": "Video",
-        "Codec": "av1",
-        "Conditions": [
-            {
-                "Condition": "EqualsAny",
-                "Property": "VideoProfile",
-                "Value": "main",
-                "IsRequired": false
-            },
-            {
-                "Condition": "EqualsAny",
-                "Property": "VideoRangeType",
-                "Value": "SDR",
-                "IsRequired": false
-            }
-        ]
-    }
-    if (DeviceCodecInfo.av01.level) {
-        cp["Conditions"].push({
-            "Condition": "LessThanEqual",
-            "Property": "VideoLevel",
-            "Value": DeviceCodecInfo.av01.level,
-            "IsRequired": false
-        });
-    }
-    CodecProfiles.push(cp);
-}
-
-const VideoCodec = (DeviceCodecInfo.av01 ? "av1," : "") +
-    (DeviceCodecInfo.hevc ? "hevc," : "") +
-    (DeviceCodecInfo.avc ? "h264," : "") +
-    (DeviceCodecInfo.vp9 ? "vp9," : "") +
-    (DeviceCodecInfo.vp8 ? "vp8," : "") +
-    "mpeg,mpeg2video";
-
-const DirectPlayProfiles = [
-    {
-        "Container": "asf,hls,m4v,mkv,mov,mp4,ogm,ogv,ts,vob,webm,wmv,xvid",
-        "AudioCodec": DeviceCodecInfo.audiolist,
-        "VideoCodec": VideoCodec,
-        "Type": "Video"
-    },
-    {
-        "Container": "",
-        "AudioCodec": DeviceCodecInfo.audiolist,
-        "Type": "Audio"
-    },
-    { 'Type': 'Photo' }
-]
 
 function getDeviceProfileAndroid(profileBuilder) {
-
-    var profile = {
-        Name: 'AndroidTV-Profile',
-        MaxStreamingBitrate: 120000000,
-        MaxStaticBitrate: 100000000,
-        MusicStreamingTranscodingBitrate: 384000,
-        DirectPlayProfiles: DirectPlayProfiles,
-        CodecProfiles: CodecProfiles,
-        TranscodingProfiles: [
-            {
-                "Container": "ts",
-                "Type": "Video",
-                "VideoCodec": VideoCodec,
-                "AudioCodec": DeviceCodecInfo.audiolist,
-                "Context": "Streaming",
-                "Protocol": "hls",
-                "EnableSubtitlesInManifest": true,
-                "Conditions": [],
-                'MaxAudioChannels': '2'
-            },
-            {
-                "Container": "mp3",
-                "Type": "Audio",
-                "AudioCodec": "mp3",
-                "Protocol": "http",
-                "Conditions": []
-            }
-        ],
-        SubtitleProfiles: [
-            { "Format": "vtt", "Method": "Embed" },
-            { "Format": "vtt", "Method": "External" },
-            { "Format": "vtt", "Method": "Hls" },
-            { "Format": "webvtt", "Method": "Embed" },
-            { "Format": "webvtt", "Method": "External" },
-            { "Format": "webvtt", "Method": "Hls" },
-            { "Format": "srt", "Method": "Embed" },
-            { "Format": "srt", "Method": "External" },
-            { "Format": "subrip", "Method": "Embed" },
-            { "Format": "subrip", "Method": "External" },
-            { "Format": "ttml", "Method": "Embed" },
-            { "Format": "ttml", "Method": "External" },
-            { "Format": "dvbsub", "Method": "Embed" },
-            { "Format": "dvbsub", "Method": "Encode" },
-            { "Format": "dvdsub", "Method": "Embed" },
-            { "Format": "dvdsub", "Method": "Encode" },
-            { "Format": "idx", "Method": "Embed" },
-            { "Format": "idx", "Method": "Encode" },
-            { "Format": "pgs", "Method": "Embed" },
-            { "Format": "pgs", "Method": "Encode" },
-            { "Format": "pgssub", "Method": "Embed" },
-            { "Format": "pgssub", "Method": "Encode" },
-            { "Format": "ass", "Method": "Encode" },
-            { "Format": "ssa", "Method": "Encode" }
-        ],
-        'ResponseProfiles': [],
-        'ContainerProfiles': []
-    }
-
-    if (localStorage.getItem('forceDirectPlay') == 'true') {
-        profile['DirectPlayProfiles'] = [{ Type: 'Video' }, { Type: 'Audio' }, { "Type": "Photo" }];
-        profile['TranscodingProfiles'] = [
-            {
-                "Container": "ts",
-                "Type": "Video",
-                "Protocol": "hls",
-                "EnableSubtitlesInManifest": true,
-                "Conditions": [],
-                'MaxAudioChannels': '2'
-            },
-            {
-                "Container": "mp3",
-                "Type": "Audio",
-                "AudioCodec": "mp3",
-                "Protocol": "http",
-                "Conditions": []
-            }
-        ]
-    }
-
-    return profile;
+    console.log(window);
 }

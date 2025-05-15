@@ -1,5 +1,6 @@
 (() => {
     const scripts = [
+        'native/DeviceProfile.js',
         'native/NativeShell.js',
         document.currentScript.src.concat('?deferred=true&ts=', Date.now())
     ];

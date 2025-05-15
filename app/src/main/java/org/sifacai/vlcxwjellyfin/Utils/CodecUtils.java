@@ -106,7 +106,7 @@ public class CodecUtils {
 
         try {
             proJson.put("audiolist", String.join(",", audioList));
-            proJson.put("videoList",ja);
+            proJson.put("videolist",ja);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
