@@ -94,41 +94,7 @@ public class MainActivity extends AppCompatActivity implements XWalkInitializer.
 
         xWalkView.setUIClient(new MXWalkUIClient(xWalkView));
 
-        xWalkView.setResourceClient(new XWalkResourceClient() {
-            @Override
-            public XWalkWebResourceResponse shouldInterceptLoadRequest(XWalkView view, XWalkWebResourceRequest request) {
-                String path = request.getUrl().getPath();
-                if (path == null) return null;
-                InputStream is = null;
-                try {
-                    if (path.toLowerCase(Locale.ROOT).matches(".*/main\\.[^/\\s]+\\.bundle\\.js") && !request.getUrl().getQuery().contains("deferred")) {
-                        is = getAssets().open("native/injectionScript.js");
-                    } else if (path.endsWith("NativeShell.js")) {
-                        is = getAssets().open("native/NativeShell.js");
-                    } else if (path.endsWith("ExternalPlayerPlugin.js")) {
-                        is = getAssets().open("native/ExternalPlayerPlugin.js");
-                    } else if (path.endsWith("clientSetting.js")) {
-                        is = getAssets().open("native/clientSetting.js");
-                    } else if (path.endsWith("clientSetting.html")) {
-                        is = getAssets().open("native/clientSetting.html");
-                        return new XWalkWebResourceResponse("text/html", "UTF-8", is);
-                    }
-                } catch (IOException e) {
-                    Log.e(TAG, "shouldInterceptLoadRequest: " + e.getMessage().toString(), null);
-                }
-                if (is == null) {
-                    return super.shouldInterceptLoadRequest(view, request);
-                } else {
-                    return new XWalkWebResourceResponse("application/javascript", "UTF-8", is);
-                }
-            }
-
-            @Override
-            public void onReceivedSslError(XWalkView view, ValueCallback<Boolean> callback, SslError error) {
-                //super.onReceivedSslError(view, callback, error);
-                callback.onReceiveValue(true);
-            }
-        });
+        xWalkView.setResourceClient(new MXwalkResourceClient());
 
         XWalkSettings settings = xWalkView.getSettings();
         settings.setCacheMode(XWalkSettings.LOAD_NO_CACHE);

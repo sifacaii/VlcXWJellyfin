@@ -4,6 +4,7 @@ import android.media.MediaCodecInfo;
 import android.media.MediaCodecList;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,24 +51,30 @@ public class CodecUtils {
         return type;
     }
 
-    private MediaCodecInfo.CodecProfileLevel getMaxProfile(String mime) {
-        MediaCodecInfo.CodecProfileLevel cpl = null;
-        ArrayList<MediaCodecInfo> infos = codecs.get(mime);
-        for (MediaCodecInfo info : infos) {
-            MediaCodecInfo.CodecCapabilities capabilities = info.getCapabilitiesForType(mime);
-            for (MediaCodecInfo.CodecProfileLevel profileLevel : capabilities.profileLevels) {
-                if (cpl == null || profileLevel.profile > cpl.profile) cpl = profileLevel;
+    private CodecProfileLevelList.CodecProfileLevelAdapter getMaxProfile(String mime,Object[] codecProfileLevelList) {
+        CodecProfileLevelList.CodecProfileLevelAdapter maxCP = null;
+        for(Object o : codecProfileLevelList) {
+            CodecProfileLevelList.CodecProfileLevelAdapter cp = (CodecProfileLevelList.CodecProfileLevelAdapter) o;
+            if(mime != cp.getMimetype()) continue;
+
+            if(maxCP == null || cp.getProfile() > maxCP.getProfile()){
+                maxCP = cp;
             }
         }
-        return cpl;
+        return maxCP;
     }
 
     private Object[] getSupportedCodecProfileLevels() {
         CodecProfileLevelList profileLevels = new CodecProfileLevelList();
 
-        for (String mimetype : codecs.keySet()) {
-            MediaCodecInfo.CodecProfileLevel profile = getMaxProfile(mimetype);
-            if (profile != null) profileLevels.addCodecProfileLevel(mimetype, profile);
+        for (String mime : codecs.keySet()) {
+            ArrayList<MediaCodecInfo> infos = codecs.get(mime);
+            for (MediaCodecInfo info : infos) {
+                MediaCodecInfo.CodecCapabilities capabilities = info.getCapabilitiesForType(mime);
+                for (MediaCodecInfo.CodecProfileLevel profileLevel : capabilities.profileLevels) {
+                    profileLevels.addCodecProfileLevel(mime, profileLevel);
+                }
+            }
         }
 
         return profileLevels.toArray();
@@ -75,31 +82,35 @@ public class CodecUtils {
 
     public String getSupportedCodec() {
         JSONObject proJson = new JSONObject();
+
+        JSONArray ja = new JSONArray();
         Object[] cplas = getSupportedCodecProfileLevels();
-        for (Object o : cplas) {
-            CodecProfileLevelList.CodecProfileLevelAdapter cp = (CodecProfileLevelList.CodecProfileLevelAdapter) o;
-            String mime = cp.getMimetype();
-            mime = mime.replace("video/","");
-            if(mime.endsWith("vp9")) mime="vp9";
-            if(mime.endsWith("vp8")) mime="vp8";
-            try {
-                proJson.put(
-                        mime,
-                        new JSONObject()
-                                .put("profile", cp.getProfile())
-                                .put("level", cp.getLevel())
-                );
-            } catch (JSONException e) {
-                Log.e(TAG, "getSupportedCodec: ", e);
+
+        for (String mime : codecs.keySet()) {
+            CodecProfileLevelList.CodecProfileLevelAdapter cp = getMaxProfile(mime,cplas);
+            if(cp!= null){
+                String mimetype = mime.replace("video/", "");
+                if (mimetype.endsWith("vp9")) mimetype = "vp9";
+                if (mimetype.endsWith("vp8")) mimetype = "vp8";
+                try {
+                    ja.put(
+                            new JSONObject().put("mime",mimetype)
+                                    .put("profile",cp.getProfile())
+                                    .put("level",cp.getLevel())
+                    );
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 
         try {
-            proJson.put("audiolist",String.join(",",audioList));
+            proJson.put("audiolist", String.join(",", audioList));
+            proJson.put("videoList",ja);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+
         return proJson.toString();
     }
-
 }

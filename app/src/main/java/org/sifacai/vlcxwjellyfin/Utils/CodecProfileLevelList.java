@@ -12,6 +12,7 @@ import static android.media.MediaFormat.MIMETYPE_VIDEO_VP8;
 import static android.media.MediaFormat.MIMETYPE_VIDEO_VP9;
 
 import android.media.MediaCodecInfo.CodecProfileLevel;
+import android.util.Log;
 
 import org.chromium.media.VideoCodecProfile;
 
@@ -55,26 +56,28 @@ class CodecProfileLevelList {
         private final String mMimetype;
         private final int mProfile;
         private final int mLevel;
+
         public CodecProfileLevelAdapter(String mimetype, int profile, int level) {
             mMimetype = mimetype;
             mProfile = profile;
             mLevel = level;
         }
-        
+
         public String getMimetype() {
             return mMimetype;
         }
-        
+
         public int getProfile() {
             return mProfile;
         }
-        
+
         public int getLevel() {
             return mLevel;
         }
     }
 
-    private static class UnsupportedCodecProfileException extends RuntimeException {}
+    private static class UnsupportedCodecProfileException extends RuntimeException {
+    }
 
     public static int mediaCodecProfileToChromiumMediaProfile(String mimetype, int profile) {
         switch (mimetype) {
