@@ -10,25 +10,53 @@
     <div class="formDialogContent smoothScrollY" style="padding: 0.5em 1em 10em 1em;">
         <form class="" style="margin:auto;">
             <div class="verticalSection">
-                <h2 class="sectionTitle">播放设置</h2>
+                <div class="verticalSection verticalSection-extrabottompadding">
+                    <h2 class="sectionTitle">播放设置</h2>
 
-                <div class="checkboxContainer checkboxContainer-withDescription">
-                    <label>
-                        <input is="emby-checkbox" type="checkbox" id="useExternalplayer" />
-                        <span>调用外部播放器</span>
-                    </label>
-                    <div class="fieldDescription checkboxFieldDescription"></div>
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label>
+                            <input is="emby-checkbox" type="checkbox" id="useExternalplayer" />
+                            <span>调用外部播放器</span>
+                        </label>
+                        <div class="fieldDescription checkboxFieldDescription"></div>
+                    </div>
+
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label>
+                            <input is="emby-checkbox" type="checkbox" id="forceDirectPlay" />
+                            <span>直接播放</span>
+                        </label>
+                        <div class="fieldDescription checkboxFieldDescription">选中此项将强制直接播放，不再服务器转码。</div>
+                        <div class="fieldDescription checkboxFieldDescription">此项对调用外部播放器和网页播放都有影响。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="verticalSection verticalSection-extrabottompadding">
+                <h2 class="sectionTitle">转码设置</h2>
+
+                <div class="selectContainer">
+                    <select is="emby-select" id="selectMaxVideoWidth" label="最大视频分辨率">
+                        <option value="0">自动</option>
+                        <option value="640">360p</option>
+                        <option value="852">480p</option>
+                        <option value="1280">720p</option>
+                        <option value="1920">1080p</option>
+                        <option value="3840">4K</option>
+                        <option value="7680">8K</option>
+                    </select>
                 </div>
 
-                <div class="checkboxContainer checkboxContainer-withDescription">
-                    <label>
-                        <input is="emby-checkbox" type="checkbox" id="forceDirectPlay" />
-                        <span>直接播放</span>
-                    </label>
-                    <div class="fieldDescription checkboxFieldDescription">选中此项将强制直接播放，不再服务器转码。</div>
-                    <div class="fieldDescription checkboxFieldDescription">此项对调用外部播放器和网页播放都有影响。</div>
+                <div class="selectContainer">
+                    <select is="emby-select" id="selectAllowedAudioChannels" label="最大声道数量">
+                        <option value="-1">自动</option>
+                        <option value="1">单声道</option>
+                        <option value="2">立体声</option>
+                        <option value="6">5.1 声道</option>
+                        <option value="8">7.1 声道</option>
+                    </select>
                 </div>
-            </div>            
+
+            </div>
         </form>
     </div>
     <div class="formDialogFooter">

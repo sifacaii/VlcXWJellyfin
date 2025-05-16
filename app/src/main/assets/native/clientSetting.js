@@ -41,12 +41,23 @@ class ClientSetting {
     init(dlg) {
         dlg.querySelector('#useExternalplayer').checked = localStorage.getItem('useExternalplayer') == 'true';
         dlg.querySelector('#forceDirectPlay').checked = localStorage.getItem('forceDirectPlay') == 'true';
+
+        let maxVideoWidth = localStorage.getItem('MaxVideoWidth') || 0;
+        maxVideoWidth = maxVideoWidth == 0 ? 1280 : maxVideoWidth;
+        dlg.querySelector('#selectMaxVideoWidth').value = maxVideoWidth;
+
+        let maxAudioChannels = localStorage.getItem('AllowedAudioChannels') || -1;
+        maxAudioChannels = maxAudioChannels == -1 ? 2 : maxAudioChannels;
+        dlg.querySelector('#selectAllowedAudioChannels').value = maxAudioChannels;
     }
 
     save(dlg) {
         // 使用外部播放器
         localStorage.setItem('useExternalplayer', dlg.querySelector('#useExternalplayer').checked);
         localStorage.setItem('forceDirectPlay', dlg.querySelector('#forceDirectPlay').checked);
+
+        localStorage.setItem('MaxVideoWidth', dlg.querySelector('#selectMaxVideoWidth').value);
+        localStorage.setItem('AllowedAudioChannels', dlg.querySelector('#selectAllowedAudioChannels').value);
 
         window.InnerComponents.Components.toast('已保存')
         window.InnerComponents.Components.dashboard.default.dialogHelper.close(dlg);

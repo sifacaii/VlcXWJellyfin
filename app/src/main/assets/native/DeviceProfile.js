@@ -34,6 +34,14 @@ class DeviceCodecInfo {
         'ContainerProfiles': []
     }
 
+    MaxVideoWidth = {
+        Condition: 'LessThanEqual',
+        Property: 'Width',
+        Value: 1280,
+        IsRequired: false
+    }
+
+
     constructor() {
         this.codecInfo = JSON.parse(window.NativeApi.getMediaCodecInfo());
         console.log(this.codecInfo);
@@ -65,6 +73,11 @@ class DeviceCodecInfo {
                     this.av1(ele);
                     break
             }
+        });
+
+        this.CodecProfiles.push({
+            "Type": "Video",
+            "Conditions": [this.MaxVideoWidth]
         });
     }
 
@@ -183,19 +196,10 @@ class DeviceCodecInfo {
     }
 
     getProfiles() {
-        let pz = {
-            "Type": "Video",
-            "Conditions": [
-                {
-                    Condition: 'LessThanEqual',
-                    Property: 'Width',
-                    Value: 1280,
-                    IsRequired: false
-                }
-            ]
-        };
 
-        this.CodecProfiles.push(pz);
+        let maxVideoWidth = localStorage.getItem('MaxVideoWidth') || 0;
+        maxVideoWidth = maxVideoWidth == 0 ? 1280 : maxVideoWidth;
+        this.MaxVideoWidth.Value = maxVideoWidth;
 
         this.profile['CodecProfiles'] = this.CodecProfiles;
 
@@ -214,6 +218,9 @@ class DeviceCodecInfo {
             { 'Type': 'Photo' }
         ]
 
+        let maxAudioChannels = localStorage.getItem('AllowedAudioChannels') || -1;
+        maxAudioChannels = maxAudioChannels == -1 ? 2 : maxAudioChannels;
+
         this.profile['TranscodingProfiles'] = [
             {
                 "Container": "ts",
@@ -222,9 +229,7 @@ class DeviceCodecInfo {
                 "AudioCodec": this.audiolist,
                 "Context": "Streaming",
                 "Protocol": "hls",
-                "EnableSubtitlesInManifest": true,
-                "Conditions": [],
-                'MaxAudioChannels': '2'
+                'MaxAudioChannels': maxAudioChannels
             },
             {
                 "Container": "mp3",
