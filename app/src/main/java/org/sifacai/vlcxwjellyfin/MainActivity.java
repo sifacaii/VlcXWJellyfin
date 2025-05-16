@@ -1,12 +1,9 @@
 package org.sifacai.vlcxwjellyfin;
 
 import android.annotation.SuppressLint;
-import android.net.http.SslError;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.ValueCallback;
 import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -17,16 +14,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.pakdata.xwalk.refactor.XWalkPreferences;
-import com.pakdata.xwalk.refactor.XWalkResourceClient;
 import com.pakdata.xwalk.refactor.XWalkSettings;
 import com.pakdata.xwalk.refactor.XWalkView;
-import com.pakdata.xwalk.refactor.XWalkWebResourceRequest;
-import com.pakdata.xwalk.refactor.XWalkWebResourceResponse;
 
 import org.xwalk.core.XWalkInitializer;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements XWalkInitializer.XWalkInitListener {
 
