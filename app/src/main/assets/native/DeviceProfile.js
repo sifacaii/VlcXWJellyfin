@@ -41,7 +41,6 @@ class DeviceCodecInfo {
         IsRequired: false
     }
 
-
     constructor() {
         this.codecInfo = JSON.parse(window.NativeApi.getMediaCodecInfo());
         console.log(this.codecInfo);
@@ -179,11 +178,6 @@ class DeviceCodecInfo {
                     "IsRequired": false
                 },
                 {
-                    "Condition": "EqualsAny",
-                    "Property": "VideoRangeType",
-                    "Value": "SDR",
-                    "IsRequired": false
-                }, {
                     "Condition": "LessThanEqual",
                     "Property": "VideoLevel",
                     "Value": ele.level,
@@ -196,6 +190,13 @@ class DeviceCodecInfo {
     }
 
     getProfiles() {
+
+        if (localStorage.getItem('forceDirectPlay') == 'true') {
+            this.profile['CodecProfiles'] = [];
+            this.profile['DirectPlayProfiles'] = [{ Type: 'Video' }, { Type: 'Audio' }, { "Type": "Photo" }];
+            this.profile['TranscodingProfiles'] = [];
+            return this.profile;
+        }
 
         let maxVideoWidth = localStorage.getItem('MaxVideoWidth') || 0;
         maxVideoWidth = maxVideoWidth == 0 ? 1280 : maxVideoWidth;
@@ -239,27 +240,6 @@ class DeviceCodecInfo {
                 "Conditions": []
             }
         ]
-
-        if (localStorage.getItem('forceDirectPlay') == 'true') {
-            this.profile['DirectPlayProfiles'] = [{ Type: 'Video' }, { Type: 'Audio' }, { "Type": "Photo" }];
-            this.profile['TranscodingProfiles'] = [
-                {
-                    "Container": "ts",
-                    "Type": "Video",
-                    "Protocol": "hls",
-                    "EnableSubtitlesInManifest": true,
-                    "Conditions": [],
-                    'MaxAudioChannels': '2'
-                },
-                {
-                    "Container": "mp3",
-                    "Type": "Audio",
-                    "AudioCodec": "mp3",
-                    "Protocol": "http",
-                    "Conditions": []
-                }
-            ]
-        }
 
         return this.profile;
     }
