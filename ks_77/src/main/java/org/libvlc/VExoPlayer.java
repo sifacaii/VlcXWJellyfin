@@ -147,16 +147,19 @@ public class VExoPlayer extends MediaPlayer {
                     case PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED:
                     case PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED:
                         listener.onError(null, MediaPlayer.MEDIA_ERROR_UNKNOWN, MediaPlayer.MEDIA_ERROR_MALFORMED);
+                        break;
+                    case PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_FAILED:
                     case PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_TIMEOUT:
                     case PlaybackException.ERROR_CODE_TIMEOUT:
                         listener.onError(null, MediaPlayer.MEDIA_ERROR_UNKNOWN, MediaPlayer.MEDIA_ERROR_TIMED_OUT);
+                        break;
                     case PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES:
                     case PlaybackException.ERROR_CODE_DECODING_FORMAT_UNSUPPORTED:
                         listener.onError(null, MediaPlayer.MEDIA_ERROR_UNKNOWN, 0);
-                    case PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_FAILED:
-                        listener.onError(null, MediaPlayer.MEDIA_ERROR_SERVER_DIED, 0);
+                        break;
                     default:
-                        listener.onError(null, 0, 0);
+                        listener.onError(null, MediaPlayer.MEDIA_ERROR_UNKNOWN, 0);
+                        break;
                 }
 
             }
