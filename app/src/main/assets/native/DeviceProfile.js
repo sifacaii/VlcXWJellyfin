@@ -5,30 +5,18 @@ class DeviceCodecInfo {
         MaxStaticBitrate: 100000000,
         MusicStreamingTranscodingBitrate: 384000,
         SubtitleProfiles: [
-            { "Format": "vtt", "Method": "Embed" },
-            { "Format": "vtt", "Method": "External" },
-            { "Format": "vtt", "Method": "Hls" },
-            { "Format": "webvtt", "Method": "Embed" },
-            { "Format": "webvtt", "Method": "External" },
-            { "Format": "webvtt", "Method": "Hls" },
-            { "Format": "srt", "Method": "Embed" },
-            { "Format": "srt", "Method": "External" },
-            { "Format": "subrip", "Method": "Embed" },
-            { "Format": "subrip", "Method": "External" },
-            { "Format": "ttml", "Method": "Embed" },
-            { "Format": "ttml", "Method": "External" },
-            { "Format": "dvbsub", "Method": "Embed" },
-            { "Format": "dvbsub", "Method": "Encode" },
-            { "Format": "dvdsub", "Method": "Embed" },
-            { "Format": "dvdsub", "Method": "Encode" },
-            { "Format": "idx", "Method": "Embed" },
-            { "Format": "idx", "Method": "Encode" },
-            { "Format": "pgs", "Method": "Embed" },
-            { "Format": "pgs", "Method": "Encode" },
-            { "Format": "pgssub", "Method": "Embed" },
-            { "Format": "pgssub", "Method": "Encode" },
-            { "Format": "ass", "Method": "Encode" },
-            { "Format": "ssa", "Method": "Encode" }
+            {
+                "Format": "vtt",
+                "Method": "External"
+            },
+            {
+                "Format": "ass",
+                "Method": "External"
+            },
+            {
+                "Format": "ssa",
+                "Method": "External"
+            }
         ],
         'ResponseProfiles': [],
         'ContainerProfiles': []
