@@ -194,7 +194,7 @@ class DeviceCodecInfo {
 
         this.profile['DirectPlayProfiles'] = [
             {
-                "Container": "asf,hls,m4v,mkv,mov,mp4,ogm,ogv,ts,vob,webm,wmv,xvid",
+                "Container": "m4v,mov,xvid,vob,mkv,wmv,ogm,ogv,mp4,webm",
                 "AudioCodec": this.audiolist,
                 "VideoCodec": this.VideoCodec.join(','),
                 "Type": "Video"
