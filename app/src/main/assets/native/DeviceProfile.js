@@ -180,15 +180,11 @@ class DeviceCodecInfo {
     getProfiles() {
 
         let audios = [];
-
-        if (localStorage.getItem("enableAC3") === 'true') {
-            if (this.audiolist.includes('ac3')) {
-                audios.push('ac3');
-            } else {
-                audios = this.audiolist.slice();
-            }
+        let selectTranscodeVideoAudioCodec = localStorage.getItem("selectTranscodeVideoAudioCodec") || "";
+        if (selectTranscodeVideoAudioCodec === "") {
+            audios = this.audiolist.slice();
         } else {
-            audios = this.audiolist.filter(a => a != 'ac3');
+            audios.push(selectTranscodeVideoAudioCodec);
         }
 
         if (localStorage.getItem('forceDirectPlay') == 'true') {
