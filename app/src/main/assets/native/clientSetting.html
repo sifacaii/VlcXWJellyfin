@@ -44,6 +44,7 @@
                         <option value="3840">4K</option>
                         <option value="7680">8K</option>
                     </select>
+                    <div class="fieldDescription checkboxFieldDescription">如果播放时黑屏，请适当降低分辨率。</div>
                 </div>
 
                 <div class="selectContainer">
@@ -56,6 +57,13 @@
                     </select>
                 </div>
 
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label>
+                        <input is="emby-checkbox" type="checkbox" id="enableAC3" />
+                        <span>启用AC3</span>
+                    </label>
+                    <div class="fieldDescription checkboxFieldDescription">如果设备不包含AC3解码器，此选项无意义。</div>
+                </div>
             </div>
         </form>
     </div>

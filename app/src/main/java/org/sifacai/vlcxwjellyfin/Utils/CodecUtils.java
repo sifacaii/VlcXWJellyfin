@@ -51,13 +51,13 @@ public class CodecUtils {
         return type;
     }
 
-    private CodecProfileLevelList.CodecProfileLevelAdapter getMaxProfile(String mime,Object[] codecProfileLevelList) {
+    private CodecProfileLevelList.CodecProfileLevelAdapter getMaxProfile(String mime, Object[] codecProfileLevelList) {
         CodecProfileLevelList.CodecProfileLevelAdapter maxCP = null;
-        for(Object o : codecProfileLevelList) {
+        for (Object o : codecProfileLevelList) {
             CodecProfileLevelList.CodecProfileLevelAdapter cp = (CodecProfileLevelList.CodecProfileLevelAdapter) o;
-            if(mime != cp.getMimetype()) continue;
+            if (mime != cp.getMimetype()) continue;
 
-            if(maxCP == null || cp.getProfile() > maxCP.getProfile()){
+            if (maxCP == null || cp.getProfile() > maxCP.getProfile()) {
                 maxCP = cp;
             }
         }
@@ -87,16 +87,16 @@ public class CodecUtils {
         Object[] cplas = getSupportedCodecProfileLevels();
 
         for (String mime : codecs.keySet()) {
-            CodecProfileLevelList.CodecProfileLevelAdapter cp = getMaxProfile(mime,cplas);
-            if(cp!= null){
+            CodecProfileLevelList.CodecProfileLevelAdapter cp = getMaxProfile(mime, cplas);
+            if (cp != null) {
                 String mimetype = mime.replace("video/", "");
                 if (mimetype.endsWith("vp9")) mimetype = "vp9";
                 if (mimetype.endsWith("vp8")) mimetype = "vp8";
                 try {
                     ja.put(
-                            new JSONObject().put("mime",mimetype)
-                                    .put("profile",cp.getProfile())
-                                    .put("level",cp.getLevel())
+                            new JSONObject().put("mime", mimetype)
+                                    .put("profile", cp.getProfile())
+                                    .put("level", cp.getLevel())
                     );
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -105,8 +105,8 @@ public class CodecUtils {
         }
 
         try {
-            proJson.put("audiolist", String.join(",", audioList));
-            proJson.put("videolist",ja);
+            proJson.put("audiolist", audioList);
+            proJson.put("videolist", ja);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

@@ -179,6 +179,14 @@ class DeviceCodecInfo {
 
     getProfiles() {
 
+        let audios = this.audiolist.slice();
+
+        if (localStorage.getItem("enableAC3") === 'true') {
+
+        } else {
+            audios.filter(a => a != 'ac3');
+        }
+
         if (localStorage.getItem('forceDirectPlay') == 'true') {
             this.profile['CodecProfiles'] = [];
             this.profile['DirectPlayProfiles'] = [{ Type: 'Video' }, { Type: 'Audio' }, { "Type": "Photo" }];
@@ -195,13 +203,13 @@ class DeviceCodecInfo {
         this.profile['DirectPlayProfiles'] = [
             {
                 "Container": "m4v,mov,xvid,vob,mkv,wmv,ogm,ogv,mp4,webm",
-                "AudioCodec": this.audiolist,
+                "AudioCodec": audios.join(','),
                 "VideoCodec": this.VideoCodec.join(','),
                 "Type": "Video"
             },
             {
                 "Container": "",
-                "AudioCodec": this.audiolist,
+                "AudioCodec": audios.join(','),
                 "Type": "Audio"
             },
             { 'Type': 'Photo' }
@@ -215,7 +223,7 @@ class DeviceCodecInfo {
                 "Container": "ts",
                 "Type": "Video",
                 "VideoCodec": this.VideoCodec.join(','),
-                "AudioCodec": this.audiolist,
+                "AudioCodec": audios.join(','),
                 "Context": "Streaming",
                 "Protocol": "hls",
                 'MaxAudioChannels': maxAudioChannels

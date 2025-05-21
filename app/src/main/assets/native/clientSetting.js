@@ -49,6 +49,9 @@ class ClientSetting {
         let maxAudioChannels = localStorage.getItem('AllowedAudioChannels') || -1;
         maxAudioChannels = maxAudioChannels == -1 ? 2 : maxAudioChannels;
         dlg.querySelector('#selectAllowedAudioChannels').value = maxAudioChannels;
+
+        //启用AC3
+        dlg.querySelector("#enableAC3").checked = localStorage.getItem("enableAC3") == 'true';
     }
 
     save(dlg) {
@@ -58,6 +61,8 @@ class ClientSetting {
 
         localStorage.setItem('MaxVideoWidth', dlg.querySelector('#selectMaxVideoWidth').value);
         localStorage.setItem('AllowedAudioChannels', dlg.querySelector('#selectAllowedAudioChannels').value);
+
+        localStorage.setItem('enableAC3', dlg.querySelector("#enableAC3").checked);
 
         window.InnerComponents.Components.toast('已保存')
         window.InnerComponents.Components.dashboard.default.dialogHelper.close(dlg);
