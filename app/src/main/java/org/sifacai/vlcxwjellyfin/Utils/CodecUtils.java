@@ -105,7 +105,7 @@ public class CodecUtils {
         }
 
         try {
-            proJson.put("audiolist", audioList);
+            proJson.put("audiolist", new JSONArray(audioList));
             proJson.put("videolist", ja);
         } catch (JSONException e) {
             throw new RuntimeException(e);

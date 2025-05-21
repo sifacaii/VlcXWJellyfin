@@ -179,12 +179,16 @@ class DeviceCodecInfo {
 
     getProfiles() {
 
-        let audios = this.audiolist.slice();
+        let audios = [];
 
         if (localStorage.getItem("enableAC3") === 'true') {
-
+            if (this.audiolist.includes('ac3')) {
+                audios.push('ac3');
+            } else {
+                audios = this.audiolist.slice();
+            }
         } else {
-            audios.filter(a => a != 'ac3');
+            audios = this.audiolist.filter(a => a != 'ac3');
         }
 
         if (localStorage.getItem('forceDirectPlay') == 'true') {
