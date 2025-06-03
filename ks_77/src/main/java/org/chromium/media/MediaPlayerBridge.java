@@ -21,6 +21,7 @@ import org.chromium.base.StreamUtil;
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
 import org.chromium.base.task.AsyncTask;
+import org.libvlc.IjkPlayer;
 import org.libvlc.VExoPlayer;
 
 import java.io.ByteArrayInputStream;
@@ -46,6 +47,7 @@ public class MediaPlayerBridge {
     private LoadDataUriTask mLoadDataUriTask;
     private MediaPlayer mPlayer;
     private VExoPlayer vPlayer;
+    private IjkPlayer ijkPlayer;
     private long mNativeMediaPlayerBridge;
 
     @CalledByNative
@@ -67,10 +69,14 @@ public class MediaPlayerBridge {
     }
 
     protected MediaPlayer getLocalPlayer() {
-        if (vPlayer == null) {
-            vPlayer = new VExoPlayer();
+        if(ijkPlayer == null){
+            ijkPlayer = new IjkPlayer();
         }
-        return vPlayer;
+        return ijkPlayer;
+//        if (vPlayer == null) {
+//            vPlayer = new VExoPlayer();
+//        }
+//        return vPlayer;
 //        if (mPlayer == null) {
 //            mPlayer = new MediaPlayer();
 //        }
