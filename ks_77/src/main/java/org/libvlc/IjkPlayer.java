@@ -20,7 +20,7 @@ public class IjkPlayer extends MediaPlayer {
 
     public IjkPlayer() {
         player = new IjkMediaPlayer();
-        player.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
+        player.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-all-videos", 1);
     }
 
     @Override
