@@ -201,12 +201,12 @@ class DeviceCodecInfo {
         this.profile['CodecProfiles'] = this.CodecProfiles;
 
         this.profile['DirectPlayProfiles'] = [
-            // {
-            //     "Container": "m4v,mov,xvid,vob,mkv,wmv,ogm,ogv,mp4,webm",
-            //     "AudioCodec": audios.join(','),
-            //     "VideoCodec": this.VideoCodec.join(','),
-            //     "Type": "Video"
-            // },
+            {
+                "Container": "m4v,mov,xvid,vob,wmv,ogm,ogv,mp4,webm",
+                "AudioCodec": audios.join(','),
+                "VideoCodec": this.VideoCodec.join(','),
+                "Type": "Video"
+            },
             {
                 "Container": "",
                 "AudioCodec": audios.join(','),
