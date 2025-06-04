@@ -10,7 +10,7 @@ android {
         applicationId "org.sifacai.vlcxwjellyfin"
         minSdk 17
         targetSdk 34
-        versionCode 1
+        versionCode 7
         versionName "1.1.7"
 
         multiDexEnabled true
@@ -20,7 +20,7 @@ android {
     splits {
         abi {
             enable true
-            include 'x86','x86_64','armeabi-v7a', 'arm64-v8a'
+            include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
         }
     }
 
@@ -36,6 +36,14 @@ android {
     }
     aaptOptions {
         noCompress "bin", "dat", "pak"
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def createTime = new Date().format("YYYYMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
+            def abi = output.getFilter(com.android.build.OutputFile.ABI)
+            def fileName = "VlcXWJellyfin_${abi}_${buildType.name}_${defaultConfig.versionName}_${createTime}.apk"
+            outputFileName = fileName
+        }
     }
 }
 
