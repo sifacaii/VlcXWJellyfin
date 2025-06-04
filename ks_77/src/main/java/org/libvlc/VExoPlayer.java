@@ -29,8 +29,9 @@ public class VExoPlayer extends MediaPlayer {
         RenderersFactory renderersFactory = new DefaultRenderersFactory(ContextUtils.getApplicationContext())
                 .setEnableDecoderFallback(true)
                 .setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
-        ePlayer = new SimpleExoPlayer.Builder(ContextUtils.getApplicationContext(), renderersFactory).build();
-
+        ePlayer = new SimpleExoPlayer.Builder(ContextUtils.getApplicationContext(), renderersFactory)
+                .setMediaSourceFactory(HttpsUtils.createNoTrustSourceFactory())
+                .build();
     }
 
     @Override

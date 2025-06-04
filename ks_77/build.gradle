@@ -44,7 +44,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.android.gms:play-services-vision:20.1.3'
     implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.2'
-    implementation libs.exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
     implementation project(':ijkplayer-java')
-    //api project(':libvlc')
+    implementation 'com.google.android.exoplayer:extension-okhttp:2.14.2'
+    implementation 'org.conscrypt:conscrypt-android:2.5.3'
 }

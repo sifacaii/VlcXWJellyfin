@@ -7,13 +7,6 @@ appcompat = "1.6.1"
 material = "1.11.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
-exoplayer = "2.19.1"
-exoplayerCore = "2.19.1"
-exoplayerDash = "2.19.1"
-exoplayerContainer = "2.19.1"
-exoplayerHls = "2.19.1"
-exoplayerDecoder = "2.19.1"
-exoplayerExtractor = "2.19.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -23,13 +16,6 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version.ref = "exoplayer" }
-exoplayer-core = { group = "com.google.android.exoplayer", name = "exoplayer-core", version.ref = "exoplayerCore" }
-exoplayer-dash = { group = "com.google.android.exoplayer", name = "exoplayer-dash", version.ref = "exoplayerDash" }
-exoplayer-container = { group = "com.google.android.exoplayer", name = "exoplayer-container", version.ref = "exoplayerContainer" }
-exoplayer-hls = { group = "com.google.android.exoplayer", name = "exoplayer-hls", version.ref = "exoplayerHls" }
-exoplayer-decoder = { group = "com.google.android.exoplayer", name = "exoplayer-decoder", version.ref = "exoplayerDecoder" }
-exoplayer-extractor = { group = "com.google.android.exoplayer", name = "exoplayer-extractor", version.ref = "exoplayerExtractor" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

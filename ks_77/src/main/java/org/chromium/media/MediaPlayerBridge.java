@@ -46,7 +46,7 @@ public class MediaPlayerBridge {
     // want it.
     private LoadDataUriTask mLoadDataUriTask;
     private MediaPlayer mPlayer;
-    private VExoPlayer vPlayer;
+    private VExoPlayer vExoPlayer;
     private IjkPlayer ijkPlayer;
     private long mNativeMediaPlayerBridge;
 
@@ -69,14 +69,14 @@ public class MediaPlayerBridge {
     }
 
     protected MediaPlayer getLocalPlayer() {
-        if(ijkPlayer == null){
-            ijkPlayer = new IjkPlayer();
-        }
-        return ijkPlayer;
-//        if (vPlayer == null) {
-//            vPlayer = new VExoPlayer();
+//        if(ijkPlayer == null){
+//            ijkPlayer = new IjkPlayer();
 //        }
-//        return vPlayer;
+//        return ijkPlayer;
+        if (vExoPlayer == null) {
+            vExoPlayer = new VExoPlayer();
+        }
+        return vExoPlayer;
 //        if (mPlayer == null) {
 //            mPlayer = new MediaPlayer();
 //        }
