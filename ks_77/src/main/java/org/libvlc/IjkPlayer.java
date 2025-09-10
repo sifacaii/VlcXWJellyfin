@@ -55,6 +55,11 @@ public class IjkPlayer extends MediaPlayer {
         if (player != null) player.pause();
     }
 
+    public void setSpeed(double speed) {
+        if (player != null) return;
+        player.setSpeed((float) speed);
+    }
+
     @Override
     public int getVideoWidth() {
         return player == null ? -1 : player.getVideoWidth();
