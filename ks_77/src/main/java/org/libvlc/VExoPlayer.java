@@ -118,6 +118,11 @@ public class VExoPlayer extends MediaPlayer {
         ePlayer.seekTo(msec);
     }
 
+    public void setSpeed(double speed) {
+        if (ePlayer == null) return;
+        ePlayer.setPlaybackSpeed((float) speed);
+    }
+
     @Override
     public void setDataSource(@NonNull Context context, @NonNull Uri uri, @Nullable Map<String, String> headers) throws IOException, IllegalArgumentException, IllegalStateException, SecurityException {
         if (ePlayer == null) return;
