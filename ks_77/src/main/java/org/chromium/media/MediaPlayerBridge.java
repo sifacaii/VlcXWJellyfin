@@ -187,6 +187,12 @@ public class MediaPlayerBridge {
     }
 
     @CalledByNative
+    protected void setPlaybackRate(double speed) {
+        VExoPlayer vep = (VExoPlayer) getLocalPlayer();
+        vep.setSpeed(speed);
+    }
+
+    @CalledByNative
     protected boolean setDataSource(String url, String cookies, String userAgent, boolean hideUrlLog) {
         Uri uri = Uri.parse(url);
         HashMap<String, String> headersMap = new HashMap<String, String>();
