@@ -19,6 +19,8 @@ public class IjkPlayer extends MediaPlayer {
     IjkMediaPlayer player;
 
     public IjkPlayer() {
+        IjkMediaPlayer.loadLibrariesOnce(null);
+        IjkMediaPlayer.native_profileBegin("libijkplayer.so");
         player = new IjkMediaPlayer();
         player.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-all-videos", 1);
     }
