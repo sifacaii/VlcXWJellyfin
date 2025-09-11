@@ -120,6 +120,7 @@ public class VExoPlayer extends MediaPlayer {
 
     public void setSpeed(double speed) {
         if (ePlayer == null) return;
+        if (speed < 0.5 || speed > 6) return;
         ePlayer.setPlaybackSpeed((float) speed);
     }
 
