@@ -69,14 +69,14 @@ public class MediaPlayerBridge {
     }
 
     protected MediaPlayer getLocalPlayer() {
-//        if(ijkPlayer == null){
-//            ijkPlayer = new IjkPlayer();
-//        }
-//        return ijkPlayer;
-        if (vExoPlayer == null) {
-            vExoPlayer = new VExoPlayer();
+        if(ijkPlayer == null){
+            ijkPlayer = new IjkPlayer();
         }
-        return vExoPlayer;
+        return ijkPlayer;
+//        if (vExoPlayer == null) {
+//            vExoPlayer = new VExoPlayer();
+//        }
+//        return vExoPlayer;
 //        if (mPlayer == null) {
 //            mPlayer = new MediaPlayer();
 //        }
@@ -188,7 +188,7 @@ public class MediaPlayerBridge {
 
     @CalledByNative
     protected void setPlaybackRate(double speed) {
-        VExoPlayer vep = (VExoPlayer) getLocalPlayer();
+        IjkPlayer vep = (IjkPlayer) getLocalPlayer();
         vep.setSpeed(speed);
     }
 

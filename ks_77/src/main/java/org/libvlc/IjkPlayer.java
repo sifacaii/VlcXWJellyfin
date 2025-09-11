@@ -56,7 +56,7 @@ public class IjkPlayer extends MediaPlayer {
     }
 
     public void setSpeed(double speed) {
-        if (player != null) return;
+        if (player == null) return;
         if (speed < 0.5 || speed > 6) return;
         player.setSpeed((float) speed);
     }
