@@ -23,6 +23,8 @@ public class IjkPlayer extends MediaPlayer {
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
         player = new IjkMediaPlayer();
         player.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-all-videos", 1);
+        //部分视频seekto无效
+        player.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1);
     }
 
     @Override
