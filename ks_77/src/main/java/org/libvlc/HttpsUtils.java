@@ -1,6 +1,5 @@
 package org.libvlc;
 
-import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSource;
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory;
 
 import org.conscrypt.Conscrypt;
