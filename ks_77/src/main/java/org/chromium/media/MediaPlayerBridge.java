@@ -69,14 +69,14 @@ public class MediaPlayerBridge {
     }
 
     protected MediaPlayer getLocalPlayer() {
-        if(ijkPlayer == null){
-            ijkPlayer = new IjkPlayer();
-        }
-        return ijkPlayer;
-//        if (vExoPlayer == null) {
-//            vExoPlayer = new VExoPlayer();
+//        if(ijkPlayer == null){
+//            ijkPlayer = new IjkPlayer();
 //        }
-//        return vExoPlayer;
+//        return ijkPlayer;
+        if (vExoPlayer == null) {
+            vExoPlayer = new VExoPlayer();
+        }
+        return vExoPlayer;
 //        if (mPlayer == null) {
 //            mPlayer = new MediaPlayer();
 //        }
@@ -140,7 +140,8 @@ public class MediaPlayerBridge {
                 // media track types in the future.
                 // See http://crbug.com/571411
                 if (trackType == info.getTrackType()) return true;
-                if (MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN == info.getTrackType()) return true;
+                if (MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN == info.getTrackType())
+                    return true;
             }
         } catch (RuntimeException e) {
             // Exceptions may come from getTrackInfo (IllegalStateException/RuntimeException), or
@@ -188,8 +189,16 @@ public class MediaPlayerBridge {
 
     @CalledByNative
     protected void setPlaybackRate(double speed) {
-        IjkPlayer vep = (IjkPlayer) getLocalPlayer();
-        vep.setSpeed(speed);
+        try {
+            Method setSpeed = getLocalPlayer().getClass().getDeclaredMethod("setSpeed", double.class);
+            setSpeed.invoke(getLocalPlayer(), speed);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @CalledByNative
