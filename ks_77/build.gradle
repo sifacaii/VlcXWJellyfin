@@ -46,7 +46,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.2'
     implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
     implementation project(':ijkplayer-java')
-    //implementation 'com.google.android.exoplayer:extension-okhttp:2.14.2'
-    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.13'
     implementation 'org.conscrypt:conscrypt-android:2.5.3'
 }
